@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/pages/main_page_tabbar.dart';
 
+import '../global/share_preference.dart';
 import '../services/firebase_remote_config_service.dart';
 
 class SplashPage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _fetchData() async {
-    await storeController.getPopUpData();
+    await storeController.getStoreListLocationFilter(prefs.getString("location")??"서울시");
     checkVersionAndEmergency();
     storeController.setStoreLoadState(false);
   }

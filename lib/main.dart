@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/pages/splash_page.dart';
+import 'package:project_poppin/theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'global/share_preference.dart';
@@ -30,7 +31,6 @@ void main() async {
 
   prefs = await SharedPreferences.getInstance();
 
-
   Get.put(StoreController());
   Get.put(LocationController());
 
@@ -50,8 +50,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: poppinMainColor),
         useMaterial3: true,
+        fontFamily: 'noto'
       ),
       home: const SplashPage(),
     );

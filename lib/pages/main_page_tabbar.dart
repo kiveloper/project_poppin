@@ -22,7 +22,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(useMaterial3: true, fontFamily: 'Suit'),
+      theme: ThemeData(useMaterial3: true, fontFamily: 'noto'),
       home: DefaultTabController(
           length: 4,
           animationDuration: Duration.zero,

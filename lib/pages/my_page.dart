@@ -35,10 +35,21 @@ class _MyPageState extends State<MyPage> {
         }
       },
       child: Scaffold(
-        body: Column(
-          children: [
-            Text("마이페이지 입니다")
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("로고", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 36),),
+              SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
+              Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              Text("준비중입니다.", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              SizedBox(height: 30,),
+              Text("빠른 시간 안에 만나요:D", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
+              Text("문의사항", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              Text("contact@kapitalletter.com", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,decoration: TextDecoration.underline),),
+            ],
+          ),
         ),
       ),
     );

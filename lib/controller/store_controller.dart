@@ -9,9 +9,14 @@ class StoreController extends GetxController {
   final PopPinFirebaseService popPinFirebaseService = PopPinFirebaseService();
 
   List<StoreVo> storeList = [];
+  List<StoreVo> storeFilterLocationList = [];
+
+  StoreVo detailStoreData = StoreVo();
+
+  bool storeDetailState = false;
   bool storeLoadState = false;
 
-  Future<void> getPopUpData() async {
+  Future<void> getStoreListAll() async {
     try {
       StoreListModel storeListModel =
           await popPinFirebaseService.getStoreList();
@@ -19,6 +24,18 @@ class StoreController extends GetxController {
       storeList.addAll(storeListModel.storeList!);
       update();
     } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> getStoreListLocationFilter(String location) async {
+    try{
+      StoreListModel storeListModel =
+          await popPinFirebaseService.getLocationStoreList(location);
+      storeFilterLocationList.clear();
+      storeFilterLocationList.addAll(storeListModel.storeList!);
+      update();
+    }catch(error) {
       throw Exception(error);
     }
   }
@@ -33,4 +50,23 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
+
+  Future<void> setStoreDetailState(bool state) async {
+    try {
+      storeDetailState = state;
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setDetailStoreData(StoreVo storeData) async {
+    try {
+      detailStoreData = storeData;
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
 }

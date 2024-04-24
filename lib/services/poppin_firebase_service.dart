@@ -3,22 +3,28 @@ import 'package:firebase_core/firebase_core.dart';
 
 import '../model/store_list_model.dart';
 
-FirebaseFirestore fireStore = FirebaseFirestore.instanceFor(app: Firebase.app(), databaseId: "for-poping-dev");
+FirebaseFirestore fireStore = FirebaseFirestore.instanceFor(
+    app: Firebase.app(), databaseId: "for-poping-dev");
 CollectionReference store = fireStore.collection('popinData');
-CollectionReference test = fireStore.collection('test');
 CollectionReference test2 = fireStore.collection("pet_location_data");
 
 class PopPinFirebaseService {
-
   Future<StoreListModel> getStoreList() async {
     try {
-      QuerySnapshot querySnapshot =
-          await store.get();
+      QuerySnapshot querySnapshot = await store.get();
       return StoreListModel.fromQuerySnapShot(querySnapshot);
     } catch (error) {
       throw Exception(error);
     }
   }
 
-
+  Future<StoreListModel> getLocationStoreList(String location) async {
+    try {
+      QuerySnapshot querySnapshot =
+          await store.where("local1", isEqualTo: location).get();
+      return StoreListModel.fromQuerySnapShot(querySnapshot);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
 }
