@@ -39,7 +39,7 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("로고", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 36),),
+              Image.asset("assets/images/poppin_logo.jpg", height: 150, width: 150),
               SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
               Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
               Text("준비중입니다.", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),

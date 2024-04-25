@@ -8,14 +8,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../theme/colors.dart';
 import '../utils/user_share_manager.dart';
 
-class StoreDetailPage extends StatefulWidget {
-  const StoreDetailPage({super.key});
+class StoreDetailGoMapPage extends StatefulWidget {
+  const StoreDetailGoMapPage({super.key});
 
   @override
-  State<StoreDetailPage> createState() => _StoreDetailPageState();
+  State<StoreDetailGoMapPage> createState() => _StoreDetailGoMapPage();
 }
 
-class _StoreDetailPageState extends State<StoreDetailPage> {
+class _StoreDetailGoMapPage extends State<StoreDetailGoMapPage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (storeController) {
@@ -33,7 +33,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          storeController.setStoreDetailState(false);
+                          Navigator.pop(context);
                         },
                         icon: Icon(Icons.arrow_back_ios)),
                   ],

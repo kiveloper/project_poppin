@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:project_poppin/data/local_data.dart';
 
 import '../model/store_list_model.dart';
 
@@ -18,13 +19,21 @@ class PopPinFirebaseService {
     }
   }
 
-  Future<StoreListModel> getLocationStoreList(String location) async {
+  Future<StoreListModel> getLocationStoreList(String local1, List<String> local2) async {
     try {
-      QuerySnapshot querySnapshot =
-          await store.where("local1", isEqualTo: location).get();
-      return StoreListModel.fromQuerySnapShot(querySnapshot);
+      if(local.keys.contains(local2.first)) {
+        QuerySnapshot querySnapshot =
+        await store.where("local1", isEqualTo: local1).get();
+        return StoreListModel.fromQuerySnapShot(querySnapshot);
+      } else {
+        QuerySnapshot querySnapshot =
+        await store.where("local1", isEqualTo: local1).where("local2", whereIn: local2).get();
+        return StoreListModel.fromQuerySnapShot(querySnapshot);
+      }
     } catch (error) {
       throw Exception(error);
     }
   }
+
+
 }

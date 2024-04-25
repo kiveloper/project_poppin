@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_poppin/data/local_data.dart';
 import 'package:project_poppin/model/store_list_model.dart';
 import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:project_poppin/vo/store_vo.dart';
@@ -8,10 +9,12 @@ import 'package:project_poppin/vo/store_vo.dart';
 class StoreController extends GetxController {
   final PopPinFirebaseService popPinFirebaseService = PopPinFirebaseService();
 
-  List<StoreVo> storeList = [];
+  List<StoreVo> storeAllList = [];
   List<StoreVo> storeFilterLocationList = [];
 
   StoreVo detailStoreData = StoreVo();
+
+  String storeLocationState = "서울";
 
   bool storeDetailState = false;
   bool storeLoadState = false;
@@ -20,22 +23,22 @@ class StoreController extends GetxController {
     try {
       StoreListModel storeListModel =
           await popPinFirebaseService.getStoreList();
-      storeList.clear();
-      storeList.addAll(storeListModel.storeList!);
+      storeAllList.clear();
+      storeAllList.addAll(storeListModel.storeList!);
       update();
     } catch (error) {
       throw Exception(error);
     }
   }
 
-  Future<void> getStoreListLocationFilter(String location) async {
+  Future<void> getStoreListLocationFilter(String local1, List<String> local2) async {
     try{
       StoreListModel storeListModel =
-          await popPinFirebaseService.getLocationStoreList(location);
+          await popPinFirebaseService.getLocationStoreList(local1, local2);
       storeFilterLocationList.clear();
       storeFilterLocationList.addAll(storeListModel.storeList!);
       update();
-    }catch(error) {
+    } catch(error) {
       throw Exception(error);
     }
   }
@@ -54,6 +57,15 @@ class StoreController extends GetxController {
   Future<void> setStoreDetailState(bool state) async {
     try {
       storeDetailState = state;
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setLocationState(String location) async {
+    try {
+      storeLocationState = location;
       update();
     } catch (error) {
       throw Exception(error);

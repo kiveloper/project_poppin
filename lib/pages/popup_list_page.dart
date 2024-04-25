@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/global/share_preference.dart';
 import 'package:project_poppin/pages/location_select_page.dart';
 import 'package:project_poppin/pages/store_detail_page.dart';
 
@@ -61,10 +62,16 @@ class _PopUpListPageState extends State<PopUpListPage> {
                               width: 32,
                               height: 32,
                             ),
-                            Text(
-                              "현재 진행중인 팝업스토어",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                            Expanded(
+                              child: Text(
+                                "${prefs.getStringList('local2')??["서울"]} 팝업",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 18
+                                ),
+                              ),
                             ),
                             IconButton(
                                 onPressed: () {

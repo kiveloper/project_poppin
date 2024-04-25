@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
 
+import '../utils/time_stamp_manager.dart';
 import '../vo/store_vo.dart';
 
 class StoreListWidget extends StatefulWidget {
@@ -103,10 +104,4 @@ class _StoreListWidgetState extends State<StoreListWidget> {
       );
     });
   }
-}
-
-String timeStampToDate(Timestamp timestamp) {
-  final dateTime = timestamp.toDate();
-  final formattedDate = "${dateTime.year}.${dateTime.month}.${dateTime.day}";
-  return formattedDate;
 }

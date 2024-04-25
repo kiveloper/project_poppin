@@ -21,12 +21,13 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    _fetchData();
+    fetchData();
     super.initState();
   }
 
-  Future<void> _fetchData() async {
-    await storeController.getStoreListLocationFilter(prefs.getString("location")??"서울시");
+  Future<void> fetchData() async {
+    storeController.getStoreListAll();
+    await storeController.getStoreListLocationFilter(prefs.getString("local1")??"서울", prefs.getStringList("local2")??["서울"]);
     checkVersionAndEmergency();
     storeController.setStoreLoadState(false);
   }
