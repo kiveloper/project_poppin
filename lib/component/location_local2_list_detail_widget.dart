@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/pages/popup_list_page.dart';
+import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
 import '../data/local_data.dart';
 import '../global/share_preference.dart';
 
-class LocationListDetailWidget extends StatefulWidget {
+class LocationLocal2ListDetailWidget extends StatefulWidget {
   final int index;
   final StoreController storeController;
-  const LocationListDetailWidget({super.key, required this.index, required this.storeController});
+  const LocationLocal2ListDetailWidget({super.key, required this.index, required this.storeController});
 
   @override
-  State<LocationListDetailWidget> createState() => _LocationListDetailWidgetState();
+  State<LocationLocal2ListDetailWidget> createState() => _LocationLocal2ListDetailWidgetState();
 }
 
-class _LocationListDetailWidgetState extends State<LocationListDetailWidget> {
+class _LocationLocal2ListDetailWidgetState extends State<LocationLocal2ListDetailWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,7 +27,7 @@ class _LocationListDetailWidgetState extends State<LocationListDetailWidget> {
         prefs.setStringList("local2", local2);
         widget.storeController.getStoreListLocationFilter(widget.storeController.storeLocationState, local2);
 
-        Navigator.pop(context);
+        Get.to(()=>const PopUpListPage(), transition: Transition.leftToRight);
       },
       child: Container(
         decoration: BoxDecoration(

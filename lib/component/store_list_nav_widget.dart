@@ -5,33 +5,32 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/pages/popup_list_page.dart';
-import 'package:project_poppin/pages/store_detail_page.dart';
 import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
 import '../utils/time_stamp_manager.dart';
 import '../vo/store_vo.dart';
 
-class StoreListWidget extends StatefulWidget {
+class StoreListNavWidget extends StatefulWidget {
   final StoreVo storeData;
   final int index;
 
-  const StoreListWidget(
+  const StoreListNavWidget(
       {super.key, required this.storeData, required this.index});
 
   @override
-  State<StoreListWidget> createState() => _StoreListWidgetState();
+  State<StoreListNavWidget> createState() => _StoreListNavWidgetState();
 }
 
-class _StoreListWidgetState extends State<StoreListWidget> {
+class _StoreListNavWidgetState extends State<StoreListNavWidget> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (storeController) {
       return GestureDetector(
         onTap: () {
-          storeController.setDetailStartMapStoreData(widget.storeData);
+          storeController.setDetailStoreData(widget.storeData);
 
-          Get.to(()=>StoreDetailPage(), transition: Transition.leftToRight);
+          storeController.setStoreDetailState(true);
         },
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.18,

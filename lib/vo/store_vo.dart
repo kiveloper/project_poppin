@@ -7,6 +7,7 @@ class StoreVo {
   String? description;
   String? docId;
   String? category;
+  String? summary;
   Timestamp? endDate;
   Timestamp? startDate;
   GeoPoint? geopoint;
@@ -22,6 +23,7 @@ class StoreVo {
     this.address,
     this.description,
     this.docId,
+    this.summary,
     this.category,
     this.endDate,
     this.startDate,
@@ -39,6 +41,7 @@ class StoreVo {
     address = documentSnapshot['address'];
     description = documentSnapshot['description'];
     docId = documentSnapshot['docId'];
+    summary = documentSnapshot['summary'];
     category = documentSnapshot['category'];
     endDate = documentSnapshot['endDate'];
     startDate = documentSnapshot['startDate'];

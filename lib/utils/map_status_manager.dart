@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
-import 'package:project_poppin/pages/store_detail_go_map_page.dart';
 import 'package:project_poppin/pages/store_detail_page.dart';
+import 'package:project_poppin/pages/store_detail_nav_page.dart';
 
 import '../controller/store_controller.dart';
 import '../vo/store_vo.dart';
@@ -33,18 +33,22 @@ class MapStatusManager {
 
     storeMarkerList.clear();
 
+    NOverlayImage image = const NOverlayImage.fromAssetImage("assets/icons/marker/store_marker(100).png");
+
     for(StoreVo store in storeController.storeAllList) {
       NLatLng myLatLng = NLatLng(store.geopoint!.latitude, store.geopoint!.longitude);
 
-      NMarker myLocationMarker = NMarker(id: store.title!, position: myLatLng);
+      NMarker myLocationMarker = NMarker(id: store.title!, position: myLatLng, icon: image);
 
       NInfoWindow infoWindow = NInfoWindow.onMarker(id: store.title!, text: store.title!);
+
+      myLocationMarker.setSize(Size(18, 27));
 
       myLocationMarker.setOnTapListener((nMarker) {
 
         infoWindow.setOnTapListener((overlay) {
           storeController.setDetailStoreData(store);
-          Get.to(()=> const StoreDetailGoMapPage());
+          Get.to(()=> const StoreDetailPage());
         });
 
         naverMapController.clearOverlays(type: NOverlayType.infoWindow);

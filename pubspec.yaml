@@ -49,6 +49,7 @@ dependencies:
   firebase_remote_config: ^4.4.2
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,6 +76,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/map/
+    - assets/icons/marker/
     - assets/button/
     - .env
 

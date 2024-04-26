@@ -27,7 +27,8 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> fetchData() async {
     storeController.getStoreListAll();
-    await storeController.getStoreListLocationFilter(prefs.getString("local1")??"서울", prefs.getStringList("local2")??["서울"]);
+    storeController.getStoreListLocationFilter(prefs.getString("local1")??"서울", prefs.getStringList("local2")??["서울"]);
+    await storeController.getRecommendStoreData();
     checkVersionAndEmergency();
     storeController.setStoreLoadState(false);
   }
@@ -56,15 +57,13 @@ class _SplashPageState extends State<SplashPage> {
               shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)),
               content: const Text("어플리케이션 업데이트를 진행해주세요!",),
               actions: <Widget>[
-                Container(
-                  child: TextButton(
-                      onPressed: () async {
-                        exit(0);
-                      },
-                      child: const Text(
-                        "확인",
-                      )),
-                ),
+                TextButton(
+                    onPressed: () async {
+                      exit(0);
+                    },
+                    child: const Text(
+                      "확인",
+                    )),
               ],
             );
           }));

@@ -8,14 +8,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../theme/colors.dart';
 import '../utils/user_share_manager.dart';
 
-class StoreDetailGoMapPage extends StatefulWidget {
-  const StoreDetailGoMapPage({super.key});
+class StoreDetailNavPage extends StatefulWidget {
+  const StoreDetailNavPage({super.key});
 
   @override
-  State<StoreDetailGoMapPage> createState() => _StoreDetailGoMapPage();
+  State<StoreDetailNavPage> createState() => _StoreDetailNavPageState();
 }
 
-class _StoreDetailGoMapPage extends State<StoreDetailGoMapPage> {
+class _StoreDetailNavPageState extends State<StoreDetailNavPage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (storeController) {
@@ -33,7 +33,7 @@ class _StoreDetailGoMapPage extends State<StoreDetailGoMapPage> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                            storeController.setStoreDetailState(false);
                         },
                         icon: Icon(Icons.arrow_back_ios)),
                   ],
@@ -45,14 +45,14 @@ class _StoreDetailGoMapPage extends State<StoreDetailGoMapPage> {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
                       storeController.detailStoreData.thumbnailImgUrl!,
-                      height: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
-                      width: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
+                      height: MediaQuery.sizeOf(context).width * 0.8,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Image.asset(
                           "assets/images/no_img.jpg",
-                          height: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
-                          width: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
+                          height: MediaQuery.sizeOf(context).width * 0.8,
+                          width: MediaQuery.sizeOf(context).width * 0.8,
                           fit: BoxFit.cover,
                         );
                       },
@@ -160,15 +160,14 @@ class _StoreDetailGoMapPage extends State<StoreDetailGoMapPage> {
                     IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () async {
-                          await launchUrlString(storeController.detailStoreData.relatedContentsUrl!);
+                          await launchUrlString(storeController
+                              .detailStoreData.relatedContentsUrl!);
                         },
                         splashRadius: 1,
                         highlightColor: Colors.black,
                         style: IconButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(10))
-                        ),
+                                borderRadius: BorderRadius.circular(10))),
                         icon: Image.asset(
                           "assets/button/detail_link_button.png",
                         )),

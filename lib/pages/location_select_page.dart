@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:project_poppin/component/location_list_detail_widget.dart';
-import 'package:project_poppin/component/location_list_widget.dart';
+import 'package:project_poppin/component/location_local2_list_detail_widget.dart';
+import 'package:project_poppin/component/location_local1_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/data/local_data.dart';
 import 'package:project_poppin/theme/colors.dart';
@@ -97,7 +97,7 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                           itemCount: local.keys.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return LocationListWidget(index: index, controller: storeController);
+                            return LocationLocal1ListWidget(index: index, controller: storeController);
                           }),
                     ),
                     Flexible(
@@ -107,7 +107,7 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                           itemCount: local[storeController.storeLocationState]!.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return LocationListDetailWidget(index: index, storeController: storeController,);
+                            return LocationLocal2ListDetailWidget(index: index, storeController: storeController,);
                           }),
                     )
                   ],

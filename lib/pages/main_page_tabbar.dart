@@ -6,7 +6,7 @@ import '../controller/store_controller.dart';
 import 'home_page.dart';
 import 'map_page.dart';
 import 'my_page.dart';
-import 'popup_list_page.dart';
+import 'popup_list_nav_page.dart';
 
 class MainPageTabBar extends StatefulWidget {
   const MainPageTabBar({super.key});
@@ -34,7 +34,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       children: [
                         HomePage(),
                         MapPage(),
-                        PopUpListPage(),
+                        PopUpListNavPage(),
                         MyPage()
                       ]),
                   storeController.storeLoadState

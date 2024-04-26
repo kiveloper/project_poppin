@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_poppin/data/local_data.dart';
+import 'package:project_poppin/vo/md_vo.dart';
+import 'package:project_poppin/vo/store_vo.dart';
 
 import '../model/store_list_model.dart';
 
 FirebaseFirestore fireStore = FirebaseFirestore.instanceFor(
     app: Firebase.app(), databaseId: "for-poping-dev");
 CollectionReference store = fireStore.collection('popinData');
-CollectionReference test2 = fireStore.collection("pet_location_data");
+CollectionReference storeRecommend = fireStore.collection('MDData');
 
 class PopPinFirebaseService {
+
   Future<StoreListModel> getStoreList() async {
     try {
       QuerySnapshot querySnapshot = await store.get();
@@ -35,5 +38,22 @@ class PopPinFirebaseService {
     }
   }
 
+  Future<MDVo> getRecommendStore() async {
+    try {
+      DocumentSnapshot documentSnapshot = await storeRecommend.doc("MDPick").get();
+      return MDVo.fromDocumentSnapshot(documentSnapshot);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<StoreVo> getRecommendStoreVo(String docId) async {
+    try {
+      DocumentSnapshot documentSnapshot = await store.doc(docId).get();
+      return StoreVo.fromDocumentSnapshot(documentSnapshot);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
 
 }

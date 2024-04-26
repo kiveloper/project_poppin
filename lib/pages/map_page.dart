@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project_poppin/pages/location_select_page.dart';
 import 'package:project_poppin/utils/map_status_manager.dart';
 
 import '../controller/location_controller.dart';
@@ -87,7 +89,8 @@ class _MapPageState extends State<MapPage> {
                 mapStatusManager.checkMapFirstLoad();
               }
 
-              await mapStatusManager.setMarkerList(naverMapController!, storeController, context);
+              await mapStatusManager.setMarkerList(
+                  naverMapController!, storeController, context);
               mapStatusManager.visibleManager();
             },
             onCameraIdle: () async {
@@ -133,6 +136,24 @@ class _MapPageState extends State<MapPage> {
               ],
             ),
           ),
+          Positioned(
+              top: MediaQuery.of(context).padding.top + 8,
+              left: 12,
+              child: SizedBox(
+                height: 28,
+                child: ElevatedButton(
+                    onPressed: (){
+                      Get.to(()=>LocationSelectPage(), transition: Transition.leftToRight);
+                    },
+                    child: Text("지역 설정", style: TextStyle(color: Colors.white, fontSize: 12),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: poppinSubColor,
+                    foregroundColor: Colors.black
+
+                  ),
+                ),
+              )
+          )
         ],
       )),
     );

@@ -33,7 +33,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          storeController.setStoreDetailState(false);
+                          Navigator.pop(context);
                         },
                         icon: Icon(Icons.arrow_back_ios)),
                   ],
@@ -44,15 +44,15 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                      storeController.detailStoreData.thumbnailImgUrl!,
-                      height: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
-                      width: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
+                      storeController.detailStoreStartMapData.thumbnailImgUrl!,
+                      height: MediaQuery.sizeOf(context).width * 0.8,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Image.asset(
                           "assets/images/no_img.jpg",
-                          height: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
-                          width: MediaQuery.sizeOf(context).width - MediaQuery.sizeOf(context).width*0.2,
+                          height: MediaQuery.sizeOf(context).width * 0.8,
+                          width: MediaQuery.sizeOf(context).width * 0.8,
                           fit: BoxFit.cover,
                         );
                       },
@@ -81,7 +81,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       children: [
                         Expanded(
                           child: Text(
-                            storeController.detailStoreData.title!,
+                            storeController.detailStoreStartMapData.title!,
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
@@ -95,10 +95,11 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           ),
                           onPressed: () async {
                             share(
-                              storeController.detailStoreData.title!,
-                              storeController.detailStoreData.description!,
+                              storeController.detailStoreStartMapData.title!,
                               storeController
-                                  .detailStoreData.relatedContentsUrl!,
+                                  .detailStoreStartMapData.description!,
+                              storeController
+                                  .detailStoreStartMapData.relatedContentsUrl!,
                             );
                           },
                         ),
@@ -112,7 +113,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       children: [
                         Expanded(
                             child: Text(
-                          "${storeController.detailStoreData.description!}",
+                          "${storeController.detailStoreStartMapData.description!}",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 15),
                         )),
@@ -133,7 +134,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                         Expanded(
                             child: Text(
-                                "${storeController.detailStoreData.address!}")),
+                                "${storeController.detailStoreStartMapData.address!}")),
                       ],
                     ),
                     SizedBox(
@@ -151,27 +152,34 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                         Expanded(
                             child: Text(
-                                "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}")),
+                                "${timeStampToDate(storeController.detailStoreStartMapData.startDate!)}~${timeStampToDate(storeController.detailStoreStartMapData.endDate!)}")),
                       ],
                     ),
                     SizedBox(
                       height: 40,
                     ),
-                    IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () async {
-                          await launchUrlString(storeController.detailStoreData.relatedContentsUrl!);
-                        },
-                        splashRadius: 1,
-                        highlightColor: Colors.black,
-                        style: IconButton.styleFrom(
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await launchUrlString(storeController
+                                .detailStoreStartMapData.relatedContentsUrl!);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: poppinSubColor,
+                              foregroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(10))
-                        ),
-                        icon: Image.asset(
-                          "assets/button/detail_link_button.png",
-                        )),
+                              borderRadius: BorderRadius.circular(8)
+                            )
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 16, bottom: 16),
+                            child: Text(
+                              "상세 정보 보러가기",
+                              style: TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                          )),
+                    ),
                     SizedBox(
                       height: 20,
                     ),

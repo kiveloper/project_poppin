@@ -6,17 +6,17 @@ import 'package:project_poppin/theme/colors.dart';
 
 import '../data/local_data.dart';
 
-class LocationListWidget extends StatefulWidget {
+class LocationLocal1ListWidget extends StatefulWidget {
   final int index;
   final StoreController controller;
 
-  const LocationListWidget({super.key, required this.index, required this.controller});
+  const LocationLocal1ListWidget({super.key, required this.index, required this.controller});
 
   @override
-  State<LocationListWidget> createState() => _LocationListWidgetState();
+  State<LocationLocal1ListWidget> createState() => _LocationLocal1ListWidgetState();
 }
 
-class _LocationListWidgetState extends State<LocationListWidget> {
+class _LocationLocal1ListWidgetState extends State<LocationLocal1ListWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
