@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          storeController.setDetailStartMapStoreData(storeController.recommendStoreVo??StoreVo());
+                          storeController.setDetailStartMapStoreData(storeController.recommendStoreVo);
 
                           Get.to(()=>StoreDetailPage(), transition: Transition.leftToRight);
                         },

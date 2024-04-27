@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/utils/map_status_manager.dart';
 import 'package:project_poppin/utils/time_stamp_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -16,6 +19,9 @@ class StoreDetailPage extends StatefulWidget {
 }
 
 class _StoreDetailPageState extends State<StoreDetailPage> {
+  MapStatusManager mapStatusManager = MapStatusManager();
+  GlobalKey goTop = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (storeController) {
@@ -29,6 +35,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
             child: Column(
               children: [
                 Row(
+                  key: goTop,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
@@ -44,7 +51,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                      storeController.detailStoreStartMapData.thumbnailImgUrl!,
+                      storeController.detailStoreData.thumbnailImgUrl!,
                       height: MediaQuery.sizeOf(context).width * 0.8,
                       width: MediaQuery.sizeOf(context).width * 0.8,
                       fit: BoxFit.cover,
@@ -81,7 +88,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       children: [
                         Expanded(
                           child: Text(
-                            storeController.detailStoreStartMapData.title!,
+                            storeController.detailStoreData.title!,
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
@@ -95,11 +102,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           ),
                           onPressed: () async {
                             share(
-                              storeController.detailStoreStartMapData.title!,
+                              storeController.detailStoreData.title!,
+                              storeController.detailStoreData.description!,
                               storeController
-                                  .detailStoreStartMapData.description!,
-                              storeController
-                                  .detailStoreStartMapData.relatedContentsUrl!,
+                                  .detailStoreData.relatedContentsUrl!,
                             );
                           },
                         ),
@@ -113,7 +119,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       children: [
                         Expanded(
                             child: Text(
-                          "${storeController.detailStoreStartMapData.description!}",
+                          "${storeController.detailStoreData.description!}",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 15),
                         )),
@@ -134,7 +140,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                         Expanded(
                             child: Text(
-                                "${storeController.detailStoreStartMapData.address!}")),
+                                "${storeController.detailStoreData.address!}")),
                       ],
                     ),
                     SizedBox(
@@ -152,7 +158,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                         Expanded(
                             child: Text(
-                                "${timeStampToDate(storeController.detailStoreStartMapData.startDate!)}~${timeStampToDate(storeController.detailStoreStartMapData.endDate!)}")),
+                                "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}")),
                       ],
                     ),
                     SizedBox(
@@ -163,25 +169,104 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       child: ElevatedButton(
                           onPressed: () async {
                             await launchUrlString(storeController
-                                .detailStoreStartMapData.relatedContentsUrl!);
+                                .detailStoreData.relatedContentsUrl!);
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: poppinSubColor,
                               foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)
-                            )
-                          ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8))),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 16, bottom: 16),
                             child: Text(
                               "상세 정보 보러가기",
-                              style: TextStyle(fontSize: 16, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           )),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 80,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                            child: Text(
+                          "팝업 스토어 위치",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 16),
+                        )),
+                        IconButton(
+                            onPressed: () {
+                              Scrollable.ensureVisible(goTop.currentContext!,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                  alignment: 0);
+                            },
+                            icon: Icon(Icons.keyboard_arrow_up))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    storeController.detailStoreData.geopoint != null
+                        ? SizedBox(
+                            width: double.infinity,
+                            height: MediaQuery.sizeOf(context).height * 0.28,
+                            child: NaverMap(
+                              options: NaverMapViewOptions(
+                                  initialCameraPosition: NCameraPosition(
+                                    target: NLatLng(
+                                        storeController
+                                            .detailStoreData.geopoint!.latitude,
+                                        storeController.detailStoreData
+                                            .geopoint!.longitude),
+                                    zoom: 13,
+                                  ),
+                                  extent: const NLatLngBounds(
+                                    southWest: NLatLng(31.43, 122.37),
+                                    northEast: NLatLng(44.35, 132.0),
+                                  ),
+                                  logoAlign: NLogoAlign.rightBottom,
+                                  logoMargin: const EdgeInsets.all(10),
+                                  liteModeEnable: true),
+                              onMapReady: (controller) async {
+                                mapStatusManager.setMarkerDetailPage(controller,
+                                    storeController.detailStoreData);
+                              },
+                            ),
+                          )
+                        : SizedBox(
+                            child: Text("null임"),
+                          ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          child: TextButton(
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(
+                                  text:
+                                      "${storeController.detailStoreData.address}"));
+                            },
+                            child: Text("주소 복사",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 12, color: Colors.black)),
+                            style: TextButton.styleFrom(
+                              minimumSize: Size.zero,
+                              padding: EdgeInsets.all(4),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
                     ),
                   ],
                 )

@@ -27,7 +27,7 @@ class _LocationLocal2ListDetailWidgetState extends State<LocationLocal2ListDetai
         prefs.setStringList("local2", local2);
         widget.storeController.getStoreListLocationFilter(widget.storeController.storeLocationState, local2);
 
-        Get.to(()=>const PopUpListPage(), transition: Transition.leftToRight);
+        Get.to(()=>const PopUpListPage(), transition: Transition.leftToRight, arguments: local[widget.storeController.storeLocationState]![widget.index]);
       },
       child: Container(
         decoration: BoxDecoration(

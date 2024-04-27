@@ -90,7 +90,7 @@ class _MapPageState extends State<MapPage> {
               }
 
               await mapStatusManager.setMarkerList(
-                  naverMapController!, storeController, context);
+                  naverMapController!, storeController);
               mapStatusManager.visibleManager();
             },
             onCameraIdle: () async {
@@ -142,18 +142,19 @@ class _MapPageState extends State<MapPage> {
               child: SizedBox(
                 height: 28,
                 child: ElevatedButton(
-                    onPressed: (){
-                      Get.to(()=>LocationSelectPage(), transition: Transition.leftToRight);
-                    },
-                    child: Text("지역 설정", style: TextStyle(color: Colors.white, fontSize: 12),),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: poppinSubColor,
-                    foregroundColor: Colors.black
-
+                  onPressed: () {
+                    Get.to(() => LocationSelectPage(),
+                        transition: Transition.leftToRight);
+                  },
+                  child: Text(
+                    "지역 설정",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: poppinSubColor,
+                      foregroundColor: Colors.black),
                 ),
-              )
-          )
+              ))
         ],
       )),
     );

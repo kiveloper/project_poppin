@@ -19,6 +19,8 @@ class PopUpListPage extends StatefulWidget {
 }
 
 class _PopUpListPageState extends State<PopUpListPage> {
+  String locationName = Get.arguments;
+
   var lastPopTime;
 
   @override
@@ -37,7 +39,7 @@ class _PopUpListPageState extends State<PopUpListPage> {
                   }, icon: Icon(Icons.arrow_back_ios)),
                   Expanded(
                     child: Text(
-                      "${prefs.getStringList('local2')??["서울"]} 팝업스토어",
+                      "$locationName 팝업스토어",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,

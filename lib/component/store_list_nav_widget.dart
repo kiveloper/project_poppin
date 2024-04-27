@@ -35,6 +35,7 @@ class _StoreListNavWidgetState extends State<StoreListNavWidget> {
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.18,
           margin: EdgeInsets.only(bottom: 30),
+          color: Colors.transparent,
           child: Row(
             children: [
               Container(

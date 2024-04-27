@@ -14,8 +14,8 @@ class StoreController extends GetxController {
   MDVo mdPickStore = MDVo();
   StoreVo recommendStoreVo = StoreVo();
 
+  StoreVo detailStoreNavData = StoreVo();
   StoreVo detailStoreData = StoreVo();
-  StoreVo detailStoreStartMapData = StoreVo();
 
   String storeLocationState = "서울";
 
@@ -100,7 +100,7 @@ class StoreController extends GetxController {
 
   Future<void> setDetailStoreData(StoreVo storeData) async {
     try {
-      detailStoreData = storeData;
+      detailStoreNavData = storeData;
       update();
     } catch (error) {
       throw Exception(error);
@@ -109,7 +109,7 @@ class StoreController extends GetxController {
 
   Future<void> setDetailStartMapStoreData(StoreVo storeData) async {
     try {
-      detailStoreStartMapData = storeData;
+      detailStoreData = storeData;
       update();
     } catch (error) {
       throw Exception(error);
