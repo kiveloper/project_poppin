@@ -15,7 +15,7 @@ class StoreVo {
   String? local1;
   String? local2;
   String? relatedContentsUrl;
-  String? relatedImgUrl;
+  List<dynamic>? relatedImgUrl;
   String? thumbnailImgUrl;
 
   StoreVo({

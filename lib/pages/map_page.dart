@@ -78,7 +78,7 @@ class _MapPageState extends State<MapPage> {
                   southWest: NLatLng(31.43, 122.37),
                   northEast: NLatLng(44.35, 132.0),
                 ),
-                logoAlign: NLogoAlign.rightBottom,
+                logoAlign: NLogoAlign.leftBottom,
                 logoMargin: const EdgeInsets.all(10),
                 liteModeEnable: true),
             onMapReady: (controller) async {
@@ -101,60 +101,60 @@ class _MapPageState extends State<MapPage> {
               naverMapController!.clearOverlays(type: NOverlayType.infoWindow);
             },
           ),
-          Positioned(
-            bottom: 20,
-            left: 10,
-            child: Stack(
-              children: [
-                Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: IconButton(
-                        onPressed: () async {
-                          myLocationAddMarker(permissionManager);
-                        },
-                        icon: const Icon(
-                          Icons.location_on,
-                          color: poppinMainColor,
-                        ))),
-                GetBuilder<LocationController>(builder: (locationController) {
-                  return locationController.locationState
-                      ? Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                              color:
-                                  CupertinoColors.systemGrey.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(100)),
-                          child: const CircularProgressIndicator(
-                            strokeWidth: 2.0,
-                            color: poppinMainColor,
-                          ))
-                      : const SizedBox();
-                }),
-              ],
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin:
+                  EdgeInsets.only(top: MediaQuery.of(context).padding.top + 12),
+              height: 28,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.to(() => LocationSelectPage(),
+                      transition: Transition.leftToRight);
+                },
+                child: Text(
+                  "지역 설정",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: poppinSubColor,
+                    foregroundColor: Colors.black),
+              ),
             ),
           ),
           Positioned(
-              top: MediaQuery.of(context).padding.top + 8,
-              left: 12,
-              child: SizedBox(
-                height: 28,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => LocationSelectPage(),
-                        transition: Transition.leftToRight);
-                  },
-                  child: Text(
-                    "지역 설정",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: poppinSubColor,
-                      foregroundColor: Colors.black),
+            right: 5,
+            bottom: 5,
+            child: Stack(
+              children: [
+                IconButton(
+                    onPressed: () async {
+                      myLocationAddMarker(permissionManager);
+                    },
+                    icon: Image.asset("assets/icons/map/gps_icon.png", width: 40,height: 40,fit: BoxFit.cover,)
                 ),
-              ))
+                Positioned(
+                  left: 5,
+                  top: 5,
+                  child: GetBuilder<LocationController>(builder: (locationController) {
+                    return locationController.locationState
+                        ? Container(
+                            width: 46,
+                            height: 46,
+                            decoration: BoxDecoration(
+                                color:
+                                    CupertinoColors.systemGrey.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                              color: poppinMainColor,
+                            ))
+                        : const SizedBox();
+                  }),
+                ),
+              ],
+            ),
+          ),
         ],
       )),
     );

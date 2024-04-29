@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/pages/splash_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +34,7 @@ void main() async {
 
   Get.put(StoreController());
   Get.put(LocationController());
+  Get.put(TabBarController());
 
   HttpOverrides.global = MyHttpOverrides();
 
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: poppinMainColor),
+        scaffoldBackgroundColor: Color(0xffFAF9F9),
         useMaterial3: true,
         fontFamily: 'noto'
       ),

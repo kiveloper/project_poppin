@@ -27,9 +27,11 @@ class _LocationLocal1ListWidgetState extends State<LocationLocal1ListWidget> {
       child: Container(
         padding: EdgeInsets.only(bottom: 16, top: 16),
         margin: EdgeInsets.only(bottom: 2),
-        color: Colors.transparent,
+        color: widget.controller.storeLocationState == local.keys.elementAt(widget.index)
+            ? Colors.transparent
+            : poppinColorGrey200,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment:  MainAxisAlignment.center,
           children: [
             SizedBox(width: 12,),
             Text(local.keys.elementAt(widget.index)),

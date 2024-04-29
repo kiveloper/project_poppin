@@ -69,7 +69,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 ),
                 Text(
                   "팝업정보",
-                  style: TextStyle(color: poppinSubColor),
+                  style: TextStyle(color: poppinColorGreen500, fontWeight: FontWeight.w600, fontSize: 14),
                 ),
                 SizedBox(
                   height: 16,
@@ -77,7 +77,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 Container(
                   height: 2,
                   width: MediaQuery.sizeOf(context).width - 50,
-                  color: poppinSubColor,
+                  color: poppinColorGreen500,
                 ),
                 SizedBox(
                   height: 28,
@@ -97,8 +97,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.share,
-                            color: poppinSubColor,
+                            Icons.share_outlined,
+                            color: poppinColorGreen500,
                           ),
                           onPressed: () async {
                             share(
@@ -133,7 +133,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       children: [
                         Icon(
                           Icons.location_on_outlined,
-                          color: poppinMainColor,
+                          color: poppinColorGreen400,
                         ),
                         SizedBox(
                           width: 4,
@@ -151,7 +151,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       children: [
                         Icon(
                           Icons.calendar_month_outlined,
-                          color: poppinMainColor,
+                          color: poppinColorGreen400,
                         ),
                         SizedBox(
                           width: 4,
@@ -172,8 +172,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 .detailStoreData.relatedContentsUrl!);
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: poppinSubColor,
-                              foregroundColor: Colors.black,
+                              backgroundColor: poppinColorGreen500,
+                              foregroundColor: poppinColorGreen600,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
                           child: Padding(

@@ -77,6 +77,7 @@ flutter:
     - assets/images/
     - assets/icons/map/
     - assets/icons/marker/
+    - assets/icons/nav/
     - assets/button/
     - .env
 
