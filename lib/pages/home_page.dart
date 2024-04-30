@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      storeController.setDetailStartMapStoreData(
+                      storeController.setDetailStoreData(
                           storeController.recommendStoreVo);
                       Get.to(() => StoreDetailPage(),
                           transition: Transition.leftToRight);
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   "${storeController.recommendStoreVo.title ?? ""}",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 20),
                                 ),
                               )),
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   "${storeController.recommendStoreVo.summary ?? ""}",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w300,
                                       fontSize: 12),
                                 ),
                               )),
@@ -164,7 +164,6 @@ class _HomePageState extends State<HomePage> {
                           child: ListView.builder(
                               padding: EdgeInsets.only(top: 8),
                               itemCount: 10,
-                              shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return PopulationStoreListWidget(
                                     storeData: storeController.recommendStoreVo, storeController: storeController,);

@@ -28,7 +28,7 @@ class _StoreListNavWidgetState extends State<StoreListNavWidget> {
     return GetBuilder<StoreController>(builder: (storeController) {
       return GestureDetector(
         onTap: () {
-          storeController.setDetailStoreData(widget.storeData);
+          storeController.setDetailNavStoreData(widget.storeData);
 
           storeController.setStoreDetailState(true);
         },
@@ -72,19 +72,19 @@ class _StoreListNavWidgetState extends State<StoreListNavWidget> {
                         Text(
                           "${widget.storeData.category}",
                           style: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              color: poppinSubTitleColor,
-                              fontSize: 14),
+                              fontWeight: FontWeight.w400,
+                              color: poppinColorDarkGrey400,
+                              fontSize: 10),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           "${widget.storeData.title}",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -93,9 +93,9 @@ class _StoreListNavWidgetState extends State<StoreListNavWidget> {
                         child: Text("${widget.storeData.address}",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                color: poppinSubTitleColor,
-                                fontSize: 14)))
+                                fontWeight: FontWeight.w400,
+                                color: poppinColorDarkGrey400,
+                                fontSize: 10)))
                   ],
                 ),
               )

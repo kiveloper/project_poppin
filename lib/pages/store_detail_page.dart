@@ -27,14 +27,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
     return GetBuilder<StoreController>(builder: (storeController) {
       return Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + 10,
-                left: 28,
-                right: 28),
-            child: Column(
-              children: [
-                Row(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top + 10),
+                margin: EdgeInsets.only(left: 4),
+                child: Row(
                   key: goTop,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -45,233 +44,264 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         icon: Icon(Icons.arrow_back_ios)),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      storeController.detailStoreData.thumbnailImgUrl!,
-                      height: MediaQuery.sizeOf(context).width * 0.8,
-                      width: MediaQuery.sizeOf(context).width * 0.8,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          "assets/images/no_img.jpg",
-                          height: MediaQuery.sizeOf(context).width * 0.8,
-                          width: MediaQuery.sizeOf(context).width * 0.8,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    )),
-                SizedBox(
-                  height: 28,
-                ),
-                Text(
-                  "팝업정보",
-                  style: TextStyle(color: poppinColorGreen500, fontWeight: FontWeight.w600, fontSize: 14),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  height: 2,
-                  width: MediaQuery.sizeOf(context).width - 50,
-                  color: poppinColorGreen500,
-                ),
-                SizedBox(
-                  height: 28,
-                ),
-                Column(
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            storeController.detailStoreData.title!,
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w700,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.share_outlined,
-                            color: poppinColorGreen500,
-                          ),
-                          onPressed: () async {
-                            share(
-                              storeController.detailStoreData.title!,
-                              storeController.detailStoreData.description!,
-                              storeController
-                                  .detailStoreData.relatedContentsUrl!,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
                     SizedBox(
-                      height: 12,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                            child: Text(
-                          "${storeController.detailStoreData.description!}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 15),
-                        )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          color: poppinColorGreen400,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Expanded(
-                            child: Text(
-                                "${storeController.detailStoreData.address!}")),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.calendar_month_outlined,
-                          color: poppinColorGreen400,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Expanded(
-                            child: Text(
-                                "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}")),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            await launchUrlString(storeController
-                                .detailStoreData.relatedContentsUrl!);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: poppinColorGreen500,
-                              foregroundColor: poppinColorGreen600,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8))),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 16, bottom: 16),
-                            child: Text(
-                              "상세 정보 보러가기",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
-                            ),
+                      width: MediaQuery.sizeOf(context).width,
+                      height: MediaQuery.sizeOf(context).width*0.90,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            storeController.detailStoreData.thumbnailImgUrl!,
+                            width: MediaQuery.sizeOf(context).width,
+                            height: MediaQuery.sizeOf(context).width*0.90,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                "assets/images/no_img.jpg",
+                                fit: BoxFit.cover,
+                              );
+                            },
                           )),
                     ),
                     SizedBox(
-                      height: 80,
+                      height: 28,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                            child: Text(
-                          "팝업 스토어 위치",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 16),
-                        )),
-                        IconButton(
-                            onPressed: () {
-                              Scrollable.ensureVisible(goTop.currentContext!,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                  alignment: 0);
-                            },
-                            icon: Icon(Icons.keyboard_arrow_up))
-                      ],
+                    Text(
+                      "팝업정보",
+                      style: TextStyle(
+                          color: poppinColorGreen500,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14),
                     ),
                     SizedBox(
                       height: 16,
                     ),
-                    storeController.detailStoreData.geopoint != null
-                        ? SizedBox(
-                            width: double.infinity,
-                            height: MediaQuery.sizeOf(context).height * 0.28,
-                            child: NaverMap(
-                              options: NaverMapViewOptions(
-                                  initialCameraPosition: NCameraPosition(
-                                    target: NLatLng(
-                                        storeController
-                                            .detailStoreData.geopoint!.latitude,
-                                        storeController.detailStoreData
-                                            .geopoint!.longitude),
-                                    zoom: 13,
-                                  ),
-                                  extent: const NLatLngBounds(
-                                    southWest: NLatLng(31.43, 122.37),
-                                    northEast: NLatLng(44.35, 132.0),
-                                  ),
-                                  logoAlign: NLogoAlign.rightBottom,
-                                  logoMargin: const EdgeInsets.all(10),
-                                  liteModeEnable: true),
-                              onMapReady: (controller) async {
-                                mapStatusManager.setMarkerDetailPage(controller,
-                                    storeController.detailStoreData);
+                    Container(
+                      height: 2,
+                      color: poppinColorGreen500,
+                    ),
+                    SizedBox(
+                      height: 28,
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                storeController.detailStoreData.title!,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: poppinColorDarkGrey600,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.share_outlined,
+                                color: poppinColorGreen500,
+                              ),
+                              onPressed: () async {
+                                share(
+                                  storeController.detailStoreData.title!,
+                                  storeController.detailStoreData.description!,
+                                  storeController
+                                      .detailStoreData.relatedContentsUrl!,
+                                );
                               },
                             ),
-                          )
-                        : SizedBox(
-                            child: Text("null임"),
-                          ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
+                          ],
+                        ),
                         SizedBox(
-                          child: TextButton(
-                            onPressed: () {
-                              Clipboard.setData(ClipboardData(
-                                  text:
-                                      "${storeController.detailStoreData.address}"));
-                            },
-                            child: Text("주소 복사",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400, fontSize: 12, color: Colors.black)),
-                            style: TextButton.styleFrom(
-                              minimumSize: Size.zero,
-                              padding: EdgeInsets.all(4),
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          height: 12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: Text(
+                              "${storeController.detailStoreData.description!}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                  color: poppinColorDarkGrey500),
+                            )),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              size: 17,
+                              color: poppinColorGreen400,
                             ),
-                          ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Expanded(
+                                child: Text(
+                              "${storeController.detailStoreData.address!}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                  color: poppinColorDarkGrey600),
+                            )),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.calendar_month_outlined,
+                              color: poppinColorGreen400,
+                              size: 17,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Expanded(
+                                child: Text(
+                              "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                  color: poppinColorDarkGrey600),
+                            )),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                await launchUrlString(storeController
+                                    .detailStoreData.relatedContentsUrl!);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: poppinColorGreen500,
+                                  foregroundColor: poppinColorGreen600,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8))),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 16, bottom: 16),
+                                child: Text(
+                                  "상세 정보 보러가기",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                ),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 80,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                                child: Text(
+                              "팝업 스토어 위치",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 16),
+                            )),
+                            IconButton(
+                                onPressed: () {
+                                  Scrollable.ensureVisible(
+                                      goTop.currentContext!,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.easeInOut,
+                                      alignment: 0);
+                                },
+                                icon: Icon(Icons.keyboard_arrow_up))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        storeController.detailStoreData.geopoint != null
+                            ? SizedBox(
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.28,
+                                child: NaverMap(
+                                  options: NaverMapViewOptions(
+                                      initialCameraPosition: NCameraPosition(
+                                        target: NLatLng(
+                                            storeController.detailStoreData
+                                                .geopoint!.latitude,
+                                            storeController.detailStoreData
+                                                .geopoint!.longitude),
+                                        zoom: 13,
+                                      ),
+                                      extent: const NLatLngBounds(
+                                        southWest: NLatLng(31.43, 122.37),
+                                        northEast: NLatLng(44.35, 132.0),
+                                      ),
+                                      logoAlign: NLogoAlign.rightBottom,
+                                      logoMargin: const EdgeInsets.all(10),
+                                      liteModeEnable: true),
+                                  onMapReady: (controller) async {
+                                    mapStatusManager.setMarkerDetailPage(
+                                        controller,
+                                        storeController.detailStoreData);
+                                  },
+                                ),
+                              )
+                            : SizedBox(
+                                child: Text("null임"),
+                              ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              child: TextButton(
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(
+                                      text:
+                                          "${storeController.detailStoreData.address}"));
+                                },
+                                child: Text("주소 복사",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: Colors.black)),
+                                style: TextButton.styleFrom(
+                                  minimumSize: Size.zero,
+                                  padding: EdgeInsets.all(4),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 40,
                         ),
                       ],
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ),
       );

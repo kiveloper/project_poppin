@@ -34,19 +34,25 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                 ),
                 Text(
                   "지역 선택",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                      color: poppinColorDarkGrey500),
                 ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "취소",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: poppinSubTitleColor),
-                    ))
+                SizedBox(
+                  width: 50,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "취소",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: poppinColorDarkGrey400),
+                      )),
+                )
               ],
             ),
           ),
@@ -56,24 +62,25 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: poppinBackGroundColor),
+                color: poppinColorDarkGrey50),
             padding: EdgeInsets.all(16),
             margin: EdgeInsets.only(left: 16, right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("시/도 선택"),
+                Text("시/도 선택", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,),),
                 SizedBox(
                   width: 30,
                 ),
                 Icon(
                   Icons.arrow_forward_ios,
-                  size: 20,
+                  size: 15,
+                  color: poppinColorDarkGrey300,
                 ),
                 SizedBox(
                   width: 30,
                 ),
-                Text("시/군/구 선택"),
+                Text("시/군/구 선택", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,)),
               ],
             ),
           ),
@@ -85,35 +92,38 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
             color: poppinBackGroundColor,
           ),
           Expanded(
-            child: GetBuilder<StoreController>(
-              builder: (storeController) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 3,
-                      child: ListView.builder(
-                          padding: EdgeInsets.only(top: 1),
-                          itemCount: local.keys.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return LocationLocal1ListWidget(index: index, controller: storeController);
-                          }),
-                    ),
-                    Flexible(
-                      flex: 7,
-                      child: ListView.builder(
-                          padding: EdgeInsets.only(top: 1),
-                          itemCount: local[storeController.storeLocationState]!.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return LocationLocal2ListDetailWidget(index: index, storeController: storeController,);
-                          }),
-                    )
-                  ],
-                );
-              }
-            ),
+            child: GetBuilder<StoreController>(builder: (storeController) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: ListView.builder(
+                        padding: EdgeInsets.only(top: 1),
+                        itemCount: local.keys.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return LocationLocal1ListWidget(
+                              index: index, controller: storeController);
+                        }),
+                  ),
+                  Flexible(
+                    flex: 7,
+                    child: ListView.builder(
+                        padding: EdgeInsets.only(top: 1),
+                        itemCount:
+                            local[storeController.storeLocationState]!.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return LocationLocal2ListDetailWidget(
+                            index: index,
+                            storeController: storeController,
+                          );
+                        }),
+                  )
+                ],
+              );
+            }),
           )
         ],
       ),

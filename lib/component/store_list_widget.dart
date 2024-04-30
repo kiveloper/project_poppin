@@ -29,7 +29,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
     return GetBuilder<StoreController>(builder: (storeController) {
       return GestureDetector(
         onTap: () {
-          storeController.setDetailStartMapStoreData(widget.storeData);
+          storeController.setDetailStoreData(widget.storeData);
 
           Get.to(()=>StoreDetailPage(), transition: Transition.leftToRight);
         },

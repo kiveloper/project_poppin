@@ -9,6 +9,7 @@ import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
 import 'package:project_poppin/pages/location_select_page.dart';
 import 'package:project_poppin/pages/store_detail_nav_page.dart';
+import 'package:project_poppin/theme/colors.dart';
 
 class PopUpListNavPage extends StatefulWidget {
   const PopUpListNavPage({super.key});
@@ -59,12 +60,12 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                           children: [
                             Expanded(
                               child: Text(
-                                "진행중인 팝업스토어",
+                                "팝업 리스트",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 18
+                                    fontWeight: FontWeight.w700, fontSize: 13, color: poppinColorGreen500
                                 ),
                               ),
                             ),

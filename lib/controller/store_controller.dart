@@ -98,7 +98,7 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> setDetailStoreData(StoreVo storeData) async {
+  Future<void> setDetailNavStoreData(StoreVo storeData) async {
     try {
       detailStoreNavData = storeData;
       update();
@@ -107,7 +107,7 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> setDetailStartMapStoreData(StoreVo storeData) async {
+  Future<void> setDetailStoreData(StoreVo storeData) async {
     try {
       detailStoreData = storeData;
       update();

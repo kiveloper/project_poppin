@@ -13,7 +13,8 @@ class PopulationStoreListWidget extends StatefulWidget {
   final StoreVo storeData;
   final StoreController storeController;
 
-  const PopulationStoreListWidget({super.key, required this.storeData, required this.storeController});
+  const PopulationStoreListWidget(
+      {super.key, required this.storeData, required this.storeController});
 
   @override
   State<PopulationStoreListWidget> createState() =>
@@ -24,27 +25,24 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        widget.storeController.setDetailStartMapStoreData(widget.storeData);
+      onTap: () {
+        widget.storeController.setDetailStoreData(widget.storeData);
 
-        Get.to(()=>const StoreDetailPage(), transition: Transition.leftToRight);
+        Get.to(() => const StoreDetailPage(),
+            transition: Transition.leftToRight);
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.18,
-        margin: EdgeInsets.only(bottom: 30),
-        padding: EdgeInsets.only(left: 12, right: 12,top: 18, bottom: 18),
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.15),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white
-        ),
+        margin: EdgeInsets.only(bottom: 30, left: 4, right: 4),
+        padding: EdgeInsets.only(left: 8, right: 8, top: 18, bottom: 18),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.15),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ], borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Row(
           children: [
             Container(
@@ -82,18 +80,21 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                         "${widget.storeData.category}",
                         style: TextStyle(
                             fontWeight: FontWeight.w300,
-                            color: poppinSubTitleColor,
-                            fontSize: 14),
+                            color: poppinColorDarkGrey300,
+                            fontSize: 10),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         "${widget.storeData.title}",
-                        style: TextStyle(fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
-                        style: TextStyle(fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -103,8 +104,8 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontWeight: FontWeight.w300,
-                              color: poppinSubTitleColor,
-                              fontSize: 14)))
+                              color: poppinColorDarkGrey300,
+                              fontSize: 10)))
                 ],
               ),
             )

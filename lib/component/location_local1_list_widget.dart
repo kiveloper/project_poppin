@@ -10,34 +10,42 @@ class LocationLocal1ListWidget extends StatefulWidget {
   final int index;
   final StoreController controller;
 
-  const LocationLocal1ListWidget({super.key, required this.index, required this.controller});
+  const LocationLocal1ListWidget(
+      {super.key, required this.index, required this.controller});
 
   @override
-  State<LocationLocal1ListWidget> createState() => _LocationLocal1ListWidgetState();
+  State<LocationLocal1ListWidget> createState() =>
+      _LocationLocal1ListWidgetState();
 }
 
 class _LocationLocal1ListWidgetState extends State<LocationLocal1ListWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async{
+      onTap: () async {
         widget.controller.setLocationState(local.keys.elementAt(widget.index));
         prefs.setString("local1", local.keys.elementAt(widget.index));
       },
       child: Container(
-        padding: EdgeInsets.only(bottom: 16, top: 16),
+        height: MediaQuery.sizeOf(context).height*0.06,
         margin: EdgeInsets.only(bottom: 2),
-        color: widget.controller.storeLocationState == local.keys.elementAt(widget.index)
+        color: widget.controller.storeLocationState ==
+                local.keys.elementAt(widget.index)
             ? Colors.transparent
             : poppinColorGrey200,
         child: Row(
-          mainAxisAlignment:  MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(width: 12,),
-            Text(local.keys.elementAt(widget.index)),
-            widget.controller.storeLocationState == local.keys.elementAt(widget.index)
-                ? Icon(Icons.arrow_forward_ios,size: 12)
-                : SizedBox()
+            Text(local.keys.elementAt(widget.index),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: poppinColorDarkGrey500)),
+            widget.controller.storeLocationState ==
+                    local.keys.elementAt(widget.index)
+                ? Icon(Icons.arrow_forward_ios, size: 12)
+                : SizedBox(width: 12,)
           ],
         ),
       ),

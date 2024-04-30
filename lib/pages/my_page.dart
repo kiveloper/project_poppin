@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyPage extends StatefulWidget {
@@ -42,7 +43,12 @@ class _MyPageState extends State<MyPage> {
               Image.asset("assets/images/poppin_logo.jpg", height: 150, width: 150),
               SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
               Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
-              Text("준비중입니다.", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              Text.rich(TextSpan(
+                children: <TextSpan>[
+                  TextSpan(text: '준비중', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14)),
+                  TextSpan(text: ' 입니다', style: TextStyle(fontSize: 14)),
+                ]
+              )),
               SizedBox(height: 30,),
               Text("빠른 시간 안에 만나요:D", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
               SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),

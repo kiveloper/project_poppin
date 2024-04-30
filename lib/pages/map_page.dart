@@ -117,7 +117,7 @@ class _MapPageState extends State<MapPage> {
                   style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: poppinSubColor,
+                    backgroundColor: poppinColorGreen500,
                     foregroundColor: Colors.black),
               ),
             ),
