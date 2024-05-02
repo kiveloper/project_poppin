@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_poppin/data/local_data.dart';
 import 'package:project_poppin/model/store_list_model.dart';
 import 'package:project_poppin/services/poppin_firebase_service.dart';
-import 'package:project_poppin/vo/md_vo.dart';
 import 'package:project_poppin/vo/store_vo.dart';
 
 class StoreController extends GetxController {
@@ -11,11 +9,11 @@ class StoreController extends GetxController {
 
   List<StoreVo> storeAllList = [];
   List<StoreVo> storeFilterLocationList = [];
-  MDVo mdPickStore = MDVo();
-  StoreVo recommendStoreVo = StoreVo();
 
   StoreVo detailStoreNavData = StoreVo();
   StoreVo detailStoreData = StoreVo();
+
+  double storeOffset = 0.0;
 
   String storeLocationState = "서울";
 
@@ -41,28 +39,6 @@ class StoreController extends GetxController {
           await popPinFirebaseService.getLocationStoreList(local1, local2);
       storeFilterLocationList.clear();
       storeFilterLocationList.addAll(storeListModel.storeList!);
-      update();
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<void> getRecommendStoreData() async {
-    try {
-      MDVo storeData = await popPinFirebaseService.getRecommendStore();
-      mdPickStore = storeData;
-      await getRecommendStoreVoData(mdPickStore.docId!);
-      update();
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<void> getRecommendStoreVoData(String docId) async {
-    try {
-      StoreVo storeData =
-          await popPinFirebaseService.getRecommendStoreVo(docId);
-      recommendStoreVo = storeData;
       update();
     } catch (error) {
       throw Exception(error);
@@ -115,4 +91,14 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
+
+  Future<void> setStoreListOffset(double offset) async {
+    try {
+      storeOffset = offset;
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
 }

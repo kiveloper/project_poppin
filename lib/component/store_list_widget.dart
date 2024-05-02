@@ -9,6 +9,7 @@ import 'package:project_poppin/pages/store_detail_page.dart';
 import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
+import '../utils/base64_manager.dart';
 import '../utils/time_stamp_manager.dart';
 import '../vo/store_vo.dart';
 
@@ -51,12 +52,20 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       height: 140,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          "assets/images/no_img.jpg",
-                          width: 140,
-                          height: 140,
-                          fit: BoxFit.cover,
-                        );
+                        try{
+                          return Image.memory(
+                              base64Decoder(widget.storeData.thumbnailImgUrl!),
+                              width: 140,
+                              height: 140,
+                              fit: BoxFit.cover);
+                        }catch (e){
+                          return Image.asset(
+                            "assets/images/no_img.jpg",
+                            width: 140,
+                            height: 140,
+                            fit: BoxFit.cover,
+                          );
+                        }
                       },
                     ),
                   ),

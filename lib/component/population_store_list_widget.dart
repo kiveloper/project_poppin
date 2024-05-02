@@ -32,7 +32,8 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
             transition: Transition.leftToRight);
       },
       child: Container(
-        height: MediaQuery.sizeOf(context).height * 0.18,
+        // height: MediaQuery.sizeOf(context).height * 0.18,
+        width: MediaQuery.sizeOf(context).width* 0.8,
         margin: EdgeInsets.only(bottom: 20, left: 4, right: 4),
         padding: EdgeInsets.only(left: 8, right: 8, top: 18, bottom: 18),
         decoration: BoxDecoration(boxShadow: [

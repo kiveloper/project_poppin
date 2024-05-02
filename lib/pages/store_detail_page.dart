@@ -9,6 +9,7 @@ import 'package:project_poppin/utils/time_stamp_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../theme/colors.dart';
+import '../utils/base64_manager.dart';
 import '../utils/user_share_manager.dart';
 
 class StoreDetailPage extends StatefulWidget {
@@ -60,12 +61,20 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             height: MediaQuery.sizeOf(context).width*0.90,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                "assets/images/no_img.jpg",
-                                width: MediaQuery.sizeOf(context).width,
-                                height: MediaQuery.sizeOf(context).width*0.90,
-                                fit: BoxFit.cover,
-                              );
+                              try {
+                                return Image.memory(
+                                    base64Decoder(storeController.detailStoreData.thumbnailImgUrl!),
+                                    width: MediaQuery.sizeOf(context).width,
+                                    height: MediaQuery.sizeOf(context).width*0.90,
+                                    fit: BoxFit.cover);
+                              } catch (e) {
+                                return Image.asset(
+                                  "assets/images/no_img.jpg",
+                                  width: MediaQuery.sizeOf(context).width,
+                                  height: MediaQuery.sizeOf(context).width*0.90,
+                                  fit: BoxFit.cover,
+                                );
+                              }
                             },
                           )),
                     ),
@@ -140,6 +149,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Icon(
                               Icons.location_on_outlined,

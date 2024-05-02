@@ -18,7 +18,7 @@ import 'services/firebase_remote_config_service.dart';
 
 void main() async {
 
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

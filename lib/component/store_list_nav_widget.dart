@@ -1,12 +1,13 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
-import 'package:project_poppin/pages/popup_list_page.dart';
-import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
+import 'package:project_poppin/utils/base64_manager.dart';
 
 import '../utils/time_stamp_manager.dart';
 import '../vo/store_vo.dart';
@@ -14,9 +15,10 @@ import '../vo/store_vo.dart';
 class StoreListNavWidget extends StatefulWidget {
   final StoreVo storeData;
   final int index;
+  final ScrollController scrollController;
 
   const StoreListNavWidget(
-      {super.key, required this.storeData, required this.index});
+      {super.key, required this.storeData, required this.index, required this.scrollController});
 
   @override
   State<StoreListNavWidget> createState() => _StoreListNavWidgetState();
@@ -29,6 +31,7 @@ class _StoreListNavWidgetState extends State<StoreListNavWidget> {
       return GestureDetector(
         onTap: () {
           storeController.setDetailNavStoreData(widget.storeData);
+          storeController.setStoreListOffset(widget.scrollController.offset);
 
           storeController.setStoreDetailState(true);
         },
@@ -50,12 +53,20 @@ class _StoreListNavWidgetState extends State<StoreListNavWidget> {
                       height: 140,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          "assets/images/no_img.jpg",
-                          width: 140,
-                          height: 140,
-                          fit: BoxFit.cover,
-                        );
+                        try {
+                          return Image.memory(
+                              base64Decoder(widget.storeData.thumbnailImgUrl!),
+                              width: 140,
+                              height: 140,
+                              fit: BoxFit.cover);
+                        } catch (e) {
+                          return Image.asset(
+                            "assets/images/no_img.jpg",
+                            width: 140,
+                            height: 140,
+                            fit: BoxFit.cover,
+                          );
+                        }
                       },
                     ),
                   ),

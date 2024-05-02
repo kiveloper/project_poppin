@@ -6,8 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_nav_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
-import 'package:project_poppin/global/share_preference.dart';
-import 'package:project_poppin/pages/location_select_page.dart';
 import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
@@ -19,7 +17,8 @@ class PopUpListNavPage extends StatefulWidget {
 }
 
 class _PopUpListNavPageState extends State<PopUpListNavPage> {
-  var lastPopTime;
+  ScrollController scrollController = ScrollController();
+  dynamic lastPopTime;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,6 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                 );
                 return;
               } else {
-                // 두 번 연속으로 뒤로가기 버튼을 누르면 앱 종료
                 exit(0);
               }
             }
@@ -79,6 +77,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                           ? Center(child: Text("진행중인 팝업이 없습니다", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),),)
                           : Expanded(
                               child: ListView.builder(
+                                  controller: scrollController,
                                   itemCount: storeController.storeAllList.length,
                                   padding: EdgeInsets.only(left: 16, right: 16),
                                   itemBuilder: (context, index) {
@@ -86,6 +85,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                                       storeData:
                                           storeController.storeAllList[index],
                                       index: index,
+                                      scrollController: scrollController,
                                     );
                                   }))
                     ],

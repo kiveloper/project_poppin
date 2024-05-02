@@ -37,10 +37,10 @@ class StoreVo {
   });
 
   StoreVo.fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
+    docId = documentSnapshot.id;
     title = documentSnapshot['title'];
     address = documentSnapshot['address'];
     description = documentSnapshot['description'];
-    docId = documentSnapshot['docId'];
     summary = documentSnapshot['summary'];
     category = documentSnapshot['category'];
     endDate = documentSnapshot['endDate'];

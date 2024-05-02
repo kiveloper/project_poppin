@@ -47,6 +47,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_share: ^2.0.0
   firebase_remote_config: ^4.4.2
+  package_info_plus: ^8.0.0
 
 
 

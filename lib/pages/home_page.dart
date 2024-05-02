@@ -1,11 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/utils/base64_manager.dart';
 
 import 'store_detail_page.dart';
 
@@ -55,9 +56,11 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () {
                       storeController.setDetailStoreData(
-                          storeController.recommendStoreVo);
+                          storeController.storeAllList[0]
+                      );
                       Get.to(() => StoreDetailPage(),
-                          transition: Transition.leftToRight);
+                          transition: Transition.leftToRight
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.only(
@@ -85,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                                   topRight: Radius.circular(10)),
                               child: Image.network(
                                 storeController
-                                        .recommendStoreVo.thumbnailImgUrl ??
+                                        .storeAllList[0].thumbnailImgUrl ??
                                     "",
                                 height: MediaQuery.sizeOf(context).width * 0.8,
                                 width: MediaQuery.sizeOf(context).width,
@@ -111,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                                 padding:
                                     const EdgeInsets.only(left: 12, right: 12),
                                 child: Text(
-                                  "${storeController.recommendStoreVo.title ?? ""}",
+                                  "${storeController.storeAllList[0].title ?? ""}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20),
@@ -130,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                                 padding:
                                     const EdgeInsets.only(left: 12, right: 12),
                                 child: Text(
-                                  "${storeController.recommendStoreVo.summary ?? ""}",
+                                  "${storeController.storeAllList[0].summary ?? ""}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w300,
                                       fontSize: 12),
@@ -161,15 +164,17 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           margin: EdgeInsets.only(bottom: 8),
                           width: MediaQuery.sizeOf(context).width,
-                          height: MediaQuery.sizeOf(context).height * 0.8,
+                          height: MediaQuery.sizeOf(context).height * 0.25,
                           child: ListView.builder(
                               padding: EdgeInsets.only(top: 8),
-                              itemCount: 10,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: 2,
                               itemBuilder: (context, index) {
                                 return PopulationStoreListWidget(
-                                    storeData: storeController.recommendStoreVo, storeController: storeController,);
+                                    storeData: storeController.storeAllList[0], storeController: storeController,);
                               }),
-                        )
+                        ),
                       ],
                     ),
                   )
@@ -181,4 +186,5 @@ class _HomePageState extends State<HomePage> {
       }),
     );
   }
+
 }
