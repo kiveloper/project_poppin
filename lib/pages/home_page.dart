@@ -158,7 +158,8 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 16,
                         ),
-                        SizedBox(
+                        Container(
+                          margin: EdgeInsets.only(bottom: 8),
                           width: MediaQuery.sizeOf(context).width,
                           height: MediaQuery.sizeOf(context).height * 0.8,
                           child: ListView.builder(

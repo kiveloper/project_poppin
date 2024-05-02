@@ -46,7 +46,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Column(
                   children: [
                     SizedBox(
@@ -62,6 +62,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             errorBuilder: (context, error, stackTrace) {
                               return Image.asset(
                                 "assets/images/no_img.jpg",
+                                width: MediaQuery.sizeOf(context).width,
+                                height: MediaQuery.sizeOf(context).width*0.90,
                                 fit: BoxFit.cover,
                               );
                             },

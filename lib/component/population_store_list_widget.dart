@@ -33,7 +33,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.18,
-        margin: EdgeInsets.only(bottom: 30, left: 4, right: 4),
+        margin: EdgeInsets.only(bottom: 20, left: 4, right: 4),
         padding: EdgeInsets.only(left: 8, right: 8, top: 18, bottom: 18),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
