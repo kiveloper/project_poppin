@@ -15,4 +15,14 @@ class StoreListModel {
       storeList!.add(StoreVo.fromDocumentSnapshot(item));
     }
   }
+
+  StoreListModel.fromRecommendQuerySnapShot(DocumentSnapshot documentSnapshot) {
+    storeList = <StoreVo>[];
+    var passingList = documentSnapshot["storeData"] as List<dynamic>;
+    for(var doc in passingList) {
+      var tempMap = doc as Map<String, dynamic>;
+      storeList!.add(StoreVo.fromMapSnapshot(tempMap));
+    }
+  }
+
 }

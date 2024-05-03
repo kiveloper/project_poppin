@@ -53,4 +53,23 @@ class StoreVo {
     relatedImgUrl = documentSnapshot['relatedImgUrl'];
     thumbnailImgUrl = documentSnapshot['thumbnailImgUrl'];
   }
+
+  StoreVo.fromMapSnapshot(Map<String, dynamic> documentSnapshot) {
+    docId = "0";
+    title = documentSnapshot['title'];
+    address = documentSnapshot['address'];
+    description = documentSnapshot['description'];
+    summary = documentSnapshot['summary'];
+    category = documentSnapshot['category'];
+    endDate = documentSnapshot['endDate'];
+    startDate = documentSnapshot['startDate'];
+    geopoint = documentSnapshot['geopoint'];
+    hashtag = documentSnapshot['hashtag'];
+    local1 = documentSnapshot['local1'];
+    local2 = documentSnapshot['local2'];
+    relatedContentsUrl = documentSnapshot['relatedContentsUrl'];
+    relatedImgUrl = documentSnapshot['relatedImgUrl'];
+    thumbnailImgUrl = documentSnapshot['thumbnailImgUrl'];
+  }
+
 }

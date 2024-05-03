@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
+import 'package:project_poppin/pages/main_page_tabbar.dart';
 import 'package:project_poppin/pages/splash_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,8 @@ void main() async {
 
   HttpOverrides.global = MyHttpOverrides();
 
-  await NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
+  NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
+
 
   runApp(const MyApp());
 }
@@ -60,7 +62,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class MyHttpOverrides extends HttpOverrides{
   @override

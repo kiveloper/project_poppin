@@ -14,7 +14,7 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
 
-    var lastPopTime;
+    dynamic lastPopTime;
 
     return PopScope(
       canPop: false,
@@ -40,8 +40,8 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/images/poppin_logo.jpg", height: 150, width: 150),
-              SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
+              Image.asset("assets/images/poppin_logo.png", height: 100, width: double.infinity),
+              SizedBox(height: 20),
               Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
               Text.rich(TextSpan(
                 children: <TextSpan>[

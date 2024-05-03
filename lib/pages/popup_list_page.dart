@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
-import 'package:project_poppin/component/store_list_nav_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
-import 'package:project_poppin/global/share_preference.dart';
-import 'package:project_poppin/pages/location_select_page.dart';
-import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
 class PopUpListPage extends StatefulWidget {

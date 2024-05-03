@@ -30,6 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     storeController.getStoreListLocationFilter(
         prefs.getString("local1") ?? "서울",
         prefs.getStringList("local2") ?? ["서울"]);
+    await storeController.getRecommendList();
     checkVersionAndEmergency();
     storeController.setStoreLoadState(false);
   }
@@ -39,9 +40,10 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
           child: Image.asset(
-        "assets/images/poppin_logo.jpg",
-        height: 150,
-        width: 150,
+        "assets/images/poppin_logo.png",
+        height: 100,
+        width: double.infinity,
+        fit: BoxFit.cover,
       )),
     );
   }
@@ -85,5 +87,4 @@ class _SplashPageState extends State<SplashPage> {
       Get.off(() => const MainPageTabBar());
     }
   }
-
 }

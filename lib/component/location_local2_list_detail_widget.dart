@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/pages/popup_list_page.dart';
-import 'package:project_poppin/pages/store_detail_nav_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
 import '../data/local_data.dart';

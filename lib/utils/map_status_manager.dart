@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/pages/store_detail_page.dart';
-import 'package:project_poppin/pages/store_detail_nav_page.dart';
 
 import '../controller/store_controller.dart';
 import '../vo/store_vo.dart';
