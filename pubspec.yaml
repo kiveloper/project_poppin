@@ -48,6 +48,7 @@ dependencies:
   flutter_share: ^2.0.0
   firebase_remote_config: ^4.4.2
   package_info_plus: ^8.0.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -150,7 +151,8 @@ flutter_native_splash:
   # 다음은 Android 12 특정 매개변수입니다.
 
   android_12:
-
+    color: "#FFFFFF"
+    image: assets/images/poppin_logo_size(960).png
   # 이미지 매개변수는 스플래시 화면 아이콘 이미지를 설정합니다. 이 매개변수를 지정하지 않으면
   # 앱의 런처 아이콘이 대신 사용됩니다.
   # 스플래쉬 화면은 화면 중앙의 원에 잘려서 나오니 참고하세요.
@@ -159,8 +161,6 @@ flutter_native_splash:
   # 아이콘 배경이 없는 앱 아이콘: 1152×1152 픽셀이어야 하며 원 안에 맞아야 합니다.
   # 직경 768픽셀.
   #이미지: assets/android12splash.png
-
-
 
   # 스플래시 화면 배경색.
   #color: "#42a5f5"

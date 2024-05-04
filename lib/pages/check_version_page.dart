@@ -3,48 +3,29 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:project_poppin/controller/store_controller.dart';
-import 'package:project_poppin/pages/main_page_tabbar.dart';
 
-import '../global/share_preference.dart';
 import '../services/firebase_remote_config_service.dart';
+import 'main_page_tabbar.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+class CheckVersionPage extends StatefulWidget {
+  const CheckVersionPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  State<CheckVersionPage> createState() => _CheckVersionPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
-  StoreController storeController = Get.find();
+class _CheckVersionPageState extends State<CheckVersionPage> {
 
   @override
   void initState() {
-    fetchData();
-    super.initState();
-  }
-
-  Future<void> fetchData() async {
-    storeController.getStoreListAll();
-    storeController.getStoreListLocationFilter(
-        prefs.getString("local1") ?? "서울",
-        prefs.getStringList("local2") ?? ["서울"]);
-    await storeController.getRecommendList();
     checkVersionAndEmergency();
-    storeController.setStoreLoadState(false);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Image.asset(
-        "assets/images/poppin_logo.png",
-        height: 100,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      )),
+    return const Scaffold(
+      body: SizedBox(),
     );
   }
 
@@ -87,4 +68,6 @@ class _SplashPageState extends State<SplashPage> {
       Get.off(() => const MainPageTabBar());
     }
   }
+
 }
+

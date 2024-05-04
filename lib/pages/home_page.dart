@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'store_detail_page.dart';
 
@@ -42,7 +43,95 @@ class _HomePageState extends State<HomePage> {
       child: GetBuilder<StoreController>(builder: (storeController) {
         return Scaffold(
             body: storeController.recommendList.isEmpty
-                ? SizedBox()
+                ? SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).padding.top + 8),
+                              child: Image.asset(
+                                "assets/images/poppin_logo.png",
+                                fit: BoxFit.cover,
+                                width: 173,
+                                height: 64,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Shimmer.fromColors(
+                          baseColor: Color.fromRGBO(240, 240, 240, 1),
+                          highlightColor: poppinColorGrey400,
+                          child: Container(
+                            margin:
+                                EdgeInsets.only(top: 12, left: 16, right: 16),
+                            padding: EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromRGBO(240, 240, 240, 1)),
+                            height: MediaQuery.sizeOf(context).width * 0.8 + 50,
+                            width: MediaQuery.sizeOf(context).width,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 28,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 16, right: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "인기 팝업·전시",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(bottom: 8),
+                                width: MediaQuery.sizeOf(context).width,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.25,
+                                child: ListView.builder(
+                                    padding: EdgeInsets.only(top: 8),
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemCount: 2,
+                                    itemBuilder: (context, index) {
+                                      return Shimmer.fromColors(
+                                        baseColor:
+                                            Color.fromRGBO(240, 240, 240, 1),
+                                        highlightColor: poppinColorGrey400,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: 20, left: 4, right: 4),
+                                          padding: EdgeInsets.only(
+                                              left: 8,
+                                              right: 8,
+                                              top: 18,
+                                              bottom: 18),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Color.fromRGBO(
+                                                  240, 240, 240, 1)),
+                                          height: 158,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.8,
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 : SingleChildScrollView(
                     child: Column(
                       children: [

@@ -9,9 +9,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
-import 'package:project_poppin/pages/main_page_tabbar.dart';
-import 'package:project_poppin/pages/splash_page.dart';
-import 'package:project_poppin/theme/colors.dart';
+import 'package:project_poppin/pages/check_version_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'global/share_preference.dart';
@@ -21,7 +19,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([
+  SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
@@ -41,6 +39,7 @@ void main() async {
 
   NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
 
+  loadData();
 
   runApp(const MyApp());
 }
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'noto'
       ),
-      home: const SplashPage(),
+      home: const CheckVersionPage(),
     );
   }
 }
@@ -69,4 +68,15 @@ class MyHttpOverrides extends HttpOverrides{
     return super.createHttpClient(context)
       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
+}
+
+void loadData() async {
+  StoreController storeController = Get.find();
+
+  storeController.getStoreListAll();
+  storeController.getStoreListLocationFilter(
+      prefs.getString("local1") ?? "서울",
+      prefs.getStringList("local2") ?? ["서울"]);
+  storeController.getRecommendList();
+  storeController.setStoreLoadState(false);
 }
