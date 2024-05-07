@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PopUpListPage extends StatefulWidget {
   const PopUpListPage({super.key});
@@ -39,7 +40,10 @@ class _PopUpListPageState extends State<PopUpListPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_ios, size: 23,)),
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          size: 23,
+                        )),
                   ),
                   Flexible(
                       child: Text.rich(TextSpan(children: [
@@ -52,15 +56,16 @@ class _PopUpListPageState extends State<PopUpListPage> {
                     TextSpan(
                         text: " 에서 열리는 팝업들",
                         style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 13))
+                            fontWeight: FontWeight.w400, fontSize: 13))
                   ]))),
-                  SizedBox(width: 32,)
+                  SizedBox(
+                    width: 32,
+                  )
                 ],
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 30,
             ),
             storeController.storeFilterLocationList.isEmpty
                 ? Center(

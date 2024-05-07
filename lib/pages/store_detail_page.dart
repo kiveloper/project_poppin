@@ -52,7 +52,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                   children: [
                     SizedBox(
                       width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).width*0.90,
+                      height: MediaQuery.sizeOf(context).width * 0.90,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(

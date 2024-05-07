@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -18,7 +20,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  StoreController storeController = Get.find();
+  var num = 0;
   var lastPopTime;
+  var recommendIsVisible = true;
+
+  int _seconds = 0;
+  bool _isRunning = false;
+  late Timer _timer;
+
+  void _startTimer() {
+    _isRunning = true;
+    _timer = Timer.periodic(Duration(milliseconds: 2000), (timer) {
+      setState(() {
+        if (num < storeController.recommendList.length - 1) {
+          num++;
+        } else {
+          num = 0;
+        }
+        storeController.setRecommendStoreData(storeController.recommendList[num]);
+        // recommendIsVisible = true;
+      });
+    });
+  }
+
+  // void _startTimer2() {
+  //   _isRunning = true;
+  //   _timer = Timer.periodic(Duration(milliseconds: 1980), (timer) {
+  //     setState(() {
+  //       recommendIsVisible = false;
+  //     });
+  //   });
+  // }
+
+  void _stopTimer() {
+    _isRunning = false;
+    _timer.cancel();
+  }
+
+  void _resetTimer() {
+    setState(() {
+      _seconds = 0;
+    });
+  }
+
+  @override
+  void initState() {
+    _startTimer();
+    // _startTimer2();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _stopTimer();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,98 +206,107 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            storeController.setDetailStoreData(
-                                storeController.recommendList[0]);
-                            Get.to(() => StoreDetailPage(),
-                                transition: Transition.leftToRight);
-                          },
-                          child: Container(
-                            margin:
-                                EdgeInsets.only(top: 12, left: 16, right: 16),
-                            padding: EdgeInsets.only(bottom: 16),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.15),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)),
-                                    child: Image.network(
-                                      storeController.recommendList[0]
-                                              .thumbnailImgUrl ??
-                                          "",
-                                      height: MediaQuery.sizeOf(context).width *
-                                          0.8,
-                                      width: MediaQuery.sizeOf(context).width,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Image.asset(
-                                          "assets/images/no_img.jpg",
-                                          height:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                          width:
-                                              MediaQuery.sizeOf(context).width,
-                                          fit: BoxFit.cover,
-                                        );
-                                      },
-                                    )),
-                                SizedBox(
-                                  height: 16,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Expanded(
-                                        child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Text(
-                                        "${storeController.recommendList[0].title ?? ""}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: poppinColorDarkGrey500,
-                                            fontSize: 20),
-                                      ),
-                                    )),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Expanded(
-                                        child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 12, right: 12),
-                                      child: Text(
-                                        "${storeController.recommendList[0].summary ?? ""}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            color: poppinColorDarkGrey400,
-                                            fontSize: 12),
-                                      ),
-                                    )),
-                                  ],
-                                ),
-                              ],
+                        AnimatedOpacity(
+                          opacity: recommendIsVisible ?1.0 :0.0,
+                          duration: Duration(milliseconds: 500),
+                          child: GestureDetector(
+                            onTap: () {
+                              storeController.setDetailStoreData(
+                                  storeController.recommendStoreData);
+                              Get.to(() => StoreDetailPage(),
+                                  transition: Transition.leftToRight);
+                            },
+                            child: Container(
+                              margin:
+                                  EdgeInsets.only(top: 12, left: 16, right: 16),
+                              padding: EdgeInsets.only(bottom: 16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.15),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10)),
+                                      child: Image.network(
+                                        storeController.recommendStoreData
+                                            .thumbnailImgUrl ??
+                                            "",
+                                        height: MediaQuery.sizeOf(context).width *
+                                            0.8,
+                                        width: MediaQuery.sizeOf(context).width,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Image.asset(
+                                            "assets/images/no_img.jpg",
+                                            height:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
+                                            width:
+                                            MediaQuery.sizeOf(context).width,
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      )),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                          child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 12, right: 12),
+                                        child: Text(
+                                          "${storeController.recommendStoreData.title ?? ""}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: poppinColorDarkGrey500,
+                                              fontSize: 20),
+                                        ),
+                                      )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                          child: Container(
+                                            padding: EdgeInsets.only(
+                                                left: 12, right: 12),
+                                            height: 44,
+                                            child: Text(
+                                              "${storeController.recommendStoreData.summary ?? ""}",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  color: poppinColorDarkGrey400,
+                                                  fontSize: 12,
+                                                overflow: TextOverflow.ellipsis
+                                              ),
+                                              softWrap: true,
+                                              maxLines: 2,
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -261,12 +327,10 @@ class _HomePageState extends State<HomePage> {
                                 height: 16,
                               ),
                               Container(
-                                margin: EdgeInsets.only(bottom: 8),
-                                width: MediaQuery.sizeOf(context).width,
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.25,
                                 child: ListView.builder(
-                                    padding: EdgeInsets.only(top: 8),
+                                    padding: EdgeInsets.only(top: 4),
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
                                     itemCount:

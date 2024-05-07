@@ -31,7 +31,8 @@ class _LocationLocal2ListDetailWidgetState
 
         prefs.setStringList("local2", local2);
         widget.storeController.getStoreListLocationFilter(
-            widget.storeController.storeLocationState, local2);
+            widget.storeController.storeLocationState, local2
+        );
 
         Get.to(() => const PopUpListPage(),
             transition: Transition.leftToRight,

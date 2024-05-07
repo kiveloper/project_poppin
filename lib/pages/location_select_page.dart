@@ -104,7 +104,8 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return LocationLocal1ListWidget(
-                              index: index, controller: storeController);
+                              index: index, controller: storeController
+                          );
                         }),
                   ),
                   Flexible(

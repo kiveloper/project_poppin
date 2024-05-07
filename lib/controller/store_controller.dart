@@ -11,6 +11,7 @@ class StoreController extends GetxController {
   List<StoreVo> storeFilterLocationList = [];
   List<StoreVo> recommendList = [];
 
+  StoreVo recommendStoreData = StoreVo();
   StoreVo detailStoreData = StoreVo();
 
   double storeOffset = 0.0;
@@ -19,6 +20,7 @@ class StoreController extends GetxController {
 
   bool storeDetailState = false;
   bool storeLoadState = false;
+  bool storeFilterState = false;
 
   Future<void> getStoreListAll() async {
     try {
@@ -50,8 +52,18 @@ class StoreController extends GetxController {
       StoreListModel storeListModel = await popPinFirebaseService.getRecommendData();
       recommendList.clear();
       recommendList.addAll(storeListModel.storeList!);
+      setRecommendStoreData(recommendList[0]);
       update();
     }catch(error){
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setRecommendStoreData(StoreVo data) async{
+    try{
+      recommendStoreData = data;
+      update();
+    } catch(error) {
       throw Exception(error);
     }
   }
@@ -75,7 +87,6 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
-
   Future<void> setLocationState(String location) async {
     try {
       storeLocationState = location;
@@ -102,5 +113,4 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
-
 }
