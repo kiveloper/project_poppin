@@ -41,19 +41,19 @@ class _LocationLocal2ListDetailWidgetState
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.06,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             border: Border(
                 bottom: BorderSide(width: 1, color: poppinColorGrey200))),
-        margin: EdgeInsets.only(left: 2, bottom: 2),
+        margin: const EdgeInsets.only(left: 2, bottom: 2),
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 10),
+              margin: const EdgeInsets.only(left: 10),
               child: local.keys.contains(local[
                       widget.storeController.storeLocationState]![widget.index])
                   ? Text(
                       "${local[widget.storeController.storeLocationState]![widget.index]} 전체",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w400,
                           color: poppinColorDarkGrey500),
@@ -61,7 +61,7 @@ class _LocationLocal2ListDetailWidgetState
                   : Text(
                       local[widget.storeController.storeLocationState]![
                           widget.index],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w400,
                           color: poppinColorDarkGrey500)),

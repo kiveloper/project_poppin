@@ -1,7 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/pages/store_detail_page.dart';
@@ -30,16 +28,16 @@ class _StoreListWidgetState extends State<StoreListWidget> {
         onTap: () {
           storeController.setDetailStoreData(widget.storeData);
 
-          Get.to(()=>StoreDetailPage(), transition: Transition.leftToRight);
+          Get.to(()=>const StoreDetailPage(), transition: Transition.leftToRight);
         },
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.18,
-          margin: EdgeInsets.only(bottom: 30),
+          margin: const EdgeInsets.only(bottom: 30),
           color: Colors.transparent,
           child: Row(
             children: [
               Container(
-                margin: EdgeInsets.only(right: 8),
+                margin: const EdgeInsets.only(right: 8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: AspectRatio(
@@ -79,7 +77,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       children: [
                         Text(
                           "${widget.storeData.category}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w300,
                               color: poppinSubTitleColor,
                               fontSize: 14),
@@ -87,12 +85,12 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                         ),
                         Text(
                           "${widget.storeData.title}",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -100,7 +98,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                     Flexible(
                         child: Text("${widget.storeData.address}",
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: poppinSubTitleColor,
                                 fontSize: 14)))

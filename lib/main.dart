@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xffFAF9F9),
+        scaffoldBackgroundColor: const Color(0xffFAF9F9),
         useMaterial3: true,
         fontFamily: 'noto'
       ),

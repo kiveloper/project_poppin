@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/location_local2_list_detail_widget.dart';
 import 'package:project_poppin/component/location_local1_list_widget.dart';
@@ -29,10 +27,10 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 50,
                 ),
-                Text(
+                const Text(
                   "지역 선택",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -45,7 +43,7 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
+                      child: const Text(
                         "취소",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -56,16 +54,16 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: poppinColorDarkGrey50),
-            padding: EdgeInsets.all(16),
-            margin: EdgeInsets.only(left: 16, right: 16),
-            child: Row(
+            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.only(left: 16, right: 16),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("시/도 선택", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,),),
@@ -84,7 +82,7 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
@@ -99,7 +97,7 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                   Flexible(
                     flex: 3,
                     child: ListView.builder(
-                        padding: EdgeInsets.only(top: 1),
+                        padding: const EdgeInsets.only(top: 1),
                         itemCount: local.keys.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
@@ -111,7 +109,7 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
                   Flexible(
                     flex: 7,
                     child: ListView.builder(
-                        padding: EdgeInsets.only(top: 1),
+                        padding: const EdgeInsets.only(top: 1),
                         itemCount:
                             local[storeController.storeLocationState]!.length,
                         shrinkWrap: true,

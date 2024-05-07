@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
@@ -28,7 +27,7 @@ class _LocationLocal1ListWidgetState extends State<LocationLocal1ListWidget> {
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height*0.06,
-        margin: EdgeInsets.only(bottom: 2),
+        margin: const EdgeInsets.only(bottom: 2),
         color: widget.controller.storeLocationState ==
                 local.keys.elementAt(widget.index)
             ? Colors.transparent
@@ -36,16 +35,16 @@ class _LocationLocal1ListWidgetState extends State<LocationLocal1ListWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(width: 12,),
+            const SizedBox(width: 12,),
             Text(local.keys.elementAt(widget.index),
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
                     color: poppinColorDarkGrey500)),
             widget.controller.storeLocationState ==
                     local.keys.elementAt(widget.index)
-                ? Icon(Icons.arrow_forward_ios, size: 12)
-                : SizedBox(width: 12,)
+                ? const Icon(Icons.arrow_forward_ios, size: 12)
+                : const SizedBox(width: 12,)
           ],
         ),
       ),

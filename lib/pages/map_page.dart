@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -109,16 +108,16 @@ class _MapPageState extends State<MapPage> {
               height: 28,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(() => LocationSelectPage(),
+                  Get.to(() => const LocationSelectPage(),
                       transition: Transition.leftToRight);
                 },
-                child: Text(
-                  "지역 설정",
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                ),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: poppinColorGreen500,
                     foregroundColor: Colors.black),
+                child: const Text(
+                  "지역 설정",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
             ),
           ),

@@ -29,8 +29,8 @@ class _MainPageTabBarState extends State<MainPageTabBar>
           body: Stack(children: [
             TabBarView(
                 controller: tabController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
                   HomePage(),
                   MapPage(),
                   PopUpListNavPage(),
@@ -57,11 +57,11 @@ class _MainPageTabBarState extends State<MainPageTabBar>
               children: [
                 Container(
                   height: MediaQuery.sizeOf(context).height * 0.08,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           top: BorderSide(width: 1, color: poppinColorDarkGrey50)),
                       color: Colors.white),
-                  padding: EdgeInsets.only(top: 4),
+                  padding: const EdgeInsets.only(top: 4),
                   child: TabBar(
                     controller: tabController,
                     onTap: (index) async {
@@ -78,7 +78,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                     labelColor: poppinMainColor,
                     //unselected label color
                     unselectedLabelColor: CupertinoColors.systemGrey,
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       fontSize: 12,
                     ),
                     tabs: [
@@ -109,7 +109,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 20,
                                 height: 20,
                               ),
-                        iconMargin: EdgeInsets.all(4),
+                        iconMargin: const EdgeInsets.all(4),
                         text: "지도",
                       ),
                       Tab(

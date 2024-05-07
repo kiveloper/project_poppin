@@ -44,7 +44,7 @@ class MapStatusManager {
       NInfoWindow infoWindow =
           NInfoWindow.onMarker(id: store.title!, text: store.title!);
 
-      myLocationMarker.setSize(Size(18, 27));
+      myLocationMarker.setSize(const Size(18, 27));
 
       myLocationMarker.setOnTapListener((nMarker) {
         infoWindow.setOnTapListener((overlay) {

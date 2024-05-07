@@ -1,13 +1,9 @@
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PopUpListPage extends StatefulWidget {
   const PopUpListPage({super.key});
@@ -35,12 +31,12 @@ class _PopUpListPageState extends State<PopUpListPage> {
                 children: [
                   Container(
                     width: 28,
-                    margin: EdgeInsets.only(left: 4),
+                    margin: const EdgeInsets.only(left: 4),
                     child: IconButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back_ios,
                           size: 23,
                         )),
@@ -49,26 +45,26 @@ class _PopUpListPageState extends State<PopUpListPage> {
                       child: Text.rich(TextSpan(children: [
                     TextSpan(
                         text: locationName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: poppinColorGreen500,
                             fontSize: 13)),
-                    TextSpan(
+                    const TextSpan(
                         text: " 에서 열리는 팝업들",
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 13))
                   ]))),
-                  SizedBox(
+                  const SizedBox(
                     width: 32,
                   )
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             storeController.storeFilterLocationList.isEmpty
-                ? Center(
+                ? const Center(
                     child: Text(
                       "진행중인 팝업이 없습니다",
                       style:
@@ -79,7 +75,7 @@ class _PopUpListPageState extends State<PopUpListPage> {
                     child: ListView.builder(
                         itemCount:
                             storeController.storeFilterLocationList.length,
-                        padding: EdgeInsets.only(left: 16, right: 16),
+                        padding: const EdgeInsets.only(left: 16, right: 16),
                         itemBuilder: (context, index) {
                           return StoreListWidget(
                             storeData:

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
@@ -33,20 +31,20 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
       },
       child: Container(
         width: MediaQuery.sizeOf(context).width* 0.8,
-        margin: EdgeInsets.only(bottom: 20, left: 4, right: 4),
-        padding: EdgeInsets.only(left: 8, right: 8, top: 18, bottom: 18),
+        margin: const EdgeInsets.only(bottom: 20, left: 4, right: 4),
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 18, bottom: 18),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.15),
             spreadRadius: 1,
             blurRadius: 4,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ], borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(right: 8),
+              margin: const EdgeInsets.only(right: 8),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: AspectRatio(
@@ -78,7 +76,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                     children: [
                       Text(
                         "${widget.storeData.category}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w300,
                             color: poppinColorDarkGrey300,
                             fontSize: 10),
@@ -86,14 +84,14 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                       ),
                       Text(
                         "${widget.storeData.title}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -102,7 +100,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                   Flexible(
                       child: Text("${widget.storeData.address}",
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w300,
                               color: poppinColorDarkGrey300,
                               fontSize: 10)))

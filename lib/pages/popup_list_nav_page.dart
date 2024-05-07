@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
@@ -52,7 +50,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                 Container(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).padding.top + 10),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Expanded(
                         child: Text(
@@ -69,11 +67,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 storeController.storeAllList.isEmpty
-                    ? Center(
+                    ? const Center(
                         child: Text(
                           "진행중인 팝업이 없습니다",
                           style: TextStyle(
@@ -84,7 +82,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
                         child: ListView.builder(
                             controller: scrollController,
                             itemCount: storeController.storeAllList.length,
-                            padding: EdgeInsets.only(left: 16, right: 16),
+                            padding: const EdgeInsets.only(left: 16, right: 16),
                             itemBuilder: (context, index) {
                               return StoreListWidget(
                                 storeData: storeController.storeAllList[index],

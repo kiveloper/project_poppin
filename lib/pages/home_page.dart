@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -22,52 +20,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   StoreController storeController = Get.find();
   var num = 0;
-  var lastPopTime;
+  dynamic lastPopTime;
   var recommendIsVisible = true;
 
-  int _seconds = 0;
-  bool _isRunning = false;
   late Timer _timer;
-
-  void _startTimer() {
-    _isRunning = true;
-    _timer = Timer.periodic(Duration(milliseconds: 2000), (timer) {
-      setState(() {
-        if (num < storeController.recommendList.length - 1) {
-          num++;
-        } else {
-          num = 0;
-        }
-        storeController.setRecommendStoreData(storeController.recommendList[num]);
-        // recommendIsVisible = true;
-      });
-    });
-  }
-
-  // void _startTimer2() {
-  //   _isRunning = true;
-  //   _timer = Timer.periodic(Duration(milliseconds: 1980), (timer) {
-  //     setState(() {
-  //       recommendIsVisible = false;
-  //     });
-  //   });
-  // }
-
-  void _stopTimer() {
-    _isRunning = false;
-    _timer.cancel();
-  }
-
-  void _resetTimer() {
-    setState(() {
-      _seconds = 0;
-    });
-  }
 
   @override
   void initState() {
     _startTimer();
-    // _startTimer2();
     super.initState();
   }
 
@@ -118,54 +78,54 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         Shimmer.fromColors(
-                          baseColor: Color.fromRGBO(240, 240, 240, 1),
+                          baseColor: const Color.fromRGBO(240, 240, 240, 1),
                           highlightColor: poppinColorGrey400,
                           child: Container(
                             margin:
-                                EdgeInsets.only(top: 12, left: 16, right: 16),
-                            padding: EdgeInsets.only(bottom: 16),
+                                const EdgeInsets.only(top: 12, left: 16, right: 16),
+                            padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color.fromRGBO(240, 240, 240, 1)),
+                                color: const Color.fromRGBO(240, 240, 240, 1)),
                             height: MediaQuery.sizeOf(context).width * 0.8 + 50,
                             width: MediaQuery.sizeOf(context).width,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 28,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 16, right: 16),
+                          padding: const EdgeInsets.only(left: 16, right: 16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "인기 팝업·전시",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
                               Container(
-                                margin: EdgeInsets.only(bottom: 8),
+                                margin: const EdgeInsets.only(bottom: 8),
                                 width: MediaQuery.sizeOf(context).width,
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.25,
                                 child: ListView.builder(
-                                    padding: EdgeInsets.only(top: 8),
+                                    padding: const EdgeInsets.only(top: 8),
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
                                     itemCount: 2,
                                     itemBuilder: (context, index) {
                                       return Shimmer.fromColors(
                                         baseColor:
-                                            Color.fromRGBO(240, 240, 240, 1),
+                                            const Color.fromRGBO(240, 240, 240, 1),
                                         highlightColor: poppinColorGrey400,
                                         child: Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               bottom: 20, left: 4, right: 4),
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 8,
                                               right: 8,
                                               top: 18,
@@ -173,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                              color: Color.fromRGBO(
+                                              color: const Color.fromRGBO(
                                                   240, 240, 240, 1)),
                                           height: 158,
                                           width:
@@ -207,19 +167,19 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         AnimatedOpacity(
-                          opacity: recommendIsVisible ?1.0 :0.0,
-                          duration: Duration(milliseconds: 500),
+                          opacity: recommendIsVisible ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 500),
                           child: GestureDetector(
                             onTap: () {
                               storeController.setDetailStoreData(
                                   storeController.recommendStoreData);
-                              Get.to(() => StoreDetailPage(),
+                              Get.to(() => const StoreDetailPage(),
                                   transition: Transition.leftToRight);
                             },
                             child: Container(
                               margin:
-                                  EdgeInsets.only(top: 12, left: 16, right: 16),
-                              padding: EdgeInsets.only(bottom: 16),
+                                  const EdgeInsets.only(top: 12, left: 16, right: 16),
+                              padding: const EdgeInsets.only(bottom: 16),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 boxShadow: [
@@ -227,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.grey.withOpacity(0.15),
                                     spreadRadius: 5,
                                     blurRadius: 7,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ],
@@ -236,31 +196,32 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                 children: [
                                   ClipRRect(
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(10),
                                           topRight: Radius.circular(10)),
                                       child: Image.network(
                                         storeController.recommendStoreData
-                                            .thumbnailImgUrl ??
+                                                .thumbnailImgUrl ??
                                             "",
-                                        height: MediaQuery.sizeOf(context).width *
-                                            0.8,
+                                        height:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
                                         width: MediaQuery.sizeOf(context).width,
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, error, stackTrace) {
                                           return Image.asset(
                                             "assets/images/no_img.jpg",
-                                            height:
-                                            MediaQuery.sizeOf(context).width *
+                                            height: MediaQuery.sizeOf(context)
+                                                    .width *
                                                 0.8,
-                                            width:
-                                            MediaQuery.sizeOf(context).width,
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
                                             fit: BoxFit.cover,
                                           );
                                         },
                                       )),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 16,
                                   ),
                                   Row(
@@ -271,8 +232,8 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.only(
                                             left: 12, right: 12),
                                         child: Text(
-                                          "${storeController.recommendStoreData.title ?? ""}",
-                                          style: TextStyle(
+                                          storeController.recommendStoreData.title ?? "",
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               color: poppinColorDarkGrey500,
                                               fontSize: 20),
@@ -280,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                                       )),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Row(
@@ -288,21 +249,20 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       Expanded(
                                           child: Container(
-                                            padding: EdgeInsets.only(
-                                                left: 12, right: 12),
-                                            height: 44,
-                                            child: Text(
-                                              "${storeController.recommendStoreData.summary ?? ""}",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w300,
-                                                  color: poppinColorDarkGrey400,
-                                                  fontSize: 12,
-                                                overflow: TextOverflow.ellipsis
-                                              ),
-                                              softWrap: true,
-                                              maxLines: 2,
-                                            ),
-                                          )),
+                                        padding: const EdgeInsets.only(
+                                            left: 12, right: 12),
+                                        height: 44,
+                                        child: Text(
+                                          storeController.recommendStoreData.summary ?? "",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              color: poppinColorDarkGrey400,
+                                              fontSize: 12,
+                                              overflow: TextOverflow.ellipsis),
+                                          softWrap: true,
+                                          maxLines: 2,
+                                        ),
+                                      )),
                                     ],
                                   ),
                                 ],
@@ -310,27 +270,27 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 28,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 16, right: 16),
+                          padding: const EdgeInsets.only(left: 16, right: 16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "인기 팝업·전시",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
-                              Container(
+                              SizedBox(
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.25,
                                 child: ListView.builder(
-                                    padding: EdgeInsets.only(top: 4),
+                                    padding: const EdgeInsets.only(top: 4),
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
                                     itemCount:
@@ -350,5 +310,23 @@ class _HomePageState extends State<HomePage> {
                   ));
       }),
     );
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(milliseconds: 3000), (timer) {
+      setState(() {
+        if (num < storeController.recommendList.length - 1) {
+          num++;
+        } else {
+          num = 0;
+        }
+        storeController.setRecommendStoreData(storeController.recommendList[num]);
+        // recommendIsVisible = true;
+      });
+    });
+  }
+
+  void _stopTimer() {
+    _timer.cancel();
   }
 }

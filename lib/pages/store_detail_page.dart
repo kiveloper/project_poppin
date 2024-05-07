@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
@@ -33,7 +32,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
               Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).padding.top + 10),
-                margin: EdgeInsets.only(left: 4),
+                margin: const EdgeInsets.only(left: 4),
                 child: Row(
                   key: goTop,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +41,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_ios)),
+                        icon: const Icon(Icons.arrow_back_ios)),
                   ],
                 ),
               ),
@@ -78,24 +77,24 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             },
                           )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 28,
                     ),
-                    Text(
+                    const Text(
                       "팝업정보",
                       style: TextStyle(
                           color: poppinColorGreen500,
                           fontWeight: FontWeight.w600,
                           fontSize: 14),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
                       height: 2,
                       color: poppinColorGreen500,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 28,
                     ),
                     Column(
@@ -105,7 +104,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             Expanded(
                               child: Text(
                                 storeController.detailStoreData.title!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.w600,
                                     color: poppinColorDarkGrey600,
@@ -128,7 +127,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Row(
@@ -136,64 +135,64 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           children: [
                             Expanded(
                                 child: Text(
-                              "${storeController.detailStoreData.description!}",
-                              style: TextStyle(
+                              storeController.detailStoreData.description!,
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
                                   color: poppinColorDarkGrey500),
                             )),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on_outlined,
                               size: 17,
                               color: poppinColorGreen400,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 4,
                             ),
                             Expanded(
                                 child: Text(
-                              "${storeController.detailStoreData.address!}",
-                              style: TextStyle(
+                              storeController.detailStoreData.address!,
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
                                   color: poppinColorDarkGrey600),
                             )),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.calendar_month_outlined,
                               color: poppinColorGreen400,
                               size: 17,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 4,
                             ),
                             Expanded(
                                 child: Text(
                               "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
                                   color: poppinColorDarkGrey600),
                             )),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 40,
                         ),
                         SizedBox(
@@ -208,9 +207,9 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   foregroundColor: poppinColorGreen600,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8))),
-                              child: Padding(
+                              child: const Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 16, bottom: 16),
+                                    EdgeInsets.only(top: 16, bottom: 16),
                                 child: Text(
                                   "상세 정보 보러가기",
                                   style: TextStyle(
@@ -218,13 +217,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 ),
                               )),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 80,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Expanded(
+                            const Expanded(
                                 child: Text(
                               "팝업 스토어 위치",
                               style: TextStyle(
@@ -239,10 +238,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       curve: Curves.easeInOut,
                                       alignment: 0);
                                 },
-                                icon: Icon(Icons.keyboard_arrow_up))
+                                icon: const Icon(Icons.keyboard_arrow_up))
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         storeController.detailStoreData.geopoint != null
@@ -274,10 +273,10 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   },
                                 ),
                               )
-                            : SizedBox(
+                            : const SizedBox(
                                 child: Text("null임"),
                               ),
-                        SizedBox(
+                        const SizedBox(
                           height: 4,
                         ),
                         Row(
@@ -290,22 +289,22 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                       text:
                                           "${storeController.detailStoreData.address}"));
                                 },
-                                child: Text("주소 복사",
+                                style: TextButton.styleFrom(
+                                  minimumSize: Size.zero,
+                                  padding: const EdgeInsets.all(4),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                ),
+                                child: const Text("주소 복사",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
                                         color: Colors.black)),
-                                style: TextButton.styleFrom(
-                                  minimumSize: Size.zero,
-                                  padding: EdgeInsets.all(4),
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 40,
                         ),
                       ],

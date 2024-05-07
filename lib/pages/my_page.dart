@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyPage extends StatefulWidget {
@@ -41,19 +40,19 @@ class _MyPageState extends State<MyPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/images/poppin_logo.png", height: 100, width: double.infinity),
-              SizedBox(height: 20),
-              Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
-              Text.rich(TextSpan(
+              const SizedBox(height: 20),
+              const Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              const Text.rich(TextSpan(
                 children: <TextSpan>[
                   TextSpan(text: '준비중', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14)),
                   TextSpan(text: ' 입니다', style: TextStyle(fontSize: 14)),
                 ]
               )),
-              SizedBox(height: 30,),
-              Text("빠른 시간 안에 만나요:D", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              const SizedBox(height: 30,),
+              const Text("빠른 시간 안에 만나요:D", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
               SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
-              Text("문의사항", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
-              Text("contact@kapitalletter.com", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,decoration: TextDecoration.underline),),
+              const Text("문의사항", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
+              const Text("contact@kapitalletter.com", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,decoration: TextDecoration.underline),),
             ],
           ),
         ),
