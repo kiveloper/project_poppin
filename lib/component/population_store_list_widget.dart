@@ -20,6 +20,15 @@ class PopulationStoreListWidget extends StatefulWidget {
 }
 
 class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
+
+  List<String> addressList = [];
+
+  @override
+  void initState() {
+    addressList = widget.storeData.address!.split(" ");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -98,7 +107,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                     ],
                   ),
                   Flexible(
-                      child: Text("${widget.storeData.address}",
+                      child: Text("${addressList[0]} ${addressList[1]}",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontWeight: FontWeight.w300,

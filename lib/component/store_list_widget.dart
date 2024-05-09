@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -21,6 +20,14 @@ class StoreListWidget extends StatefulWidget {
 }
 
 class _StoreListWidgetState extends State<StoreListWidget> {
+  List<String> adressList = [];
+
+  @override
+  void initState() {
+    adressList = widget.storeData.address!.split(" ");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(builder: (storeController) {
@@ -28,7 +35,8 @@ class _StoreListWidgetState extends State<StoreListWidget> {
         onTap: () {
           storeController.setDetailStoreData(widget.storeData);
 
-          Get.to(()=>const StoreDetailPage(), transition: Transition.leftToRight);
+          Get.to(() => const StoreDetailPage(),
+              transition: Transition.leftToRight);
         },
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.18,
@@ -48,13 +56,13 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       height: 140,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        try{
+                        try {
                           return Image.memory(
                               base64Decoder(widget.storeData.thumbnailImgUrl!),
                               width: 140,
                               height: 140,
                               fit: BoxFit.cover);
-                        }catch (e){
+                        } catch (e) {
                           return Image.asset(
                             "assets/images/no_img.jpg",
                             width: 140,
@@ -80,7 +88,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                           style: const TextStyle(
                               fontWeight: FontWeight.w300,
                               color: poppinSubTitleColor,
-                              fontSize: 14),
+                              fontSize: 12),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
@@ -96,12 +104,12 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       ],
                     ),
                     Flexible(
-                        child: Text("${widget.storeData.address}",
+                        child: Text("${adressList[0]} ${adressList[1]}",
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: poppinSubTitleColor,
-                                fontSize: 14)))
+                                fontSize: 12)))
                   ],
                 ),
               )

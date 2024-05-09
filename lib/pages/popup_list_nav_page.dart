@@ -49,7 +49,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage> {
               children: [
                 Container(
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top + 10),
+                      top: MediaQuery.of(context).padding.top + 16),
                   child: const Row(
                     children: [
                       Expanded(
