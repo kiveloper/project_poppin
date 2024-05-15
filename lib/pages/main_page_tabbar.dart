@@ -94,7 +94,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.zero,
+                        iconMargin: EdgeInsets.all(4),
                         text: "홈",
                       ),
                       Tab(
@@ -124,7 +124,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.zero,
+                        iconMargin: EdgeInsets.all(4),
                         text: "팝업 리스트",
                       ),
                       Tab(
@@ -139,7 +139,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.zero,
+                        iconMargin: EdgeInsets.all(4),
                         text: "마이",
                       ),
                     ],
