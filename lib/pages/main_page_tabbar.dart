@@ -94,7 +94,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.all(4),
+                        iconMargin: EdgeInsets.only(bottom:4),
                         text: "홈",
                       ),
                       Tab(
@@ -109,7 +109,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 20,
                                 height: 20,
                               ),
-                        iconMargin: const EdgeInsets.all(4),
+                        iconMargin: const EdgeInsets.only(bottom:4),
                         text: "지도",
                       ),
                       Tab(
@@ -124,7 +124,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.all(4),
+                        iconMargin: EdgeInsets.only(bottom:4),
                         text: "팝업 리스트",
                       ),
                       Tab(
@@ -139,7 +139,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.all(4),
+                        iconMargin: EdgeInsets.only(bottom:4),
                         text: "마이",
                       ),
                     ],
