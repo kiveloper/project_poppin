@@ -65,7 +65,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                     base64Decoder(storeController.detailStoreData.thumbnailImgUrl!),
                                     width: MediaQuery.sizeOf(context).width,
                                     height: MediaQuery.sizeOf(context).width*0.90,
-                                    fit: BoxFit.cover);
+                                    fit: BoxFit.cover
+                                );
                               } catch (e) {
                                 return Image.asset(
                                   "assets/images/no_img.jpg",
