@@ -70,7 +70,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                               fit: BoxFit.cover);
                         } catch (e) {
                           return Image.asset(
-                            "assets/images/no_img.jpg",
+                            "assets/images/no_img.png",
                             width: 140,
                             height: 140,
                             fit: BoxFit.cover,

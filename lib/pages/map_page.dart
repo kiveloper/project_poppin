@@ -90,7 +90,6 @@ class _MapPageState extends State<MapPage> {
 
               await mapStatusManager.setMarkerList(
                   naverMapController!, storeController);
-              // mapStatusManager.visibleManager();
             },
             onCameraIdle: () async {
               var position = naverMapController?.nowCameraPosition;

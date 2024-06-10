@@ -71,48 +71,6 @@ class MapStatusManager {
     naverMapController.addOverlayAll(setOverlay);
   }
 
-  // Future<void> setMarkerList(NaverMapController naverMapController,
-  //     StoreController storeController) async {
-  //   Set<NAddableOverlay> setOverlay = Set.from(storeMarkerList);
-  //
-  //   naverMapController.addOverlayAll(setOverlay);
-  // }
-  //
-  // Future<void> alreadyMarkerList(StoreController storeController) async {
-  //   List<NAddableOverlay> overlay = [];
-  //
-  //   storeMarkerList.clear();
-  //
-  //   NOverlayImage image = const NOverlayImage.fromAssetImage(
-  //       "assets/icons/marker/store_marker(100).png");
-  //
-  //   for (StoreVo store in storeController.storeAllList) {
-  //     NLatLng myLatLng =
-  //         NLatLng(store.geopoint!.latitude, store.geopoint!.longitude);
-  //
-  //     NMarker myLocationMarker =
-  //         NMarker(id: store.title!, position: myLatLng, icon: image);
-  //
-  //     NInfoWindow infoWindow =
-  //         NInfoWindow.onMarker(id: store.title!, text: store.title!);
-  //
-  //     myLocationMarker.setSize(const Size(18, 27));
-  //
-  //     infoWindow.setOnTapListener((overlay) {
-  //       storeController.setDetailStoreData(store);
-  //       Get.to(() => const StoreDetailPage());
-  //     });
-  //
-  //     myLocationMarker.setOnTapListener((nMarker) {
-  //       myLocationMarker.openInfoWindow(infoWindow);
-  //     });
-  //
-  //     overlay.add(myLocationMarker);
-  //   }
-  //
-  //   storeMarkerList = overlay;
-  // }
-
   Future<void> setMarkerDetailPage(
       NaverMapController naverMapController, StoreVo store) async {
     NOverlayImage image = const NOverlayImage.fromAssetImage(
@@ -127,10 +85,10 @@ class MapStatusManager {
     myLocationMarker.setSize(const Size(18, 27));
 
     NInfoWindow infoWindow =
-        NInfoWindow.onMarker(id: store.title!, text: store.title!);
-
-    myLocationMarker.openInfoWindow(infoWindow);
+       NInfoWindow.onMarker(id: store.title!, text: store.title!);
 
     naverMapController.addOverlay(myLocationMarker);
+
+    myLocationMarker.openInfoWindow(infoWindow);
   }
 }

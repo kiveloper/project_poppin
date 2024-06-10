@@ -44,5 +44,4 @@ class PopPinFirebaseService {
       throw Exception(error);
     }
   }
-
 }
