@@ -35,8 +35,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
       onTap: () {
         widget.storeController.setDetailStoreData(widget.storeData);
 
-        Get.to(() => const StoreDetailPage(),
-            transition: Transition.leftToRight);
+        Get.to(() => const StoreDetailPage());
       },
       child: Container(
         width: MediaQuery.sizeOf(context).width* 0.8,

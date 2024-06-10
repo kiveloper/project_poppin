@@ -35,8 +35,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
         onTap: () {
           storeController.setDetailStoreData(widget.storeData);
 
-          Get.to(() => const StoreDetailPage(),
-              transition: Transition.leftToRight);
+          Get.to(() => const StoreDetailPage());
         },
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.18,
