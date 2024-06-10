@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -31,13 +33,18 @@ class _LocationLocal2ListDetailWidgetState
 
         prefs.setStringList("local2", local2);
         widget.storeController.getStoreListLocationFilter(
-            widget.storeController.storeLocationState, local2
-        );
+            widget.storeController.storeLocationState, local2);
 
-        Get.to(() => const PopUpListPage(),
-            transition: Transition.leftToRight,
-            arguments: local[widget.storeController.storeLocationState]![
-                widget.index]);
+        if (Platform.isAndroid) {
+          Get.to(() => const PopUpListPage(),
+              transition: Transition.leftToRight,
+              arguments: local[widget.storeController.storeLocationState]![
+                  widget.index]);
+        } else if (Platform.isIOS) {
+          Get.to(() => const PopUpListPage(),
+              arguments: local[widget.storeController.storeLocationState]![
+                  widget.index]);
+        }
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.06,

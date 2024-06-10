@@ -90,7 +90,7 @@ class _MapPageState extends State<MapPage> {
 
               await mapStatusManager.setMarkerList(
                   naverMapController!, storeController);
-              mapStatusManager.visibleManager();
+              // mapStatusManager.visibleManager();
             },
             onCameraIdle: () async {
               var position = naverMapController?.nowCameraPosition;
@@ -108,8 +108,12 @@ class _MapPageState extends State<MapPage> {
               height: 28,
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(() => const LocationSelectPage(),
-                      transition: Transition.leftToRight);
+                  if (Platform.isAndroid) {
+                    Get.to(() => const LocationSelectPage(),
+                        transition: Transition.leftToRight);
+                  } else if (Platform.isIOS) {
+                    Get.to(() => const LocationSelectPage());
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: poppinColorGreen500,

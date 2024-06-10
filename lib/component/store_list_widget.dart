@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -35,8 +37,12 @@ class _StoreListWidgetState extends State<StoreListWidget> {
         onTap: () {
           storeController.setDetailStoreData(widget.storeData);
 
-          Get.to(() => const StoreDetailPage(),
-              transition: Transition.leftToRight);
+          if (Platform.isAndroid) {
+            Get.to(() => const StoreDetailPage(),
+                transition: Transition.leftToRight);
+          } else if (Platform.isIOS) {
+            Get.to(() => const StoreDetailPage());
+          }
         },
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.18,

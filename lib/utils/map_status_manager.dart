@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
-import 'package:project_poppin/pages/store_detail_page.dart';
 
 import '../controller/store_controller.dart';
+import '../pages/store_detail_page.dart';
 import '../vo/store_vo.dart';
 
 class MapStatusManager {
@@ -46,18 +48,21 @@ class MapStatusManager {
 
       myLocationMarker.setSize(const Size(18, 27));
 
-      myLocationMarker.setOnTapListener((nMarker) {
-        infoWindow.setOnTapListener((overlay) {
-            storeController.setDetailStoreData(store);
+      infoWindow.setOnTapListener((overlay) {
+        storeController.setDetailStoreData(store);
+        if (Platform.isAndroid) {
+          Get.to(() => const StoreDetailPage(), transition: Transition.leftToRight);
+        } else if (Platform.isIOS) {
           Get.to(() => const StoreDetailPage());
-        });
+        }
+      });
 
+      myLocationMarker.setOnTapListener((nMarker) {
         naverMapController.clearOverlays(type: NOverlayType.infoWindow);
         myLocationMarker.openInfoWindow(infoWindow);
       });
 
       overlay.add(myLocationMarker);
-      myLocationMarker.setIsVisible(false);
     }
 
     Set<NAddableOverlay> setOverlay = Set.from(overlay);
@@ -66,14 +71,50 @@ class MapStatusManager {
     naverMapController.addOverlayAll(setOverlay);
   }
 
-  void visibleManager() {
-    for (var marker in storeMarkerList) {
-      marker.setIsVisible(true);
-    }
-  }
+  // Future<void> setMarkerList(NaverMapController naverMapController,
+  //     StoreController storeController) async {
+  //   Set<NAddableOverlay> setOverlay = Set.from(storeMarkerList);
+  //
+  //   naverMapController.addOverlayAll(setOverlay);
+  // }
+  //
+  // Future<void> alreadyMarkerList(StoreController storeController) async {
+  //   List<NAddableOverlay> overlay = [];
+  //
+  //   storeMarkerList.clear();
+  //
+  //   NOverlayImage image = const NOverlayImage.fromAssetImage(
+  //       "assets/icons/marker/store_marker(100).png");
+  //
+  //   for (StoreVo store in storeController.storeAllList) {
+  //     NLatLng myLatLng =
+  //         NLatLng(store.geopoint!.latitude, store.geopoint!.longitude);
+  //
+  //     NMarker myLocationMarker =
+  //         NMarker(id: store.title!, position: myLatLng, icon: image);
+  //
+  //     NInfoWindow infoWindow =
+  //         NInfoWindow.onMarker(id: store.title!, text: store.title!);
+  //
+  //     myLocationMarker.setSize(const Size(18, 27));
+  //
+  //     infoWindow.setOnTapListener((overlay) {
+  //       storeController.setDetailStoreData(store);
+  //       Get.to(() => const StoreDetailPage());
+  //     });
+  //
+  //     myLocationMarker.setOnTapListener((nMarker) {
+  //       myLocationMarker.openInfoWindow(infoWindow);
+  //     });
+  //
+  //     overlay.add(myLocationMarker);
+  //   }
+  //
+  //   storeMarkerList = overlay;
+  // }
 
-  Future<void> setMarkerDetailPage(NaverMapController naverMapController,
-      StoreVo store) async {
+  Future<void> setMarkerDetailPage(
+      NaverMapController naverMapController, StoreVo store) async {
     NOverlayImage image = const NOverlayImage.fromAssetImage(
         "assets/icons/marker/store_marker(100).png");
 
