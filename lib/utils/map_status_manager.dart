@@ -48,7 +48,7 @@ class MapStatusManager {
 
       myLocationMarker.setOnTapListener((nMarker) {
         infoWindow.setOnTapListener((overlay) {
-          storeController.setDetailStoreData(store);
+            storeController.setDetailStoreData(store);
           Get.to(() => const StoreDetailPage());
         });
 
@@ -82,6 +82,7 @@ class MapStatusManager {
 
     NMarker myLocationMarker =
         NMarker(id: store.title!, position: myLatLng, icon: image);
+
     myLocationMarker.setSize(const Size(18, 27));
 
     NInfoWindow infoWindow =
