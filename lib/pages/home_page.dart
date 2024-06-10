@@ -169,8 +169,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             storeController.setDetailStoreData(
                                 storeController.recommendStoreData);
-                            Get.to(() => const StoreDetailPage(),
-                                transition: Transition.leftToRight);
+                            Get.to(() => const StoreDetailPage());
                           },
                           child: Container(
                             margin:

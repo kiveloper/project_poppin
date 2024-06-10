@@ -35,7 +35,6 @@ class _LocationLocal2ListDetailWidgetState
         );
 
         Get.to(() => const PopUpListPage(),
-            transition: Transition.leftToRight,
             arguments: local[widget.storeController.storeLocationState]![
                 widget.index]);
       },
