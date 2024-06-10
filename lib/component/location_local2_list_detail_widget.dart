@@ -35,6 +35,7 @@ class _LocationLocal2ListDetailWidgetState
         widget.storeController.getStoreListLocationFilter(
             widget.storeController.storeLocationState, local2);
 
+<<<<<<< HEAD
         if (Platform.isAndroid) {
           Get.to(() => const PopUpListPage(),
               transition: Transition.leftToRight,
@@ -45,6 +46,11 @@ class _LocationLocal2ListDetailWidgetState
               arguments: local[widget.storeController.storeLocationState]![
                   widget.index]);
         }
+=======
+        Get.to(() => const PopUpListPage(),
+            arguments: local[widget.storeController.storeLocationState]![
+                widget.index]);
+>>>>>>> fd26436ed6b3836b520f68ecc942c38145ee7b2c
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.06,

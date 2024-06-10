@@ -169,6 +169,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             storeController.setDetailStoreData(
                                 storeController.recommendStoreData);
+
                             if (Platform.isAndroid) {
                               Get.to(() => const StoreDetailPage(),
                                   transition: Transition.leftToRight);
