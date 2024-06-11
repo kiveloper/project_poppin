@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/model/store_list_model.dart';
+import 'package:project_poppin/services/https_service.dart';
 import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:project_poppin/vo/store_vo.dart';
 
 class StoreController extends GetxController {
   final PopPinFirebaseService popPinFirebaseService = PopPinFirebaseService();
+  final HttpsService httpsService = HttpsService();
 
   List<StoreVo> storeAllList = [];
   List<StoreVo> storeFilterLocationList = [];
   List<StoreVo> recommendList = [];
+  List<StoreVo> storeCurationList = [];
 
   StoreVo recommendStoreData = StoreVo();
   StoreVo detailStoreData = StoreVo();
+  StoreVo detailStoreCurationData = StoreVo();
 
   double storeOffset = 0.0;
 
@@ -59,6 +63,15 @@ class StoreController extends GetxController {
     }
   }
 
+  Future<void> getCurationStoreData(String userId) async{
+    try{
+      storeCurationList = await httpsService.getCurationTest(userId);
+      update();
+    } catch(e) {
+      throw Exception(e);
+    }
+  }
+
   Future<void> setRecommendStoreData(StoreVo data) async{
     try{
       recommendStoreData = data;
@@ -87,6 +100,7 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
+
   Future<void> setLocationState(String location) async {
     try {
       storeLocationState = location;

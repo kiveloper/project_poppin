@@ -70,7 +70,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
-                        "assets/images/no_img.jpg",
+                        "assets/images/no_img.png",
                         width: 140,
                         height: 140,
                         fit: BoxFit.cover,
@@ -104,7 +104,8 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
+                        // "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
+                        "${widget.storeData.startDate!}~${widget.storeData.endDate!}",
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                         overflow: TextOverflow.ellipsis,

@@ -1,6 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_poppin/component/store_list_widget.dart';
+import 'package:project_poppin/controller/store_controller.dart';
+
+import '../theme/colors.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -12,8 +17,8 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-
     dynamic lastPopTime;
+    String userId = "";
 
     return PopScope(
       canPop: false,
@@ -34,29 +39,80 @@ class _MyPageState extends State<MyPage> {
           exit(0);
         }
       },
-      child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/images/poppin_logo.png", height: 100, width: double.infinity),
-              const SizedBox(height: 20),
-              const Text("마이페이지 서비스는", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
-              const Text.rich(TextSpan(
-                children: <TextSpan>[
-                  TextSpan(text: '준비중', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14)),
-                  TextSpan(text: ' 입니다', style: TextStyle(fontSize: 14)),
-                ]
-              )),
-              const SizedBox(height: 30,),
-              const Text("빠른 시간 안에 만나요:D", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
-              SizedBox(height: MediaQuery.sizeOf(context).height*0.1,),
-              const Text("문의사항", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),),
-              const Text("contact@kapitalletter.com", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14,decoration: TextDecoration.underline),),
-            ],
-          ),
-        ),
-      ),
+      child: GetBuilder<StoreController>(
+          builder: (storeController) {
+        return Scaffold(
+          body: storeController.storeCurationList.isEmpty
+              ? SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: MediaQuery.sizeOf(context).height*0.35),
+                      Text(
+                        "유저 코드를 입력해주세요",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: poppinColorGreen500,
+                            fontSize: 20),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(28),
+                        child: TextField(
+                          onChanged: (text) {
+                            userId = text;
+                          },
+                          decoration: InputDecoration(
+                            hintText: '유저 코드를 입력하세요',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      ElevatedButton(onPressed: () {
+                        storeController.getCurationStoreData(userId);
+                      }, child: Text("확인"))
+                    ],
+                  ),
+                )
+              : Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).padding.top + 16),
+                    child: const Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "인스타 ID",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                                color: poppinColorGreen500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 40,),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount:
+                        storeController.storeCurationList.length,
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        itemBuilder: (context, index) {
+                          return StoreListWidget(
+                            storeData: storeController.storeCurationList[index],
+                            index: index,
+                          );
+                        }),
+                  )
+                ],
+              ),
+        );
+      }),
     );
   }
 }

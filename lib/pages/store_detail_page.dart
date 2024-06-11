@@ -69,7 +69,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 );
                               } catch (e) {
                                 return Image.asset(
-                                  "assets/images/no_img.jpg",
+                                  "assets/images/no_img.png",
                                   width: MediaQuery.sizeOf(context).width,
                                   height: MediaQuery.sizeOf(context).width*0.90,
                                   fit: BoxFit.cover,
@@ -185,7 +185,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             ),
                             Expanded(
                                 child: Text(
-                              "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}",
+                              // "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}",
+                                  "${storeController.detailStoreData.startDate!}~${storeController.detailStoreData.endDate!}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/services/https_service.dart';
 import 'package:project_poppin/theme/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   dynamic lastPopTime;
 
   late Timer _timer;
+  HttpsService httpsService = HttpsService();
 
   @override
   void initState() {
@@ -213,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                                       errorBuilder:
                                           (context, error, stackTrace) {
                                         return Image.asset(
-                                          "assets/images/no_img.jpg",
+                                          "assets/images/no_img.png",
                                           height: MediaQuery.sizeOf(context)
                                                   .width *
                                               0.8,
@@ -305,7 +307,11 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                        )
+                        ),
+                        ElevatedButton(onPressed: (){
+                          // httpsService.getAllTags();
+                          httpsService.getCurationTest("2B9566oqQP2jFng7c1D9");
+                        }, child: Text("콜 데이터"))
                       ],
                     ),
                   ));
