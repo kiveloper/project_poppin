@@ -86,9 +86,12 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     storeController.storeAllTagList.length,
                                     (index) {
                                   return ActionChip(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      storeController.getHashTagStoreDateList(storeController.storeAllTagList[index], endedPopUpState);
+                                    },
                                     label: Text(
-                                        "#${storeController.storeAllTagList[index]}"),
+                                        "#${storeController.storeAllTagList[index]}"
+                                    ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(20)),
@@ -132,7 +135,6 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     prefs.setBool(
                                         "endedPopUpState", endedPopUpState);
                                   });
-
                                   clickStop = true;
                                   Future.delayed(Duration(milliseconds: 200),
                                       () {

@@ -10,7 +10,7 @@ class StoreController extends GetxController {
   final HttpsService httpsService = HttpsService();
 
   List<StoreVo> storeAllList = [];
-  RxList<StoreVo> storeNavPageAllList = RxList<StoreVo>([]);
+  List<StoreVo> storeNavPageAllList = [];
   List<String> storeAllTagList = [];
   List<StoreVo> storeFilterLocationList = [];
   List<StoreVo> recommendList = [];
@@ -47,14 +47,15 @@ class StoreController extends GetxController {
     }
   }
 
-  // Future<void> getHashTagStoreDateList(String hashTag, bool endedPopUpState) async {
-  //   try {
-  //     storeNavPageAllList.clear();
-  //     storeNavPageAllList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
-  //   } catch (error) {
-  //     throw Exception(error);
-  //   }
-  // }
+  Future<void> getHashTagStoreDateList(String hashTag, bool endedPopUpState) async {
+    try {
+      storeNavPageAllList.clear();
+      storeNavPageAllList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
 
   Future<void> getStoreListLocationFilter(
       String local1, List<String> local2) async {
