@@ -7,15 +7,15 @@ import 'package:project_poppin/pages/store_detail_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
 import '../utils/base64_manager.dart';
-import '../utils/time_stamp_manager.dart';
 import '../vo/store_vo.dart';
 
 class StoreListWidget extends StatefulWidget {
+  final StoreController storeController;
   final StoreVo storeData;
   final int index;
 
   const StoreListWidget(
-      {super.key, required this.storeData, required this.index});
+      {super.key, required this.storeData, required this.index, required this.storeController});
 
   @override
   State<StoreListWidget> createState() => _StoreListWidgetState();
@@ -32,11 +32,9 @@ class _StoreListWidgetState extends State<StoreListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<StoreController>(builder: (storeController) {
       return GestureDetector(
         onTap: () {
-          storeController.setDetailStoreData(widget.storeData);
-
+          widget.storeController.setDetailStoreData(widget.storeData);
           if (Platform.isAndroid) {
             Get.to(() => const StoreDetailPage(),
                 transition: Transition.leftToRight);
@@ -124,6 +122,5 @@ class _StoreListWidgetState extends State<StoreListWidget> {
           ),
         ),
       );
-    });
   }
 }

@@ -27,6 +27,11 @@ migrate_working_dir/
 /lib/firebase_options.dart
 
 /ios/Runner.xcodeproj/project.pbxproj
+/ios/Flutter/Debug.xcconfig
+/ios/Flutter/Release.xcconfig
+/ios/Podfile
+/ios/Podfile.lock
+/ios/Runner.xcworkspace/contents.xcworkspacedata
 
 # Flutter/Dart/Pub related
 **/doc/api/

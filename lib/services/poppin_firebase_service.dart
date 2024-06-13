@@ -24,11 +24,10 @@ class PopPinFirebaseService {
     try {
       if(local.keys.contains(local2.first)) {
         QuerySnapshot querySnapshot =
-        await store.where("local1", isEqualTo: local1).get();
-        return StoreListModel.fromQuerySnapShot(querySnapshot);
+        await store.where('endDate', isGreaterThanOrEqualTo: Timestamp.now()).where("local1", isEqualTo: local1).get();        return StoreListModel.fromQuerySnapShot(querySnapshot);
       } else {
         QuerySnapshot querySnapshot =
-        await store.where("local1", isEqualTo: local1).where("local2", whereIn: local2).get();
+        await store.where('endDate', isGreaterThanOrEqualTo: Timestamp.now()).where("local1", isEqualTo: local1).where("local2", whereIn: local2).get();
         return StoreListModel.fromQuerySnapShot(querySnapshot);
       }
     } catch (error) {
@@ -44,4 +43,6 @@ class PopPinFirebaseService {
       throw Exception(error);
     }
   }
+
+
 }

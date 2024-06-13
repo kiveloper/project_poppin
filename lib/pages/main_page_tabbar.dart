@@ -6,7 +6,7 @@ import 'package:project_poppin/theme/colors.dart';
 import '../controller/store_controller.dart';
 import 'home_page.dart';
 import 'map_page.dart';
-import 'my_page.dart';
+import 'curation_page.dart';
 import 'popup_list_nav_page.dart';
 
 class MainPageTabBar extends StatefulWidget {
@@ -34,7 +34,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                   HomePage(),
                   MapPage(),
                   PopUpListNavPage(),
-                  MyPage()
+                  CurationPage()
                 ]),
             storeController.storeLoadState
                 ? Container(
@@ -67,16 +67,10 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                     onTap: (index) async {
                       tabBarController.setCurrentIndex(index);
                     },
-                    //tab 하단 indicator size -> .label = label의 길이
-                    //tab 하단 indicator size -> .tab = tab의 길이
                     indicatorSize: TabBarIndicatorSize.label,
-                    //tab 하단 indicator color
                     indicatorColor: Colors.transparent,
-                    //tab 하단 indicator weight
                     indicatorWeight: 1,
-                    //label color
                     labelColor: poppinMainColor,
-                    //unselected label color
                     unselectedLabelColor: CupertinoColors.systemGrey,
                     labelStyle: const TextStyle(
                       fontSize: 12,
@@ -130,12 +124,12 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       Tab(
                         icon: tabBarController.currentIndex == 3
                             ? Image.asset(
-                                'assets/icons/nav/mypage_icon.png',
+                                'assets/icons/nav/curation_icon.png',
                                 width: 24,
                                 height: 24,
                               )
                             : Image.asset(
-                                'assets/icons/nav/none_select_mypage_icon.png',
+                                'assets/icons/nav/none_select_curation_icon.png',
                                 width: 24,
                                 height: 24,
                               ),
