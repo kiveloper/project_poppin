@@ -67,16 +67,10 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                     onTap: (index) async {
                       tabBarController.setCurrentIndex(index);
                     },
-                    //tab 하단 indicator size -> .label = label의 길이
-                    //tab 하단 indicator size -> .tab = tab의 길이
                     indicatorSize: TabBarIndicatorSize.label,
-                    //tab 하단 indicator color
                     indicatorColor: Colors.transparent,
-                    //tab 하단 indicator weight
                     indicatorWeight: 1,
-                    //label color
                     labelColor: poppinMainColor,
-                    //unselected label color
                     unselectedLabelColor: CupertinoColors.systemGrey,
                     labelStyle: const TextStyle(
                       fontSize: 12,

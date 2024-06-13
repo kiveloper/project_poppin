@@ -22,6 +22,7 @@ class StoreController extends GetxController {
   double storeOffset = 0.0;
 
   String storeLocationState = "서울";
+  String hashTageSetting = "";
   String userInstaId = "";
 
   bool storeDetailState = false;
@@ -168,6 +169,15 @@ class StoreController extends GetxController {
   Future<void> setCurationDataFirstLoadState(bool state) async {
     try {
       curationServiceLoaded = state;
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setHashTagSetting(String hashTag) async {
+    try {
+      hashTageSetting = hashTag;
       update();
     } catch (error) {
       throw Exception(error);

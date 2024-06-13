@@ -69,7 +69,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text("성수동팝업"),
+                            Text("${storeController.hashTageSetting}"),
                           ],
                         ),
                         SizedBox(
@@ -87,7 +87,13 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     (index) {
                                   return ActionChip(
                                     onPressed: () {
-                                      storeController.getHashTagStoreDateList(storeController.storeAllTagList[index], endedPopUpState);
+                                      if(storeController.hashTageSetting == storeController.storeAllTagList[index]) {
+                                        storeController.setHashTagSetting("");
+                                        storeController.getNavPageStoreAllList(endedPopUpState);
+                                      } else {
+                                        storeController.setHashTagSetting(storeController.storeAllTagList[index]);
+                                        storeController.getHashTagStoreDateList(storeController.hashTageSetting, endedPopUpState);
+                                      }
                                     },
                                     label: Text(
                                         "#${storeController.storeAllTagList[index]}"
@@ -141,8 +147,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     clickStop = false;
                                   });
 
-                                  storeController
-                                      .getNavPageStoreAllList(endedPopUpState);
+                                  if(storeController.hashTageSetting == "") {
+                                    storeController.getNavPageStoreAllList(endedPopUpState);
+                                  } else {
+                                    storeController.getHashTagStoreDateList(storeController.hashTageSetting, endedPopUpState);
+                                  }
                                 },
                           icon: Icon(
                             Icons.check_circle_sharp,
