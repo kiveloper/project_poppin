@@ -18,13 +18,16 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   StoreController storeController = Get.find();
   var num = 0;
   dynamic lastPopTime;
 
   late Timer _timer;
   HttpsService httpsService = HttpsService();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -40,6 +43,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didPop) {
@@ -308,10 +312,6 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
-                        ElevatedButton(onPressed: (){
-                          // httpsService.getAllTags();
-                          httpsService.getCurationTest("2B9566oqQP2jFng7c1D9");
-                        }, child: Text("콜 데이터"))
                       ],
                     ),
                   ));

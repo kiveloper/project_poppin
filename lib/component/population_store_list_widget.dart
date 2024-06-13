@@ -7,7 +7,6 @@ import 'package:project_poppin/theme/colors.dart';
 import 'package:project_poppin/vo/store_vo.dart';
 
 import '../pages/store_detail_page.dart';
-import '../utils/time_stamp_manager.dart';
 
 class PopulationStoreListWidget extends StatefulWidget {
   final StoreVo storeData;

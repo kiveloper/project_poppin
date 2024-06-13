@@ -10,6 +10,7 @@ import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/pages/check_version_page.dart';
+import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'global/share_preference.dart';
@@ -30,6 +31,9 @@ void main() async {
   FirebaseRemoteConfigService().initRemoteConfig();
 
   prefs = await SharedPreferences.getInstance();
+  if(prefs.getBool("endedPopUpState") == null) {
+    prefs.setBool("endedPopUpState", true);
+  }
 
   Get.put(StoreController());
   Get.put(LocationController());
@@ -72,8 +76,10 @@ class MyHttpOverrides extends HttpOverrides{
 
 void loadData() async {
   StoreController storeController = Get.find();
-
-  storeController.getStoreListAll();
+  
+  storeController.getStoreAllList();
+  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
+  storeController.getStoreAllTags();
   storeController.getStoreListLocationFilter(
       prefs.getString("local1") ?? "서울",
       prefs.getStringList("local2") ?? ["서울"]);

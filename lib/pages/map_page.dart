@@ -20,7 +20,7 @@ class MapPage extends StatefulWidget {
   State<MapPage> createState() => _MapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
   LocationController locationController = Get.find();
   StoreController storeController = Get.find();
   MapStatusManager mapStatusManager = MapStatusManager();
@@ -29,6 +29,9 @@ class _MapPageState extends State<MapPage> {
 
   var lastPopTime;
   NaverMapController? naverMapController;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -44,6 +47,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didPop) {
