@@ -16,14 +16,12 @@ class CurationPage extends StatefulWidget {
   State<CurationPage> createState() => _CurationPageState();
 }
 
-class _CurationPageState extends State<CurationPage> with AutomaticKeepAliveClientMixin{
+class _CurationPageState extends State<CurationPage> {
   StoreController storeControllerMain = Get.find();
   dynamic lastPopTime;
   String userId = "";
 
   @override
-  bool get wantKeepAlive => true;
-
   @override
   void initState() {
     if (prefs.getString("userId") != null &&
@@ -36,7 +34,6 @@ class _CurationPageState extends State<CurationPage> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return PopScope(
       canPop: false,
       onPopInvoked: (bool didPop) {
@@ -70,36 +67,59 @@ class _CurationPageState extends State<CurationPage> with AutomaticKeepAliveClie
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.20),
                             Image.asset("assets/images/poppin_logo.png"),
-                            SizedBox(height: 16,),
+                            SizedBox(
+                              height: 16,
+                            ),
                             Text(
                               "큐레이션 결과를 보시려면\n"
-                                  "전달받으신 키를 입력해 주세요",
+                              "전달받으신 키를 입력해 주세요",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: poppinColorDarkGrey500,
                                   fontSize: 20),
                             ),
-                            SizedBox(height: 50,),
+                            SizedBox(
+                              height: 50,
+                            ),
                             Padding(
-                              padding: const EdgeInsets.all(28),
+                              padding:
+                                  const EdgeInsets.only(left: 28, right: 28),
                               child: TextField(
                                 onChanged: (text) {
                                   userId = text;
                                 },
                                 decoration: InputDecoration(
                                   hintText: '유저 코드를 입력하세요',
-                                  contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                                  enabledBorder: OutlineInputBorder( // 비활성화 상태 테두리
-                                    borderRadius: BorderRadius.circular(32), // 둥근 모서리
-                                    borderSide: BorderSide(color: poppinColorGreen500), // green500 색상
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 12),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                    borderSide:
+                                        BorderSide(color: poppinColorGreen500),
                                   ),
-                                  focusedBorder: OutlineInputBorder( // 활성화 상태 테두리
-                                    borderRadius: BorderRadius.circular(32), // 둥근 모서리
-                                    borderSide: BorderSide(color: poppinColorGreen500), // green500 색상
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                    borderSide:
+                                        BorderSide(color: poppinColorGreen500),
                                   ),
                                 ),
                               ),
+                            ),
+                            storeController.curationCodeCheckInCorrect
+                                ? Container(
+                                    width: double.infinity,
+                                    margin: EdgeInsets.only(left: 32, top: 4),
+                                    child: Text(
+                                      "정확한 코드를 입력해주세요",
+                                      style: TextStyle(
+                                          color: Colors.redAccent,
+                                          fontSize: 12),
+                                      textAlign: TextAlign.start,
+                                    ))
+                                : SizedBox(),
+                            SizedBox(
+                              height: 28,
                             ),
                             ElevatedButton(
                                 onPressed: () {
@@ -107,11 +127,16 @@ class _CurationPageState extends State<CurationPage> with AutomaticKeepAliveClie
                                       userId, storeController);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: poppinColorGreen500, // green500 색상으로 변경
+                                  backgroundColor:
+                                      poppinColorGreen500, // green500 색상으로 변경
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 12, right: 12),
-                                  child: Text("확인", style: TextStyle(color: Colors.white),),
+                                  padding: const EdgeInsets.only(
+                                      left: 12, right: 12),
+                                  child: Text(
+                                    "확인",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ))
                           ],
                         )
@@ -124,8 +149,8 @@ class _CurationPageState extends State<CurationPage> with AutomaticKeepAliveClie
                               child: Row(
                                 children: [
                                   Shimmer.fromColors(
-                                    baseColor: const Color.fromRGBO(
-                                        240, 240, 240, 1),
+                                    baseColor:
+                                        const Color.fromRGBO(240, 240, 240, 1),
                                     highlightColor: poppinColorGrey400,
                                     child: SizedBox(
                                       height: 24,
@@ -141,7 +166,7 @@ class _CurationPageState extends State<CurationPage> with AutomaticKeepAliveClie
                             ),
                             SizedBox(
                               width: MediaQuery.sizeOf(context).width,
-                              height: MediaQuery.sizeOf(context).height*0.9,
+                              height: MediaQuery.sizeOf(context).height * 0.9,
                               child: ListView.builder(
                                   itemCount: 8,
                                   padding: const EdgeInsets.only(

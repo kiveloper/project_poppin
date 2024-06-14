@@ -25,9 +25,11 @@ class StoreController extends GetxController {
   String hashTageSetting = "";
   String userInstaId = "";
 
+  bool tagListDataLoadStateEmpty = false;
   bool storeDetailState = false;
   bool storeLoadState = false;
   bool curationServiceLoaded = true;
+  bool curationCodeCheckInCorrect = false;
 
   Future<void> getStoreAllList() async {
     try {
@@ -40,8 +42,12 @@ class StoreController extends GetxController {
 
   Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
     try {
+      tagListDataLoadStateEmpty = false;
       storeNavPageAllList.clear();
       storeNavPageAllList = await httpsService.getAllStore(endedPopUpState);
+      if(storeNavPageAllList.isEmpty) {
+        tagListDataLoadStateEmpty = true;
+      }
       update();
     } catch (error) {
       throw Exception(error);
@@ -50,8 +56,12 @@ class StoreController extends GetxController {
 
   Future<void> getHashTagStoreDateList(String hashTag, bool endedPopUpState) async {
     try {
+      tagListDataLoadStateEmpty = false;
       storeNavPageAllList.clear();
       storeNavPageAllList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
+      if(storeNavPageAllList.isEmpty) {
+        tagListDataLoadStateEmpty = true;
+      }
       update();
     } catch (error) {
       throw Exception(error);
@@ -181,6 +191,15 @@ class StoreController extends GetxController {
       update();
     } catch (error) {
       throw Exception(error);
+    }
+  }
+
+  Future<void> setCurationCodeCheck(bool check) async {
+    try{
+      curationCodeCheckInCorrect = check;
+      update();
+    } catch(e) {
+      throw Exception(e);
     }
   }
 

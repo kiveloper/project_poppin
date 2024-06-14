@@ -101,7 +101,6 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          // "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
                           "${widget.storeData.startDate!}~${widget.storeData.endDate!}",
                           style: const TextStyle(fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
