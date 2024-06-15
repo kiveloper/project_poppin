@@ -76,20 +76,23 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       fontSize: 12,
                     ),
                     tabs: [
-                      Tab(
-                        icon: tabBarController.currentIndex == 0
-                            ? Image.asset(
-                                'assets/icons/nav/home_icon.png',
-                                width: 24,
-                                height: 24,
-                              )
-                            : Image.asset(
-                                'assets/icons/nav/none_select_home_icon.png',
-                                width: 24,
-                                height: 24,
-                              ),
-                        iconMargin: EdgeInsets.only(bottom:4),
-                        text: "홈",
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24),
+                        child: Tab(
+                          icon: tabBarController.currentIndex == 0
+                              ? Image.asset(
+                                  'assets/icons/nav/home_icon.png',
+                                  width: 24,
+                                  height: 24,
+                                )
+                              : Image.asset(
+                                  'assets/icons/nav/none_select_home_icon.png',
+                                  width: 24,
+                                  height: 24,
+                                ),
+                          iconMargin: EdgeInsets.only(bottom:4),
+                          text: "홈",
+                        ),
                       ),
                       Tab(
                         icon: tabBarController.currentIndex == 1
@@ -121,20 +124,24 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                         iconMargin: EdgeInsets.only(bottom:4),
                         text: "팝업 리스트",
                       ),
-                      Tab(
-                        icon: tabBarController.currentIndex == 3
-                            ? Image.asset(
-                                'assets/icons/nav/curation_icon.png',
-                                width: 24,
-                                height: 24,
-                              )
-                            : Image.asset(
-                                'assets/icons/nav/none_select_curation_icon.png',
-                                width: 24,
-                                height: 24,
-                              ),
-                        iconMargin: EdgeInsets.only(bottom:4),
-                        text: "맞춤 서비스",
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.only(right: 8),
+                        child: Tab(
+                          icon: tabBarController.currentIndex == 3
+                              ? Image.asset(
+                                  'assets/icons/nav/curation_icon.png',
+                                  width: 24,
+                                  height: 24,
+                                )
+                              : Image.asset(
+                                  'assets/icons/nav/none_select_curation_icon.png',
+                                  width: 24,
+                                  height: 24,
+                                ),
+                          iconMargin: EdgeInsets.only(bottom:4),
+                          text: "맞춤 서비스",
+                        ),
                       ),
                     ],
                   ),

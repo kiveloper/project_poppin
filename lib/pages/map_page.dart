@@ -138,6 +138,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
               children: [
                 IconButton(
                     onPressed: () async {
+                      permissionManager.locationPermission();
                       myLocationAddMarker(permissionManager);
                     },
                     icon: Image.asset("assets/icons/map/gps_icon.png", width: 40,height: 40,fit: BoxFit.cover,)
