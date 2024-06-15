@@ -37,7 +37,7 @@ target 'Runner' do
   end
 end
 
-# ios gps 권한 요청 완료
+# ios gps 권한 요청 완료!!!
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
