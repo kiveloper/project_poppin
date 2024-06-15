@@ -136,10 +136,12 @@ class HttpsService {
 
       prefs.setString("userId", userId);
       storeController.setCurationDataFirstLoadState(false);
+      storeController.setCurationCodeCheck(false);
 
       return tempStoreData;
     } else {
       print("error ${response.statusCode}");
+      storeController.setCurationCodeCheck(true);
       return [];
     }
   }

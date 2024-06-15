@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
@@ -18,13 +20,23 @@ class PopUpListNavPage extends StatefulWidget {
 
 class _PopUpListNavPageState extends State<PopUpListNavPage>
     with AutomaticKeepAliveClientMixin {
-  ScrollController scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController();
+  GlobalKey upScrollPosition = GlobalKey();
+  GlobalKey downScrollPosition = GlobalKey();
+  double hashTagSize = 170;
   bool endedPopUpState = prefs.getBool("endedPopUpState")!;
   bool clickStop = false;
+  bool hashTagExtendState = false;
   dynamic lastPopTime;
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    _scrollController.addListener(scrollListener);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +68,16 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
           child: Scaffold(
             body: SingleChildScrollView(
               child: Column(
+                key: downScrollPosition,
                 children: [
                   Container(
-                    color: poppinColorGrey100,
                     margin: EdgeInsets.only(
                         left: 16,
                         right: 16,
                         top: MediaQuery.of(context).padding.top + 8),
+                    decoration: BoxDecoration(
+                        color: poppinColorGrey100,
+                        borderRadius: BorderRadius.circular(8)),
                     padding: EdgeInsets.all(8),
                     child: Column(
                       children: [
@@ -76,7 +91,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           height: 12,
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.168,
+                          height: hashTagSize,
                           child: Scrollbar(
                             child: SingleChildScrollView(
                               child: Wrap(
@@ -87,20 +102,36 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     (index) {
                                   return ActionChip(
                                     onPressed: () {
-                                      if(storeController.hashTageSetting == storeController.storeAllTagList[index]) {
+                                      if (storeController.hashTageSetting ==
+                                          storeController
+                                              .storeAllTagList[index]) {
                                         storeController.setHashTagSetting("");
-                                        storeController.getNavPageStoreAllList(endedPopUpState);
+                                        storeController.getNavPageStoreAllList(
+                                            endedPopUpState);
                                       } else {
-                                        storeController.setHashTagSetting(storeController.storeAllTagList[index]);
-                                        storeController.getHashTagStoreDateList(storeController.hashTageSetting, endedPopUpState);
+                                        storeController.setHashTagSetting(
+                                            storeController
+                                                .storeAllTagList[index]);
+                                        storeController.getHashTagStoreDateList(
+                                            storeController.hashTageSetting,
+                                            endedPopUpState);
                                       }
                                     },
                                     label: Text(
-                                        "#${storeController.storeAllTagList[index]}"
+                                      "#${storeController.storeAllTagList[index]}",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
+                                        borderRadius: BorderRadius.circular(20),
+                                        side: BorderSide(
+                                            color: storeController
+                                                        .hashTageSetting ==
+                                                    storeController
+                                                        .storeAllTagList[index]
+                                                ? poppinColorGreen500
+                                                : poppinColorGrey300)),
                                     padding: EdgeInsets.only(left: 4, right: 4),
                                   );
                                 }),
@@ -111,19 +142,37 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                         SizedBox(
                           height: 12,
                         ),
+
                         Text(
-                          "전체 해시태그 보기",
+                          hashTagExtendState
+                              ? "전체 해시태그 접기"
+                              : "전체 해시태그 보기",
                           style: TextStyle(
                               fontSize: 14, color: poppinColorDarkGrey400),
                         ),
                         SizedBox(
                           child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
+                              onPressed: () {
+                                setState(() {
+                                  if(hashTagSize == 170) {
+                                    hashTagSize = MediaQuery.sizeOf(context).height*0.7;
+                                    hashTagExtendState = true;
+                                  } else {
+                                    hashTagSize = 170;
+                                    hashTagExtendState = false;
+                                  }
+                                });
+                              },
+                              icon: hashTagExtendState
+                                  ? Icon(
+                                Icons.arrow_drop_up,
+                                size: 28,
+                              )
+                                  : Icon(
                                 Icons.arrow_drop_down,
                                 size: 28,
-                              )),
-                        )
+                              )
+                        ))
                       ],
                     ),
                   ),
@@ -147,10 +196,13 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     clickStop = false;
                                   });
 
-                                  if(storeController.hashTageSetting == "") {
-                                    storeController.getNavPageStoreAllList(endedPopUpState);
+                                  if (storeController.hashTageSetting == "") {
+                                    storeController.getNavPageStoreAllList(
+                                        endedPopUpState);
                                   } else {
-                                    storeController.getHashTagStoreDateList(storeController.hashTageSetting, endedPopUpState);
+                                    storeController.getHashTagStoreDateList(
+                                        storeController.hashTageSetting,
+                                        endedPopUpState);
                                   }
                                 },
                           icon: Icon(
@@ -170,42 +222,53 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                   ),
                   const SizedBox(height: 8),
                   storeController.storeNavPageAllList.isEmpty
-                      ? SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.8,
-                          child: ListView.builder(
-                              itemCount: 8,
-                              padding:
-                                  const EdgeInsets.only(left: 16, right: 16),
-                              itemBuilder: (context, index) {
-                                return Shimmer.fromColors(
-                                  baseColor: const Color.fromRGBO(
-                                      240, 240, 240, 1),
-                                  highlightColor: poppinColorGrey400,
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                        bottom: 20, left: 4, right: 4),
-                                    padding: const EdgeInsets.only(
-                                        left: 8,
-                                        right: 8,
-                                        top: 18,
-                                        bottom: 18),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
-                                        color: const Color.fromRGBO(
-                                            240, 240, 240, 1)),
-                                    height: 158,
-                                    width:
-                                    MediaQuery.sizeOf(context).width *
-                                        0.8,
-                                  ),
-                                );
-                              }),
-                        )
+                      ? storeController.tagListDataLoadStateEmpty
+                          ? SizedBox(
+                              child: Text(
+                                "리스트가 없습니다",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: poppinColorDarkGrey500),
+                              ),
+                            )
+                          : SizedBox(
+                              height: MediaQuery.sizeOf(context).height * 0.8,
+                              child: ListView.builder(
+                                  itemCount: 8,
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16),
+                                  itemBuilder: (context, index) {
+                                    return Shimmer.fromColors(
+                                      baseColor: const Color.fromRGBO(
+                                          240, 240, 240, 1),
+                                      highlightColor: poppinColorGrey400,
+                                      child: Container(
+                                        margin: const EdgeInsets.only(
+                                            bottom: 20, left: 4, right: 4),
+                                        padding: const EdgeInsets.only(
+                                            left: 8,
+                                            right: 8,
+                                            top: 18,
+                                            bottom: 18),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: const Color.fromRGBO(
+                                                240, 240, 240, 1)),
+                                        height: 158,
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.8,
+                                      ),
+                                    );
+                                  }),
+                            )
                       : SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.8,
+                          key: upScrollPosition,
+                          height: MediaQuery.sizeOf(context).height*0.8,
                           child: ListView.builder(
-                              controller: scrollController,
+                              controller: _scrollController,
                               itemCount:
                                   storeController.storeNavPageAllList.length,
                               padding:
@@ -224,5 +287,24 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
             ),
           ));
     });
+  }
+
+  void scrollListener() {
+    if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      // 사용자가 위로 스크롤하는 중
+      Scrollable.ensureVisible(
+        upScrollPosition.currentContext!,
+        duration: Duration(milliseconds: 150),
+        alignment: 0
+      );
+    } else if (_scrollController.position.pixels == 0) {
+      // 사용자가 아래로 스크롤하는 중
+      Scrollable.ensureVisible(
+          downScrollPosition.currentContext!,
+          duration: Duration(milliseconds: 150),
+          alignment: 0
+      );
+    }
   }
 }
