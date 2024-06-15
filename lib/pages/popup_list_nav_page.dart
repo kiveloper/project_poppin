@@ -269,6 +269,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           height: MediaQuery.sizeOf(context).height*0.8,
                           child: ListView.builder(
                               controller: _scrollController,
+                              physics: ClampingScrollPhysics(),
                               itemCount:
                                   storeController.storeNavPageAllList.length,
                               padding:
