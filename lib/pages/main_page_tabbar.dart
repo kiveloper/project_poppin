@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -62,7 +64,9 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       border: Border(
                           top: BorderSide(width: 1, color: poppinColorDarkGrey50)),
                       color: Colors.white),
-                  padding: EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.04),
+                  padding: Platform.isAndroid
+                      ? EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.02)
+                      : EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.06),
                   child: TabBar(
                     controller: tabController,
                     onTap: (index) async {
