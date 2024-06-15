@@ -61,7 +61,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       border: Border(
                           top: BorderSide(width: 1, color: poppinColorDarkGrey50)),
                       color: Colors.white),
-                  padding: const EdgeInsets.only(top: 4),
+                  padding: EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.06),
                   child: TabBar(
                     controller: tabController,
                     onTap: (index) async {
@@ -126,7 +126,6 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       ),
                       Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(right: 8),
                         child: Tab(
                           icon: tabBarController.currentIndex == 3
                               ? Image.asset(
