@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
@@ -61,7 +62,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       border: Border(
                           top: BorderSide(width: 1, color: poppinColorDarkGrey50)),
                       color: Colors.white),
-                  padding: const EdgeInsets.only(top: 4),
+                  padding: EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.04),
                   child: TabBar(
                     controller: tabController,
                     onTap: (index) async {
@@ -124,24 +125,20 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                         iconMargin: EdgeInsets.only(bottom:4),
                         text: "팝업 리스트",
                       ),
-                      Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.only(right: 8),
-                        child: Tab(
-                          icon: tabBarController.currentIndex == 3
-                              ? Image.asset(
-                                  'assets/icons/nav/curation_icon.png',
-                                  width: 24,
-                                  height: 24,
-                                )
-                              : Image.asset(
-                                  'assets/icons/nav/none_select_curation_icon.png',
-                                  width: 24,
-                                  height: 24,
-                                ),
-                          iconMargin: EdgeInsets.only(bottom:4),
-                          text: "맞춤 서비스",
-                        ),
+                      Tab(
+                        icon: tabBarController.currentIndex == 3
+                            ? Image.asset(
+                                'assets/icons/nav/curation_icon.png',
+                                width: 24,
+                                height: 24,
+                              )
+                            : Image.asset(
+                                'assets/icons/nav/none_select_curation_icon.png',
+                                width: 24,
+                                height: 24,
+                              ),
+                        iconMargin: EdgeInsets.only(bottom:4),
+                        text: "맞춤 서비스",
                       ),
                     ],
                   ),
