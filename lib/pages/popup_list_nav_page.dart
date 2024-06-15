@@ -26,6 +26,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
   double hashTagSize = 170;
   bool endedPopUpState = prefs.getBool("endedPopUpState")!;
   bool clickStop = false;
+  bool hashTagExtendState = false;
   dynamic lastPopTime;
 
   @override
@@ -141,8 +142,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                         SizedBox(
                           height: 12,
                         ),
+
                         Text(
-                          "전체 해시태그 보기",
+                          hashTagExtendState
+                              ? "전체 해시태그 접기"
+                              : "전체 해시태그 보기",
                           style: TextStyle(
                               fontSize: 14, color: poppinColorDarkGrey400),
                         ),
@@ -151,17 +155,24 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                               onPressed: () {
                                 setState(() {
                                   if(hashTagSize == 170) {
-                                    hashTagSize = MediaQuery.sizeOf(context).height;
+                                    hashTagSize = MediaQuery.sizeOf(context).height*0.7;
+                                    hashTagExtendState = true;
                                   } else {
                                     hashTagSize = 170;
+                                    hashTagExtendState = false;
                                   }
                                 });
                               },
-                              icon: Icon(
+                              icon: hashTagExtendState
+                                  ? Icon(
+                                Icons.arrow_drop_up,
+                                size: 28,
+                              )
+                                  : Icon(
                                 Icons.arrow_drop_down,
                                 size: 28,
-                              )),
-                        )
+                              )
+                        ))
                       ],
                     ),
                   ),
@@ -284,14 +295,14 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       // 사용자가 위로 스크롤하는 중
       Scrollable.ensureVisible(
         upScrollPosition.currentContext!,
-        duration: Duration(milliseconds: 300),
+        duration: Duration(milliseconds: 150),
         alignment: 0
       );
     } else if (_scrollController.position.pixels == 0) {
       // 사용자가 아래로 스크롤하는 중
       Scrollable.ensureVisible(
           downScrollPosition.currentContext!,
-          duration: Duration(milliseconds: 300),
+          duration: Duration(milliseconds: 150),
           alignment: 0
       );
     }

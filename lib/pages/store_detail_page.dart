@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
@@ -52,30 +53,30 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).width * 0.90,
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            storeController.detailStoreData.thumbnailImgUrl!,
-                            width: MediaQuery.sizeOf(context).width,
-                            height: MediaQuery.sizeOf(context).width*0.90,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              try {
+                        borderRadius: BorderRadius.circular(8),
+                        child: AspectRatio(
+                            aspectRatio: 1 / 1,
+                            child: CachedNetworkImage(
+                              imageUrl: "${storeController.detailStoreData.thumbnailImgUrl!}",
+                              width: 140,
+                              height: 140,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Container(
+                                color: poppinColorDarkGrey50,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, error, stackTrace) {
                                 return Image.memory(
                                     base64Decoder(storeController.detailStoreData.thumbnailImgUrl!),
-                                    width: MediaQuery.sizeOf(context).width,
-                                    height: MediaQuery.sizeOf(context).width*0.90,
-                                    fit: BoxFit.cover
-                                );
-                              } catch (e) {
-                                return Image.asset(
-                                  "assets/images/no_img.png",
-                                  width: MediaQuery.sizeOf(context).width,
-                                  height: MediaQuery.sizeOf(context).width*0.90,
-                                  fit: BoxFit.cover,
-                                );
-                              }
-                            },
-                          )),
+                                    width: 140,
+                                    height: 140,
+                                    fit: BoxFit.cover);
+                              },
+                            )
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 28,
