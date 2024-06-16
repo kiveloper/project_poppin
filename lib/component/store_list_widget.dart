@@ -16,7 +16,10 @@ class StoreListWidget extends StatefulWidget {
   final int index;
 
   const StoreListWidget(
-      {super.key, required this.storeData, required this.index, required this.storeController});
+      {super.key,
+      required this.storeData,
+      required this.index,
+      required this.storeController});
 
   @override
   State<StoreListWidget> createState() => _StoreListWidgetState();
@@ -54,27 +57,34 @@ class _StoreListWidgetState extends State<StoreListWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: CachedNetworkImage(
-                    imageUrl: "${widget.storeData.thumbnailImgUrl!}",
-                    width: 140,
-                    height: 140,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Container(
-                      color: poppinColorDarkGrey50,
-                      child: Center(
-                        child: CircularProgressIndicator(),
+                    aspectRatio: 1 / 1,
+                    child: CachedNetworkImage(
+                      imageUrl: "${widget.storeData.thumbnailImgUrl!}",
+                      width: 140,
+                      height: 140,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Container(
+                        color: poppinColorDarkGrey50,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
-                    ),
-                    errorWidget: (context, error, stackTrace) {
-                      return Image.memory(
-                          base64Decoder(widget.storeData.thumbnailImgUrl!),
-                          width: 140,
-                          height: 140,
-                          fit: BoxFit.cover);
-                    },
-                  )
-                ),
+                      errorWidget: (context, error, stackTrace) {
+                        try {
+                          return Image.memory(
+                              base64Decoder(widget.storeData.thumbnailImgUrl!),
+                              width: 140,
+                              height: 140,
+                              fit: BoxFit.cover);
+                        } catch (e) {
+                          return Image.asset(
+                              "assets/images/no_img.png",
+                              width: 140,
+                              height: 140,
+                              fit: BoxFit.cover);
+                        }
+                      },
+                    )),
               ),
             ),
             Expanded(
