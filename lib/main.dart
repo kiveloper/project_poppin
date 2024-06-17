@@ -1,15 +1,18 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/pages/check_version_page.dart';
+import 'package:project_poppin/pages/temp_fcm_page.dart';
 import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
@@ -42,6 +45,12 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
+
+  FirebaseMessaging.instance.requestPermission(
+      badge: true,
+      alert: true,
+      sound: true
+  );
 
   loadData();
 
