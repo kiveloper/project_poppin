@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,8 +23,25 @@ class MainPageTabBar extends StatefulWidget {
 class _MainPageTabBarState extends State<MainPageTabBar>
     with SingleTickerProviderStateMixin {
   StoreController storeController = Get.find();
+  TabBarController tabBarController = Get.find();
+
   late TabController tabController =
       TabController(length: 4, vsync: this, initialIndex: 0);
+  
+  @override
+  void initState() {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? message) {
+      if (message != null) {
+        if (message.notification != null) {
+          if(message.data["type"] == "curation") {
+            tabBarController.setCurrentIndex(3);
+            tabController.index = 3;
+          }
+        }
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

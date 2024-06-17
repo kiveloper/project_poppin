@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,7 +11,6 @@ import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/pages/check_version_page.dart';
-import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'global/share_preference.dart';
@@ -42,6 +42,12 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
+
+  FirebaseMessaging.instance.requestPermission(
+      badge: true,
+      alert: true,
+      sound: true
+  );
 
   loadData();
 
@@ -76,13 +82,10 @@ class MyHttpOverrides extends HttpOverrides{
 
 void loadData() async {
   StoreController storeController = Get.find();
-  
-  storeController.getStoreAllList();
-  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
-  storeController.getStoreAllTags();
-  storeController.getStoreListLocationFilter(
-      prefs.getString("local1") ?? "서울",
-      prefs.getStringList("local2") ?? ["서울"]);
+
   storeController.getRecommendList();
+  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
+  storeController.getStoreAllList();
+  storeController.getStoreAllTags();
   storeController.setStoreLoadState(false);
 }
