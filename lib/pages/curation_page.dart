@@ -122,7 +122,7 @@ class _CurationPageState extends State<CurationPage> {
                               height: 28,
                             ),
                             ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async{
                                   storeController.getCurationStoreData(
                                       userId, storeController);
                                 },

@@ -175,13 +175,11 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                           onTap: () {
                             storeController.setDetailStoreData(
                                 storeController.recommendStoreData);
-
                             if (Platform.isAndroid) {
                               Get.to(() => const StoreDetailPage(),
                                   transition: Transition.leftToRight);
                             } else if (Platform.isIOS) {
-                              Get.to(() => const StoreDetailPage(),
-                                  transition: Transition.leftToRight);
+                              Get.to(() => const StoreDetailPage());
                             }
                           },
                           child: Container(
