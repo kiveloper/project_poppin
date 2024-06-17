@@ -7,13 +7,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:project_poppin/controller/location_controller.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/pages/check_version_page.dart';
-import 'package:project_poppin/pages/temp_fcm_page.dart';
-import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'global/share_preference.dart';
@@ -85,13 +82,10 @@ class MyHttpOverrides extends HttpOverrides{
 
 void loadData() async {
   StoreController storeController = Get.find();
-  
-  storeController.getStoreAllList();
-  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
-  storeController.getStoreAllTags();
-  storeController.getStoreListLocationFilter(
-      prefs.getString("local1") ?? "서울",
-      prefs.getStringList("local2") ?? ["서울"]);
+
   storeController.getRecommendList();
+  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
+  storeController.getStoreAllList();
+  storeController.getStoreAllTags();
   storeController.setStoreLoadState(false);
 }
