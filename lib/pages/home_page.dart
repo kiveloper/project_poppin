@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                                     fontSize: 14, fontWeight: FontWeight.w700),
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: 8,
                               ),
                               Container(
                                 margin: const EdgeInsets.only(bottom: 8),
@@ -289,7 +289,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                                     fontSize: 14, fontWeight: FontWeight.w700),
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: 8,
                               ),
                               SizedBox(
                                 height:

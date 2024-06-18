@@ -72,7 +72,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
           GetBuilder<StoreController>(
             builder: (storeController) {
               return storeController.storeAllList.isEmpty
-                  ? CircularProgressIndicator()
+                  ? const Center(child: CircularProgressIndicator())
                   : NaverMap(
                 options: NaverMapViewOptions(
                     initialCameraPosition: mapStatusManager.nCameraPosition ??

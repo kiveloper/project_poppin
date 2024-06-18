@@ -160,7 +160,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 height: 24,
                               ),
                         iconMargin: EdgeInsets.only(bottom:4),
-                        text: "맞춤 서비스",
+                        text: "맞춤",
                       ),
                     ],
                   ),

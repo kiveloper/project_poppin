@@ -20,7 +20,6 @@ class StoreDetailPage extends StatefulWidget {
 
 class _StoreDetailPageState extends State<StoreDetailPage> {
   MapStatusManager mapStatusManager = MapStatusManager();
-  GlobalKey goTop = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,6 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                     top: MediaQuery.of(context).padding.top + 10),
                 margin: const EdgeInsets.only(left: 4),
                 child: Row(
-                  key: goTop,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     IconButton(
@@ -57,7 +55,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         child: AspectRatio(
                             aspectRatio: 1 / 1,
                             child: CachedNetworkImage(
-                              imageUrl: "${storeController.detailStoreData.thumbnailImgUrl!}",
+                              imageUrl:
+                                  "${storeController.detailStoreData.thumbnailImgUrl!}",
                               width: 140,
                               height: 140,
                               fit: BoxFit.cover,
@@ -69,13 +68,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               ),
                               errorWidget: (context, error, stackTrace) {
                                 return Image.memory(
-                                    base64Decoder(storeController.detailStoreData.thumbnailImgUrl!),
+                                    base64Decoder(storeController
+                                        .detailStoreData.thumbnailImgUrl!),
                                     width: 140,
                                     height: 140,
                                     fit: BoxFit.cover);
                               },
-                            )
-                        ),
+                            )),
                       ),
                     ),
                     const SizedBox(
@@ -186,7 +185,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             Expanded(
                                 child: Text(
                               // "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}",
-                                  "${storeController.detailStoreData.startDate!}~${storeController.detailStoreData.endDate!}",
+                              "${storeController.detailStoreData.startDate!}~${storeController.detailStoreData.endDate!}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
@@ -210,8 +209,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8))),
                               child: const Padding(
-                                padding:
-                                    EdgeInsets.only(top: 16, bottom: 16),
+                                padding: EdgeInsets.only(top: 16, bottom: 16),
                                 child: Text(
                                   "상세 정보 보러가기",
                                   style: TextStyle(
@@ -222,25 +220,14 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         const SizedBox(
                           height: 80,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Expanded(
-                                child: Text(
+                            Text(
                               "팝업 스토어 위치",
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 16),
-                            )),
-                            IconButton(
-                                onPressed: () {
-                                  Scrollable.ensureVisible(
-                                      goTop.currentContext!,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeInOut,
-                                      alignment: 0);
-                                },
-                                icon: const Icon(Icons.keyboard_arrow_up))
+                            ),
                           ],
                         ),
                         const SizedBox(
