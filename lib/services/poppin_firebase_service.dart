@@ -10,7 +10,6 @@ CollectionReference store = fireStore.collection('popinData');
 CollectionReference storeRecommend = fireStore.collection('MDData');
 
 class PopPinFirebaseService {
-
   Future<StoreListModel> getStoreList() async {
     try {
       QuerySnapshot querySnapshot = await store.get();
@@ -20,14 +19,21 @@ class PopPinFirebaseService {
     }
   }
 
-  Future<StoreListModel> getLocationStoreList(String local1, List<String> local2) async {
+  Future<StoreListModel> getLocationStoreList(
+      String local1, List<String> local2) async {
     try {
-      if(local.keys.contains(local2.first)) {
-        QuerySnapshot querySnapshot =
-        await store.where('endDate', isGreaterThanOrEqualTo: Timestamp.now()).where("local1", isEqualTo: local1).get();        return StoreListModel.fromQuerySnapShot(querySnapshot);
+      if (local.keys.contains(local2.first)) {
+        QuerySnapshot querySnapshot = await store
+            .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
+            .where("local1", isEqualTo: local1)
+            .get();
+        return StoreListModel.fromQuerySnapShot(querySnapshot);
       } else {
-        QuerySnapshot querySnapshot =
-        await store.where('endDate', isGreaterThanOrEqualTo: Timestamp.now()).where("local1", isEqualTo: local1).where("local2", whereIn: local2).get();
+        QuerySnapshot querySnapshot = await store
+            .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
+            .where("local1", isEqualTo: local1)
+            .where("local2", whereIn: local2)
+            .get();
         return StoreListModel.fromQuerySnapShot(querySnapshot);
       }
     } catch (error) {
@@ -37,12 +43,11 @@ class PopPinFirebaseService {
 
   Future<StoreListModel> getRecommendData() async {
     try {
-      DocumentSnapshot documentSnapshot = await storeRecommend.doc("MDPick").get();
+      DocumentSnapshot documentSnapshot =
+          await storeRecommend.doc("MDPick").get();
       return StoreListModel.fromRecommendQuerySnapShot(documentSnapshot);
     } catch (error) {
       throw Exception(error);
     }
   }
-
-
 }
