@@ -194,11 +194,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                               },
                               icon: hashTagExtendState
                                   ? Icon(
-                                Icons.arrow_drop_up,
+                                Icons.arrow_drop_up_rounded,
                                 size: 28,
                               )
                                   : Icon(
-                                Icons.arrow_drop_down,
+                                Icons.arrow_drop_down_rounded,
                                 size: 28,
                               )
                         ))

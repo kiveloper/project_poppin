@@ -39,7 +39,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: const Icon(Icons.arrow_back_ios)),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                   ],
                 ),
               ),
