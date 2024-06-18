@@ -260,9 +260,12 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                         southWest: NLatLng(31.43, 122.37),
                                         northEast: NLatLng(44.35, 132.0),
                                       ),
+                                      zoomGesturesEnable: false,
+                                      scrollGesturesEnable: false,
                                       logoAlign: NLogoAlign.rightBottom,
                                       logoMargin: const EdgeInsets.all(10),
-                                      liteModeEnable: true),
+                                      liteModeEnable: true
+                                  ),
                                   onMapReady: (controller) async {
                                     mapStatusManager.setMarkerDetailPage(
                                         controller,
