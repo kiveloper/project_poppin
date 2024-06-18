@@ -56,23 +56,31 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             aspectRatio: 1 / 1,
                             child: CachedNetworkImage(
                               imageUrl:
-                                  "${storeController.detailStoreData.thumbnailImgUrl!}",
+                                  storeController.detailStoreData.thumbnailImgUrl!,
                               width: 140,
                               height: 140,
                               fit: BoxFit.cover,
                               placeholder: (context, url) => Container(
                                 color: poppinColorDarkGrey50,
-                                child: Center(
+                                child: const Center(
                                   child: CircularProgressIndicator(),
                                 ),
                               ),
                               errorWidget: (context, error, stackTrace) {
-                                return Image.memory(
-                                    base64Decoder(storeController
-                                        .detailStoreData.thumbnailImgUrl!),
-                                    width: 140,
-                                    height: 140,
-                                    fit: BoxFit.cover);
+                                try{
+                                  return Image.memory(
+                                      base64Decoder(storeController
+                                          .detailStoreData.thumbnailImgUrl!),
+                                      width: 140,
+                                      height: 140,
+                                      fit: BoxFit.cover);
+                                } catch (e) {
+                                  return Image.asset(
+                                      "assets/images/no_img.png",
+                                      width: 140,
+                                      height: 140,
+                                      fit: BoxFit.cover);
+                                }
                               },
                             )),
                       ),
