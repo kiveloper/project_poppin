@@ -59,22 +59,24 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                 child: AspectRatio(
                     aspectRatio: 1 / 1,
                     child: CachedNetworkImage(
-                      imageUrl: "${widget.storeData.thumbnailImgUrl!}",
+                      imageUrl: widget.storeData.thumbnailImgUrl!,
                       width: 140,
                       height: 140,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Container(
                         color: poppinColorDarkGrey50,
-                        child: Center(
+                        child: const Center(
                           child: CircularProgressIndicator(),
                         ),
                       ),
                       errorWidget: (context, error, stackTrace) {
                         try {
+                          var base64file = base64Decoder(widget.storeData.thumbnailImgUrl!);
                           return Image.memory(
-                              base64Decoder(widget.storeData.thumbnailImgUrl!),
+                              base64file,
                               width: 140,
                               height: 140,
+                              gaplessPlayback: true,
                               fit: BoxFit.cover);
                         } catch (e) {
                           return Image.asset(

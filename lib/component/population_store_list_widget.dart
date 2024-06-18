@@ -7,6 +7,7 @@ import 'package:project_poppin/theme/colors.dart';
 import 'package:project_poppin/vo/store_vo.dart';
 
 import '../pages/store_detail_page.dart';
+import '../utils/base64_manager.dart';
 
 class PopulationStoreListWidget extends StatefulWidget {
   final StoreVo storeData;
@@ -68,12 +69,21 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                     height: 140,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(
-                        "assets/images/no_img.png",
-                        width: 140,
-                        height: 140,
-                        fit: BoxFit.cover,
-                      );
+                      try {
+                        var base64file = base64Decoder(widget.storeData.thumbnailImgUrl!);
+                        return Image.memory(
+                            base64file,
+                            width: 140,
+                            height: 140,
+                            gaplessPlayback: true,
+                            fit: BoxFit.cover);
+                      } catch (e) {
+                        return Image.asset(
+                            "assets/images/no_img.png",
+                            width: 140,
+                            height: 140,
+                            fit: BoxFit.cover);
+                      }
                     },
                   ),
                 ),

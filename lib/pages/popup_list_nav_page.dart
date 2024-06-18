@@ -73,18 +73,17 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                   Container(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).padding.top + 16),
-                    child: Row(
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Text(
-                            "팝업 리스트",
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 13,
-                                color: poppinColorGreen500),
-                          ),
+                        Text(
+                          "팝업 리스트",
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                              color: poppinColorGreen500),
                         ),
                       ],
                     ),

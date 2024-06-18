@@ -73,6 +73,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                           .detailStoreData.thumbnailImgUrl!),
                                       width: 140,
                                       height: 140,
+                                      gaplessPlayback: true,
                                       fit: BoxFit.cover);
                                 } catch (e) {
                                   return Image.asset(

@@ -9,6 +9,7 @@ import 'package:project_poppin/services/https_service.dart';
 import 'package:project_poppin/theme/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../utils/base64_manager.dart';
 import 'store_detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +19,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   StoreController storeController = Get.find();
   var num = 0;
   dynamic lastPopTime;
@@ -86,8 +88,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                           baseColor: const Color.fromRGBO(240, 240, 240, 1),
                           highlightColor: poppinColorGrey400,
                           child: Container(
-                            margin:
-                                const EdgeInsets.only(top: 12, left: 16, right: 16),
+                            margin: const EdgeInsets.only(
+                                top: 12, left: 16, right: 16),
                             padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -124,8 +126,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                                     itemCount: 2,
                                     itemBuilder: (context, index) {
                                       return Shimmer.fromColors(
-                                        baseColor:
-                                            const Color.fromRGBO(240, 240, 240, 1),
+                                        baseColor: const Color.fromRGBO(
+                                            240, 240, 240, 1),
                                         highlightColor: poppinColorGrey400,
                                         child: Container(
                                           margin: const EdgeInsets.only(
@@ -183,8 +185,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                             }
                           },
                           child: Container(
-                            margin:
-                                const EdgeInsets.only(top: 12, left: 16, right: 16),
+                            margin: const EdgeInsets.only(
+                                top: 12, left: 16, right: 16),
                             padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -209,22 +211,26 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                                       storeController.recommendStoreData
                                               .thumbnailImgUrl ??
                                           "",
-                                      height:
-                                          MediaQuery.sizeOf(context).width *
-                                              0.8,
+                                      height: MediaQuery.sizeOf(context).width *
+                                          0.8,
                                       width: MediaQuery.sizeOf(context).width,
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {
-                                        return Image.asset(
-                                          "assets/images/no_img.png",
-                                          height: MediaQuery.sizeOf(context)
-                                                  .width *
-                                              0.8,
-                                          width: MediaQuery.sizeOf(context)
-                                              .width,
-                                          fit: BoxFit.cover,
-                                        );
+                                        try {
+                                          var base64file = base64Decoder(storeController.recommendStoreData.thumbnailImgUrl??"");
+                                          return Image.memory(base64file,
+                                              width: 140,
+                                              height: 140,
+                                              gaplessPlayback: true,
+                                              fit: BoxFit.cover);
+                                        } catch (e) {
+                                          return Image.asset(
+                                              "assets/images/no_img.png",
+                                              width: 140,
+                                              height: 140,
+                                              fit: BoxFit.cover);
+                                        }
                                       },
                                     )),
                                 const SizedBox(
@@ -238,7 +244,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                                       padding: const EdgeInsets.only(
                                           left: 12, right: 12),
                                       child: Text(
-                                        storeController.recommendStoreData.title ?? "",
+                                        storeController
+                                                .recommendStoreData.title ??
+                                            "",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: poppinColorDarkGrey500,
@@ -259,7 +267,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                                           left: 12, right: 12),
                                       height: 44,
                                       child: Text(
-                                        storeController.recommendStoreData.summary ?? "",
+                                        storeController
+                                                .recommendStoreData.summary ??
+                                            "",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w300,
                                             color: poppinColorDarkGrey400,
@@ -325,7 +335,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         } else {
           num = 0;
         }
-        storeController.setRecommendStoreData(storeController.recommendList[num]);
+        storeController
+            .setRecommendStoreData(storeController.recommendList[num]);
       });
     });
   }
