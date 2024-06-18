@@ -23,7 +23,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
   ScrollController _scrollController = ScrollController();
   GlobalKey upScrollPosition = GlobalKey();
   GlobalKey downScrollPosition = GlobalKey();
-  double hashTagSize = 170;
+  double hashTagSize = 100;
   bool endedPopUpState = prefs.getBool("endedPopUpState")!;
   bool clickStop = false;
   bool hashTagExtendState = false;
@@ -71,10 +71,29 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                 key: downScrollPosition,
                 children: [
                   Container(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).padding.top + 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "팝업 리스트",
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                                color: poppinColorGreen500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
                     margin: EdgeInsets.only(
                         left: 16,
                         right: 16,
-                        top: MediaQuery.of(context).padding.top + 8),
+                        top: 20),
                     decoration: BoxDecoration(
                         color: poppinColorGrey100,
                         borderRadius: BorderRadius.circular(8)),
@@ -82,9 +101,18 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("${storeController.hashTageSetting}"),
+                            storeController.hashTageSetting==""
+                                ? Text("해시태그를 선택해주세요",style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),)
+                                : Text("${storeController.hashTageSetting}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),),
+                            RichText(text: TextSpan(
+                              text:"${storeController.storeAllTagList.length}",
+                              style: TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorGreen500),
+                              children: const <TextSpan>[
+                                TextSpan(text: ' 개의 해시태그가 있어요', style: TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorDarkGrey500))
+                              ]
+                            ))
                           ],
                         ),
                         SizedBox(
@@ -120,8 +148,10 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     label: Text(
                                       "#${storeController.storeAllTagList[index]}",
                                       style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        color: poppinColorDarkGrey500
+                                      ),
                                     ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -142,7 +172,6 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                         SizedBox(
                           height: 12,
                         ),
-
                         Text(
                           hashTagExtendState
                               ? "전체 해시태그 접기"
@@ -154,11 +183,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  if(hashTagSize == 170) {
-                                    hashTagSize = MediaQuery.sizeOf(context).height*0.7;
+                                  if(hashTagSize == 100) {
+                                    hashTagSize = MediaQuery.sizeOf(context).height*0.65;
                                     hashTagExtendState = true;
                                   } else {
-                                    hashTagSize = 170;
+                                    hashTagSize = 100;
                                     hashTagExtendState = false;
                                   }
                                 });
@@ -177,7 +206,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 24),
+                    padding: const EdgeInsets.only(right: 24,top: 8, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -205,13 +234,13 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                         endedPopUpState);
                                   }
                                 },
-                          icon: Icon(
-                            Icons.check_circle_sharp,
-                            size: 32,
+                          icon: Image.asset(
+                            endedPopUpState
+                                ? "assets/button/select_hashtag_button.png"
+                                : "assets/button/no_select_hashtag_button.png",
+                            width: 32,
+                            height: 32,
                           ),
-                          color: endedPopUpState
-                              ? poppinColorGreen500
-                              : poppinColorGrey600,
                         ),
                         SizedBox(
                           height: 8,

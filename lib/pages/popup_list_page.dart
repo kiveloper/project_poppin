@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
@@ -64,13 +63,15 @@ class _PopUpListPageState extends State<PopUpListPage> {
               height: 30,
             ),
             storeController.storeFilterLocationList.isEmpty
-                ? const Center(
-                    child: Text(
-                      "진행중인 팝업이 없습니다",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                    ),
-                  )
+                ? storeController.localListDataLoadStateEmpty
+                    ? const Center(
+                        child: Text(
+                          "진행중인 팝업이 없습니다",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w500),
+                        ),
+                      )
+                    : const CircularProgressIndicator()
                 : Expanded(
                     child: ListView.builder(
                         itemCount:
