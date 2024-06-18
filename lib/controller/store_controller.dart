@@ -26,6 +26,7 @@ class StoreController extends GetxController {
   String userInstaId = "";
 
   bool tagListDataLoadStateEmpty = false;
+  bool localListDataLoadStateEmpty = false;
   bool storeDetailState = false;
   bool storeLoadState = false;
   bool curationServiceLoaded = true;
@@ -71,10 +72,14 @@ class StoreController extends GetxController {
   Future<void> getStoreListLocationFilter(
       String local1, List<String> local2) async {
     try {
+      localListDataLoadStateEmpty = false;
       StoreListModel storeListModel =
       await popPinFirebaseService.getLocationStoreList(local1, local2);
       storeFilterLocationList.clear();
       storeFilterLocationList.addAll(storeListModel.storeList!);
+      if(storeFilterLocationList.isEmpty) {
+        localListDataLoadStateEmpty = true;
+      }
       update();
     } catch (error) {
       throw Exception(error);

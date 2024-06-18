@@ -12,32 +12,6 @@ class HttpsService {
   final baseUrl = Uri.parse(
       'https://asia-northeast3-project-poping.cloudfunctions.net/function-curation-test');
 
-  // Future<List<StoreVo>> getAllStore(bool endedPopUpState) async {
-  //   var response = await http.post(baseUrl,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: jsonEncode({
-  //         'type': 'all_stores',
-  //         'ended_popups': endedPopUpState,
-  //       })
-  //   );
-  //
-  //   if (response.statusCode == 200) {
-  //     final decodeData = jsonDecode(response.body);
-  //     final tempStoreData = <StoreVo>[];
-  //
-  //     for(var doc in decodeData){
-  //       tempStoreData.add(StoreVo.fromCFMapSnapshot(doc));
-  //     }
-  //
-  //     return tempStoreData;
-  //   } else {
-  //     print("error ${response.statusCode}");
-  //     return [];
-  //   }
-  // }
-
   Future<RxList<StoreVo>> getAllStore(bool endedPopUpState) async {
     final storeList = RxList<StoreVo>(); // RxList<StoreVo> 초기화
 
