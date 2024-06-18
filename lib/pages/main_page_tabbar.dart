@@ -84,7 +84,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                       color: Colors.white),
                   padding: Platform.isAndroid
                       ? EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.02)
-                      : EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.06),
+                      : EdgeInsets.only(top: 4, right: MediaQuery.sizeOf(context).width * 0.04),
                   child: TabBar(
                     controller: tabController,
                     onTap: (index) async {
