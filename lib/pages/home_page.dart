@@ -247,6 +247,8 @@ class _HomePageState extends State<HomePage>
                                         storeController
                                                 .recommendStoreData.title ??
                                             "",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: poppinColorDarkGrey500,

@@ -275,7 +275,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 ),
                               )
                             : const SizedBox(
-                                child: Text("null임"),
+                                child: Text("상세위치 없음", style: TextStyle(fontSize: 22, color: poppinColorDarkGrey500),),
                               ),
                         const SizedBox(
                           height: 4,
