@@ -100,7 +100,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       Text(
                         "${widget.storeData.category}",
                         style: const TextStyle(
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.w500,
                             color: poppinSubTitleColor,
                             fontSize: 12),
                         overflow: TextOverflow.ellipsis,
@@ -121,7 +121,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       child: Text("${adressList[0]} ${adressList[1]}",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w500,
                               color: poppinSubTitleColor,
                               fontSize: 12)))
                 ],

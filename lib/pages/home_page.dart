@@ -271,7 +271,7 @@ class _HomePageState extends State<HomePage>
                                                 .recommendStoreData.summary ??
                                             "",
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.w300,
+                                            fontWeight: FontWeight.w400,
                                             color: poppinColorDarkGrey400,
                                             fontSize: 12,
                                             overflow: TextOverflow.ellipsis),

@@ -100,7 +100,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                       Text(
                         "${widget.storeData.category}",
                         style: const TextStyle(
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.w400,
                             color: poppinColorDarkGrey300,
                             fontSize: 10),
                         overflow: TextOverflow.ellipsis,
@@ -125,7 +125,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                       child: Text("${addressList[0]} ${addressList[1]}",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w400,
                               color: poppinColorDarkGrey300,
                               fontSize: 10)))
                 ],
