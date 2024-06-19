@@ -12,8 +12,8 @@ class HttpsService {
   final baseUrl = Uri.parse(
       'https://asia-northeast3-project-poping.cloudfunctions.net/function-curation-test');
 
-  Future<RxList<StoreVo>> getAllStore(bool endedPopUpState) async {
-    final storeList = RxList<StoreVo>(); // RxList<StoreVo> 초기화
+  Future<List<StoreVo>> getAllStore(bool endedPopUpState) async {
+    final storeList = <StoreVo>[];
 
     try {
       var response = await http.post(baseUrl,
@@ -30,17 +30,17 @@ class HttpsService {
         final decodeData = jsonDecode(response.body);
 
         for (var doc in decodeData) {
-          storeList.add(StoreVo.fromCFMapSnapshot(doc)); // RxList에 데이터 추가
+          storeList.add(StoreVo.fromCFMapSnapshot(doc));
         }
 
         return storeList;
       } else {
         print("error ${response.statusCode}");
-        return storeList; // RxList 반환 (비어 있을 수 있음)
+        return storeList;
       }
     } catch (error) {
       print("error: $error");
-      return storeList; // RxList 반환 (비어 있을 수 있음)
+      return storeList;
     }
   }
 

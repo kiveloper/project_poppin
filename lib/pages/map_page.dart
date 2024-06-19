@@ -84,6 +84,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                       southWest: NLatLng(31.43, 122.37),
                       northEast: NLatLng(44.35, 132.0),
                     ),
+                    minZoom: 10,
                     logoAlign: NLogoAlign.leftBottom,
                     logoMargin: const EdgeInsets.all(10),
                     liteModeEnable: true),
