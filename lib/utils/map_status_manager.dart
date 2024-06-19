@@ -57,9 +57,9 @@ class MapStatusManager {
         }
       });
 
-      myLocationMarker.setOnTapListener((nMarker) {
+      myLocationMarker.setOnTapListener((nMarker) async {
         naverMapController.clearOverlays(type: NOverlayType.infoWindow);
-        myLocationMarker.openInfoWindow(infoWindow);
+        await myLocationMarker.openInfoWindow(infoWindow);
       });
 
       overlay.add(myLocationMarker);
