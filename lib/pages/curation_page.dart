@@ -6,6 +6,7 @@ import 'package:project_poppin/component/store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../theme/colors.dart';
 
@@ -137,7 +138,21 @@ class _CurationPageState extends State<CurationPage> {
                                     "확인",
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                ))
+                                )),
+                            SizedBox(height: 80,),
+                            GestureDetector(
+                              onTap: (){
+                                try{
+                                  launchUrl(Uri.parse(
+                                      'https://www.instagram.com/p/C8EjmOXRTbc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D'));
+                                }catch(e) {
+                                  throw Exception(e);
+                                }
+                              },
+                              child: Image.asset(
+                                  "assets/images/poppin_banner.png",
+                                width: double.infinity,
+                              ),)
                           ],
                         )
                       // userCuration data를 불러오는 중일때
