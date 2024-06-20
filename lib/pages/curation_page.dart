@@ -68,10 +68,10 @@ class _CurationPageState extends State<CurationPage> {
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.20),
                             Image.asset("assets/images/poppin_logo.png"),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
-                            Text(
+                            const Text(
                               "큐레이션 결과를 보시려면\n"
                               "전달받으신 키를 입력해 주세요",
                               textAlign: TextAlign.center,
@@ -80,7 +80,7 @@ class _CurationPageState extends State<CurationPage> {
                                   color: poppinColorDarkGrey500,
                                   fontSize: 20),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 50,
                             ),
                             Padding(
@@ -92,26 +92,26 @@ class _CurationPageState extends State<CurationPage> {
                                 },
                                 decoration: InputDecoration(
                                   hintText: '유저 코드를 입력하세요',
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 12),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(32),
                                     borderSide:
-                                        BorderSide(color: poppinColorGreen500),
+                                        const BorderSide(color: poppinColorGreen500),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(32),
                                     borderSide:
-                                        BorderSide(color: poppinColorGreen500),
+                                        const BorderSide(color: poppinColorGreen500),
                                   ),
                                 ),
                               ),
                             ),
                             storeController.curationCodeCheckInCorrect
                                 ? Container(
-                                    margin: EdgeInsets.only(left: 32, top: 4),
+                                    margin: const EdgeInsets.only(left: 32, top: 4),
                                     child: storeController.tempLoad
-                                        ? Row(
+                                        ? const Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             SizedBox(
@@ -120,7 +120,7 @@ class _CurationPageState extends State<CurationPage> {
                                                 child: CircularProgressIndicator()),
                                           ],
                                         )
-                                        : Row(mainAxisAlignment: MainAxisAlignment.start,
+                                        : const Row(mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
                                                 "정확한 코드를 입력해주세요",
@@ -131,8 +131,8 @@ class _CurationPageState extends State<CurationPage> {
                                               ),
                                           ],
                                         ))
-                                : SizedBox(),
-                            SizedBox(
+                                : const SizedBox(),
+                            const SizedBox(
                               height: 28,
                             ),
                             ElevatedButton(
@@ -144,15 +144,15 @@ class _CurationPageState extends State<CurationPage> {
                                   backgroundColor:
                                       poppinColorGreen500, // green500 색상으로 변경
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
+                                child: const Padding(
+                                  padding: EdgeInsets.only(
                                       left: 12, right: 12),
                                   child: Text(
                                     "확인",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               height: 80,
                             ),
                             GestureDetector(
@@ -192,7 +192,7 @@ class _CurationPageState extends State<CurationPage> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 40,
                             ),
                             SizedBox(
@@ -244,7 +244,7 @@ class _CurationPageState extends State<CurationPage> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 13,
                                   color: poppinColorGreen500),
@@ -253,7 +253,7 @@ class _CurationPageState extends State<CurationPage> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Expanded(

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
@@ -113,7 +112,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                   width: 24,
                                   height: 24,
                                 ),
-                          iconMargin: EdgeInsets.only(bottom:4),
+                          iconMargin: const EdgeInsets.only(bottom:4),
                           text: "홈",
                         ),
                       ),
@@ -144,7 +143,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.only(bottom:4),
+                        iconMargin: const EdgeInsets.only(bottom:4),
                         text: "팝업 리스트",
                       ),
                       Tab(
@@ -159,7 +158,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                                 width: 24,
                                 height: 24,
                               ),
-                        iconMargin: EdgeInsets.only(bottom:4),
+                        iconMargin: const EdgeInsets.only(bottom:4),
                         text: "맞춤",
                       ),
                     ],

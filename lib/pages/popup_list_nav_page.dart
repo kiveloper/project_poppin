@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class PopUpListNavPage extends StatefulWidget {
 
 class _PopUpListNavPageState extends State<PopUpListNavPage>
     with AutomaticKeepAliveClientMixin {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   GlobalKey upScrollPosition = GlobalKey();
   GlobalKey downScrollPosition = GlobalKey();
   double hashTagSize = 100;
@@ -89,32 +88,32 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 16,
                         right: 16,
                         top: 20),
                     decoration: BoxDecoration(
                         color: poppinColorGrey100,
                         borderRadius: BorderRadius.circular(8)),
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             storeController.hashTageSetting==""
-                                ? Text("해시태그를 선택해주세요",style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),)
-                                : Text("${storeController.hashTageSetting}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),),
+                                ? const Text("해시태그를 선택해주세요",style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),)
+                                : Text(storeController.hashTageSetting, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),),
                             RichText(text: TextSpan(
                               text:"${storeController.storeAllTagList.length}",
-                              style: TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorGreen500),
+                              style: const TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorGreen500),
                               children: const <TextSpan>[
                                 TextSpan(text: ' 개의 해시태그가 있어요', style: TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorDarkGrey500))
                               ]
                             ))
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         SizedBox(
@@ -146,7 +145,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     },
                                     label: Text(
                                       "#${storeController.storeAllTagList[index]}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                         color: poppinColorDarkGrey500
@@ -161,21 +160,21 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                                         .storeAllTagList[index]
                                                 ? poppinColorGreen500
                                                 : poppinColorGrey300)),
-                                    padding: EdgeInsets.only(left: 4, right: 4),
+                                    padding: const EdgeInsets.only(left: 4, right: 4),
                                   );
                                 }),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Text(
                           hashTagExtendState
                               ? "전체 해시태그 접기"
                               : "전체 해시태그 보기",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, color: poppinColorDarkGrey400),
                         ),
                         SizedBox(
@@ -192,11 +191,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                 });
                               },
                               icon: hashTagExtendState
-                                  ? Icon(
+                                  ? const Icon(
                                 Icons.arrow_drop_up_rounded,
                                 size: 28,
                               )
-                                  : Icon(
+                                  : const Icon(
                                 Icons.arrow_drop_down_rounded,
                                 size: 28,
                               )
@@ -219,7 +218,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                         "endedPopUpState", endedPopUpState);
                                   });
                                   clickStop = true;
-                                  Future.delayed(Duration(milliseconds: 200),
+                                  Future.delayed(const Duration(milliseconds: 200),
                                       () {
                                     clickStop = false;
                                   });
@@ -241,17 +240,17 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                             height: 32,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
-                        Text("종료된 팝업 제외")
+                        const Text("종료된 팝업 제외")
                       ],
                     ),
                   ),
                   const SizedBox(height: 8),
                   storeController.storeNavPageAllList.isEmpty
                       ? storeController.tagListDataLoadStateEmpty
-                          ? SizedBox(
+                          ? const SizedBox(
                               child: Text(
                                 "리스트가 없습니다",
                                 style: TextStyle(
@@ -297,7 +296,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           height: MediaQuery.sizeOf(context).height*0.8,
                           child: ListView.builder(
                               controller: _scrollController,
-                              physics: ClampingScrollPhysics(),
+                              physics: const ClampingScrollPhysics(),
                               itemCount:
                                   storeController.storeNavPageAllList.length,
                               padding:
@@ -324,14 +323,14 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       // 사용자가 위로 스크롤하는 중
       Scrollable.ensureVisible(
         upScrollPosition.currentContext!,
-        duration: Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 150),
         alignment: 0
       );
     } else if (_scrollController.position.pixels == 0) {
       // 사용자가 아래로 스크롤하는 중
       Scrollable.ensureVisible(
           downScrollPosition.currentContext!,
-          duration: Duration(milliseconds: 150),
+          duration: const Duration(milliseconds: 150),
           alignment: 0
       );
     }
