@@ -31,6 +31,7 @@ void main() async {
   FirebaseRemoteConfigService().initRemoteConfig();
 
   prefs = await SharedPreferences.getInstance();
+
   if(prefs.getBool("endedPopUpState") == null) {
     prefs.setBool("endedPopUpState", true);
   }
@@ -38,8 +39,6 @@ void main() async {
   Get.put(StoreController());
   Get.put(LocationController());
   Get.put(TabBarController());
-
-  HttpOverrides.global = MyHttpOverrides();
 
   NaverMapSdk.instance.initialize(clientId: dotenv.env['naverMapClientId']);
 
@@ -68,14 +67,6 @@ class MyApp extends StatelessWidget {
       ),
       home: const CheckVersionPage(),
     );
-  }
-}
-
-class MyHttpOverrides extends HttpOverrides{
-  @override
-  HttpClient createHttpClient(SecurityContext? context){
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
 
