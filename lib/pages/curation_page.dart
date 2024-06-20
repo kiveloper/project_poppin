@@ -109,21 +109,34 @@ class _CurationPageState extends State<CurationPage> {
                             ),
                             storeController.curationCodeCheckInCorrect
                                 ? Container(
-                                    width: double.infinity,
                                     margin: EdgeInsets.only(left: 32, top: 4),
-                                    child: Text(
-                                      "정확한 코드를 입력해주세요",
-                                      style: TextStyle(
-                                          color: Colors.redAccent,
-                                          fontSize: 12),
-                                      textAlign: TextAlign.start,
-                                    ))
+                                    child: storeController.tempLoad
+                                        ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                                height: 17,
+                                                width: 17,
+                                                child: CircularProgressIndicator()),
+                                          ],
+                                        )
+                                        : Row(mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                "정확한 코드를 입력해주세요",
+                                                style: TextStyle(
+                                                    color: Colors.redAccent,
+                                                    fontSize: 12),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                          ],
+                                        ))
                                 : SizedBox(),
                             SizedBox(
                               height: 28,
                             ),
                             ElevatedButton(
-                                onPressed: () async{
+                                onPressed: () async {
                                   storeController.getCurationStoreData(
                                       userId, storeController);
                                 },
@@ -139,20 +152,23 @@ class _CurationPageState extends State<CurationPage> {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 )),
-                            SizedBox(height: 80,),
+                            SizedBox(
+                              height: 80,
+                            ),
                             GestureDetector(
-                              onTap: (){
-                                try{
+                              onTap: () {
+                                try {
                                   launchUrl(Uri.parse(
                                       'https://www.instagram.com/p/C8EjmOXRTbc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D'));
-                                }catch(e) {
+                                } catch (e) {
                                   throw Exception(e);
                                 }
                               },
                               child: Image.asset(
-                                  "assets/images/poppin_banner.png",
+                                "assets/images/poppin_banner.png",
                                 width: double.infinity,
-                              ),)
+                              ),
+                            )
                           ],
                         )
                       // userCuration data를 불러오는 중일때
