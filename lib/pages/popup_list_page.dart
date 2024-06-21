@@ -43,7 +43,9 @@ class _PopUpListPageState extends State<PopUpListPage> {
                   Flexible(
                       child: Text.rich(TextSpan(children: [
                     TextSpan(
-                        text: locationName,
+                        text: locationName == "중구/명동/중"
+                            ? "중구/명동"
+                            : locationName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: poppinColorGreen500,

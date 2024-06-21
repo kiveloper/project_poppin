@@ -66,8 +66,9 @@ class _LocationLocal2ListDetailWidgetState
                           color: poppinColorDarkGrey500),
                     )
                   : Text(
-                      local[widget.storeController.storeLocationState]![
-                          widget.index],
+                      local[widget.storeController.storeLocationState]![widget.index] == "중구/명동/중"
+                          ? "중구/명동"
+                          : local[widget.storeController.storeLocationState]![widget.index],
                       style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w400,

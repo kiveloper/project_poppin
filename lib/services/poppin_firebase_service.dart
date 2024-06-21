@@ -3,8 +3,6 @@ import 'package:project_poppin/data/local_data.dart';
 
 import '../model/store_list_model.dart';
 
-// FirebaseFirestore fireStore = FirebaseFirestore.instanceFor(
-//     app: Firebase.app(), databaseId: "for-poping-dev");
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
 CollectionReference store = fireStore.collection('popinData');
 CollectionReference storeRecommend = fireStore.collection('MDData');
