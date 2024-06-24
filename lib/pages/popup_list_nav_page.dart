@@ -88,30 +88,51 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        top: 20),
+                    margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
                     decoration: BoxDecoration(
                         color: poppinColorGrey100,
                         borderRadius: BorderRadius.circular(8)),
                     padding: const EdgeInsets.all(8),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            storeController.hashTageSetting==""
-                                ? const Text("해시태그를 선택해주세요",style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),)
-                                : Text(storeController.hashTageSetting, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),),
-                            RichText(text: TextSpan(
-                              text:"${storeController.storeAllTagList.length}",
-                              style: const TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorGreen500),
-                              children: const <TextSpan>[
-                                TextSpan(text: ' 개의 해시태그가 있어요', style: TextStyle(fontSize: 11, fontWeight:  FontWeight.w400, color: poppinColorDarkGrey500))
-                              ]
-                            ))
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              storeController.hashTageSetting == ""
+                                  ? const Text(
+                                      "해시태그를 선택해주세요",
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: poppinColorDarkGrey500,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  : Text(
+                                      "# ${storeController.hashTageSetting}",
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: poppinColorDarkGrey500,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                              RichText(
+                                  text: TextSpan(
+                                      text:
+                                          "${storeController.storeAllTagList.length}",
+                                      style: const TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w400,
+                                          color: poppinColorGreen500),
+                                      children: const <TextSpan>[
+                                    TextSpan(
+                                        text: ' 개의 해시태그가 있어요',
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w400,
+                                            color: poppinColorDarkGrey500))
+                                  ]))
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 12,
@@ -134,6 +155,12 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                         storeController.setHashTagSetting("");
                                         storeController.getNavPageStoreAllList(
                                             endedPopUpState);
+                                        setState(() {
+                                          if (hashTagSize != 100) {
+                                            hashTagSize = 100;
+                                            hashTagExtendState = false;
+                                          }
+                                        });
                                       } else {
                                         storeController.setHashTagSetting(
                                             storeController
@@ -141,6 +168,12 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                         storeController.getHashTagStoreDateList(
                                             storeController.hashTageSetting,
                                             endedPopUpState);
+                                        setState(() {
+                                          if (hashTagSize != 100) {
+                                            hashTagSize = 100;
+                                            hashTagExtendState = false;
+                                          }
+                                        });
                                       }
                                     },
                                     label: Text(
@@ -148,8 +181,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                       style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
-                                        color: poppinColorDarkGrey500
-                                      ),
+                                          color: poppinColorDarkGrey500),
                                     ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -160,7 +192,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                                         .storeAllTagList[index]
                                                 ? poppinColorGreen500
                                                 : poppinColorGrey300)),
-                                    padding: const EdgeInsets.only(left: 4, right: 4),
+                                    padding: const EdgeInsets.only(
+                                        left: 4, right: 4),
                                   );
                                 }),
                               ),
@@ -171,40 +204,40 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           height: 12,
                         ),
                         Text(
-                          hashTagExtendState
-                              ? "전체 해시태그 접기"
-                              : "전체 해시태그 보기",
+                          hashTagExtendState ? "전체 해시태그 접기" : "전체 해시태그 보기",
                           style: const TextStyle(
                               fontSize: 14, color: poppinColorDarkGrey400),
                         ),
                         SizedBox(
-                          child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  if(hashTagSize == 100) {
-                                    hashTagSize = MediaQuery.sizeOf(context).height*0.65;
-                                    hashTagExtendState = true;
-                                  } else {
-                                    hashTagSize = 100;
-                                    hashTagExtendState = false;
-                                  }
-                                });
-                              },
-                              icon: hashTagExtendState
-                                  ? const Icon(
-                                Icons.arrow_drop_up_rounded,
-                                size: 28,
-                              )
-                                  : const Icon(
-                                Icons.arrow_drop_down_rounded,
-                                size: 28,
-                              )
-                        ))
+                            child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (hashTagSize == 100) {
+                                      hashTagSize =
+                                          MediaQuery.sizeOf(context).height *
+                                              0.65;
+                                      hashTagExtendState = true;
+                                    } else {
+                                      hashTagSize = 100;
+                                      hashTagExtendState = false;
+                                    }
+                                  });
+                                },
+                                icon: hashTagExtendState
+                                    ? const Icon(
+                                        Icons.arrow_drop_up_rounded,
+                                        size: 28,
+                                      )
+                                    : const Icon(
+                                        Icons.arrow_drop_down_rounded,
+                                        size: 28,
+                                      )))
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 24,top: 8, bottom: 8),
+                    padding:
+                        const EdgeInsets.only(right: 24, top: 8, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -218,8 +251,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                         "endedPopUpState", endedPopUpState);
                                   });
                                   clickStop = true;
-                                  Future.delayed(const Duration(milliseconds: 200),
-                                      () {
+                                  Future.delayed(
+                                      const Duration(milliseconds: 200), () {
                                     clickStop = false;
                                   });
 
@@ -293,7 +326,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                             )
                       : SizedBox(
                           key: upScrollPosition,
-                          height: MediaQuery.sizeOf(context).height*0.8,
+                          height: MediaQuery.sizeOf(context).height * 0.8,
                           child: ListView.builder(
                               controller: _scrollController,
                               physics: const ClampingScrollPhysics(),
@@ -321,18 +354,12 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
     if (_scrollController.position.userScrollDirection ==
         ScrollDirection.reverse) {
       // 사용자가 위로 스크롤하는 중
-      Scrollable.ensureVisible(
-        upScrollPosition.currentContext!,
-        duration: const Duration(milliseconds: 150),
-        alignment: 0
-      );
+      Scrollable.ensureVisible(upScrollPosition.currentContext!,
+          duration: const Duration(milliseconds: 150), alignment: 0);
     } else if (_scrollController.position.pixels == 0) {
       // 사용자가 아래로 스크롤하는 중
-      Scrollable.ensureVisible(
-          downScrollPosition.currentContext!,
-          duration: const Duration(milliseconds: 150),
-          alignment: 0
-      );
+      Scrollable.ensureVisible(downScrollPosition.currentContext!,
+          duration: const Duration(milliseconds: 150), alignment: 0);
     }
   }
 }

@@ -16,61 +16,57 @@ class MapStatusManager {
   MapStatusManager._internal();
 
   bool mapLoadFirst = true;
-  NCameraPosition? nCameraPosition;
-  List<NAddableOverlay> storeMarkerList = [];
+  List<NMarker> storeMarkerList = [];
 
   void checkMapFirstLoad() {
     mapLoadFirst = false;
   }
 
-  void currentCameraPosition(NCameraPosition? currentCameraPosition) async {
-    nCameraPosition = currentCameraPosition;
-  }
-
   Future<void> setMarkerList(NaverMapController naverMapController,
       StoreController storeController) async {
-    List<NAddableOverlay> overlay = [];
-
-    storeMarkerList.clear();
+    String currentMarker = "";
 
     NOverlayImage image = const NOverlayImage.fromAssetImage(
         "assets/icons/marker/store_marker(100).png");
 
     for (StoreVo store in storeController.storeAllList) {
+      var storeDB = store;
+
       NLatLng myLatLng =
-          NLatLng(store.geopoint!.latitude, store.geopoint!.longitude);
+          NLatLng(storeDB.geopoint!.latitude, storeDB.geopoint!.longitude);
 
       NMarker myLocationMarker =
-          NMarker(id: store.title!, position: myLatLng, icon: image);
+          NMarker(id: storeDB.title!, position: myLatLng, icon: image);
       myLocationMarker.setSize(const Size(18, 27));
 
       NInfoWindow infoWindow =
-          NInfoWindow.onMarker(id: store.title!, text: store.title!);
+          NInfoWindow.onMarker(id: storeDB.title!, text: storeDB.title!);
 
-      infoWindow.setOnTapListener((overlay) {
+      myLocationMarker.setOnTapListener((nMarker) {
 
-        storeController.setDetailStoreData(store);
-        if (Platform.isAndroid) {
-          Get.to(() => const StoreDetailPage(),
-              transition: Transition.leftToRight);
-        } else if (Platform.isIOS) {
-          Get.to(() => const StoreDetailPage());
+        infoWindow.setOnTapListener((overlay) {
+          storeController.setDetailStoreData(store);
+          if(GetPlatform.isAndroid) {
+            Get.to(() => const StoreDetailPage(), transition: Transition.leftToRight);
+          } else {
+            Get.to(() => const StoreDetailPage());
+          }
+        });
+
+        if(currentMarker == nMarker.info.id) {
+          naverMapController.clearOverlays(type: NOverlayType.infoWindow);
+          currentMarker = "";
+        } else {
+          naverMapController.clearOverlays(type: NOverlayType.infoWindow);
+          myLocationMarker.openInfoWindow(infoWindow);
+          currentMarker = nMarker.info.id;
         }
       });
 
-      myLocationMarker.setOnTapListener((nMarker) async {
-        naverMapController.clearOverlays(type: NOverlayType.infoWindow);
-        await myLocationMarker.openInfoWindow(infoWindow);
-      });
-
-      overlay.add(myLocationMarker);
+      storeMarkerList.add(myLocationMarker);
     }
 
-    Set<NAddableOverlay> setOverlay = Set.from(overlay);
-
-    storeMarkerList = overlay;
-
-    naverMapController.addOverlayAll(setOverlay);
+    naverMapController.addOverlayAll(Set.from(storeMarkerList));
   }
 
   Future<void> setMarkerDetailPage(

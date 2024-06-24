@@ -73,20 +73,19 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
             return storeController.storeAllList.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : NaverMap(
-                    options: NaverMapViewOptions(
+                    options: const NaverMapViewOptions(
                         initialCameraPosition:
-                            mapStatusManager.nCameraPosition ??
-                                const NCameraPosition(
+                                NCameraPosition(
                                   target: NLatLng(37.57037778, 126.9816417),
                                   zoom: 13,
                                 ),
-                        extent: const NLatLngBounds(
+                        extent: NLatLngBounds(
                           southWest: NLatLng(31.43, 122.37),
                           northEast: NLatLng(44.35, 132.0),
                         ),
                         minZoom: 10,
                         logoAlign: NLogoAlign.leftBottom,
-                        logoMargin: const EdgeInsets.all(10),
+                        logoMargin: EdgeInsets.all(10),
                         liteModeEnable: true),
                     onMapReady: (controller) async {
                       naverMapController = controller;
@@ -99,13 +98,8 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                       await mapStatusManager.setMarkerList(
                           naverMapController!, storeController);
                     },
-                    onCameraIdle: () async {
-                      var position = naverMapController?.nowCameraPosition;
-                      mapStatusManager.currentCameraPosition(position);
-                    },
                     onMapTapped: (NPoint point, NLatLng latLng) {
-                      naverMapController!
-                          .clearOverlays(type: NOverlayType.infoWindow);
+                      naverMapController!.clearOverlays(type: NOverlayType.infoWindow);
                     },
                   );
           }),
