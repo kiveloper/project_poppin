@@ -42,16 +42,17 @@ class MapStatusManager {
 
       NMarker myLocationMarker =
           NMarker(id: store.title!, position: myLatLng, icon: image);
+      myLocationMarker.setSize(const Size(18, 27));
 
       NInfoWindow infoWindow =
           NInfoWindow.onMarker(id: store.title!, text: store.title!);
 
-      myLocationMarker.setSize(const Size(18, 27));
-
       infoWindow.setOnTapListener((overlay) {
+
         storeController.setDetailStoreData(store);
         if (Platform.isAndroid) {
-          Get.to(() => const StoreDetailPage(), transition: Transition.leftToRight);
+          Get.to(() => const StoreDetailPage(),
+              transition: Transition.leftToRight);
         } else if (Platform.isIOS) {
           Get.to(() => const StoreDetailPage());
         }
@@ -66,6 +67,7 @@ class MapStatusManager {
     }
 
     Set<NAddableOverlay> setOverlay = Set.from(overlay);
+
     storeMarkerList = overlay;
 
     naverMapController.addOverlayAll(setOverlay);
@@ -85,7 +87,7 @@ class MapStatusManager {
     myLocationMarker.setSize(const Size(18, 27));
 
     NInfoWindow infoWindow =
-       NInfoWindow.onMarker(id: store.title!, text: store.title!);
+        NInfoWindow.onMarker(id: store.title!, text: store.title!);
 
     naverMapController.addOverlay(myLocationMarker);
 

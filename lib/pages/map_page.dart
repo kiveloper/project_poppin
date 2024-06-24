@@ -69,46 +69,46 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
       child: Scaffold(
           body: Stack(
         children: [
-          GetBuilder<StoreController>(
-            builder: (storeController) {
-              return storeController.storeAllList.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : NaverMap(
-                options: NaverMapViewOptions(
-                    initialCameraPosition: mapStatusManager.nCameraPosition ??
-                        const NCameraPosition(
-                          target: NLatLng(37.57037778, 126.9816417),
-                          zoom: 13,
+          GetBuilder<StoreController>(builder: (storeController) {
+            return storeController.storeAllList.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : NaverMap(
+                    options: NaverMapViewOptions(
+                        initialCameraPosition:
+                            mapStatusManager.nCameraPosition ??
+                                const NCameraPosition(
+                                  target: NLatLng(37.57037778, 126.9816417),
+                                  zoom: 13,
+                                ),
+                        extent: const NLatLngBounds(
+                          southWest: NLatLng(31.43, 122.37),
+                          northEast: NLatLng(44.35, 132.0),
                         ),
-                    extent: const NLatLngBounds(
-                      southWest: NLatLng(31.43, 122.37),
-                      northEast: NLatLng(44.35, 132.0),
-                    ),
-                    minZoom: 10,
-                    logoAlign: NLogoAlign.leftBottom,
-                    logoMargin: const EdgeInsets.all(10),
-                    liteModeEnable: true),
-                onMapReady: (controller) async {
-                  naverMapController = controller;
+                        minZoom: 10,
+                        logoAlign: NLogoAlign.leftBottom,
+                        logoMargin: const EdgeInsets.all(10),
+                        liteModeEnable: true),
+                    onMapReady: (controller) async {
+                      naverMapController = controller;
 
-                  if (mapStatusManager.mapLoadFirst) {
-                    myLocationAddMarker(permissionManager);
-                    mapStatusManager.checkMapFirstLoad();
-                  }
+                      if (mapStatusManager.mapLoadFirst) {
+                        myLocationAddMarker(permissionManager);
+                        mapStatusManager.checkMapFirstLoad();
+                      }
 
-                  await mapStatusManager.setMarkerList(
-                      naverMapController!, storeController);
-                },
-                onCameraIdle: () async {
-                  var position = naverMapController?.nowCameraPosition;
-                  mapStatusManager.currentCameraPosition(position);
-                },
-                onMapTapped: (NPoint point, NLatLng latLng) {
-                  naverMapController!.clearOverlays(type: NOverlayType.infoWindow);
-                },
-              );
-            }
-          ),
+                      await mapStatusManager.setMarkerList(
+                          naverMapController!, storeController);
+                    },
+                    onCameraIdle: () async {
+                      var position = naverMapController?.nowCameraPosition;
+                      mapStatusManager.currentCameraPosition(position);
+                    },
+                    onMapTapped: (NPoint point, NLatLng latLng) {
+                      naverMapController!
+                          .clearOverlays(type: NOverlayType.infoWindow);
+                    },
+                  );
+          }),
           Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -144,12 +144,17 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                       permissionManager.locationPermission();
                       myLocationAddMarker(permissionManager);
                     },
-                    icon: Image.asset("assets/icons/map/gps_icon.png", width: 40,height: 40,fit: BoxFit.cover,)
-                ),
+                    icon: Image.asset(
+                      "assets/icons/map/gps_icon.png",
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    )),
                 Positioned(
                   left: 5,
                   top: 5,
-                  child: GetBuilder<LocationController>(builder: (locationController) {
+                  child: GetBuilder<LocationController>(
+                      builder: (locationController) {
                     return locationController.locationState
                         ? Container(
                             width: 46,
