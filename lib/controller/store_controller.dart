@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/model/store_list_model.dart';
 import 'package:project_poppin/services/https_service.dart';
@@ -119,7 +119,6 @@ class StoreController extends GetxController {
       StoreListModel storeListModel = await popPinFirebaseService.getRecommendPopularData();
       recommendPopularList.clear();
       recommendPopularList.addAll(storeListModel.storeList!);
-      setRecommendPopularData(recommendPopularList[0]);
       update();
     } catch(error){
       throw Exception(error);
@@ -138,15 +137,6 @@ class StoreController extends GetxController {
   }
 
   Future<void> setRecommendStoreData(StoreVo data) async{
-    try{
-      recommendStoreData = data;
-      update();
-    } catch(error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<void> setRecommendPopularData(StoreVo data) async{
     try{
       recommendStoreData = data;
       update();
