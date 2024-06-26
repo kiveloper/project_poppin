@@ -109,6 +109,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                         "${widget.storeData.title}",
                         style: const TextStyle(
                             fontWeight: FontWeight.w500,
+                            color: poppinColorDarkGrey600,
                             fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -116,7 +117,9 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                         // "${timeStampToDate(widget.storeData.startDate!)}~${timeStampToDate(widget.storeData.endDate!)}",
                         "${widget.storeData.startDate!}~${widget.storeData.endDate!}",
                         style: const TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 12),
+                            fontWeight: FontWeight.w500,
+                            color: poppinColorDarkGrey600,
+                            fontSize: 12),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],

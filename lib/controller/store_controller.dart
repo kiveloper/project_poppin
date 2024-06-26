@@ -14,6 +14,7 @@ class StoreController extends GetxController {
   List<String> storeAllTagList = [];
   List<StoreVo> storeFilterLocationList = [];
   List<StoreVo> recommendList = [];
+  List<StoreVo> recommendPopularList = [];
   List<StoreVo> storeCurationList = [];
 
   StoreVo recommendStoreData = StoreVo();
@@ -113,6 +114,18 @@ class StoreController extends GetxController {
     }
   }
 
+  Future<void> getRecommendPopularList() async{
+    try{
+      StoreListModel storeListModel = await popPinFirebaseService.getRecommendPopularData();
+      recommendPopularList.clear();
+      recommendPopularList.addAll(storeListModel.storeList!);
+      setRecommendPopularData(recommendPopularList[0]);
+      update();
+    } catch(error){
+      throw Exception(error);
+    }
+  }
+
   Future<void> getCurationStoreData(String userId, StoreController storeController) async{
     try{
       setLoadCurationState(true);
@@ -125,6 +138,15 @@ class StoreController extends GetxController {
   }
 
   Future<void> setRecommendStoreData(StoreVo data) async{
+    try{
+      recommendStoreData = data;
+      update();
+    } catch(error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setRecommendPopularData(StoreVo data) async{
     try{
       recommendStoreData = data;
       update();

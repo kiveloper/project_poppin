@@ -292,6 +292,7 @@ class _HomePageState extends State<HomePage>
                         ),
                         Container(
                           padding: const EdgeInsets.only(left: 16, right: 16),
+                          width: double.infinity,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -311,11 +312,11 @@ class _HomePageState extends State<HomePage>
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
                                     itemCount:
-                                        storeController.recommendList.length,
+                                        storeController.recommendPopularList.length,
                                     itemBuilder: (context, index) {
                                       return PopulationStoreListWidget(
                                           storeData: storeController
-                                              .recommendList[index],
+                                              .recommendPopularList[index],
                                           storeController: storeController);
                                     }),
                               ),

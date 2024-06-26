@@ -48,4 +48,16 @@ class PopPinFirebaseService {
       throw Exception(error);
     }
   }
+
+
+  Future<StoreListModel> getRecommendPopularData() async {
+    try {
+      DocumentSnapshot documentSnapshot =
+      await storeRecommend.doc("popularData").get();
+      return StoreListModel.fromRecommendQuerySnapShot(documentSnapshot);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
 }
