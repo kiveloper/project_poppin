@@ -98,7 +98,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                          padding:
+                              const EdgeInsets.only(left: 8, right: 8, top: 8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -150,7 +151,10 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     storeController.storeAllTagList.length,
                                     (index) {
                                   return ActionChip(
-                                    onPressed: _isButtonDisabled ? null : () => _onPressed(storeController, index, endedPopUpState),
+                                    onPressed: storeController.tagButtonActivate
+                                        ? () => _onPressed(storeController,
+                                            index, endedPopUpState)
+                                        : null,
                                     label: Text(
                                       "#${storeController.storeAllTagList[index]}",
                                       style: const TextStyle(
@@ -227,7 +231,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                   });
                                   clickStop = true;
                                   Future.delayed(
-                                      const Duration(milliseconds: 200), () {
+                                      const Duration(milliseconds: 1000), () {
                                     clickStop = false;
                                   });
 
@@ -338,7 +342,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
     }
   }
 
-  void _onPressed(StoreController storeController, int index, bool endedPopUpState) {
+  void _onPressed(
+      StoreController storeController, int index, bool endedPopUpState) {
     if (!_isButtonDisabled) {
       setState(() {
         _isButtonDisabled = true;
@@ -350,12 +355,15 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
         });
       });
 
-      if (storeController.hashTageSetting == storeController.storeAllTagList[index]) {
+      if (storeController.hashTageSetting ==
+          storeController.storeAllTagList[index]) {
         storeController.setHashTagSetting("");
         storeController.getNavPageStoreAllList(endedPopUpState);
       } else {
-        storeController.setHashTagSetting(storeController.storeAllTagList[index]);
-        storeController.getHashTagStoreDateList(storeController.hashTageSetting, endedPopUpState);
+        storeController
+            .setHashTagSetting(storeController.storeAllTagList[index]);
+        storeController.getHashTagStoreDateList(
+            storeController.hashTageSetting, endedPopUpState);
       }
 
       setState(() {

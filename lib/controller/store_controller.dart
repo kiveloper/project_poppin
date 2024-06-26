@@ -26,6 +26,7 @@ class StoreController extends GetxController {
   String userInstaId = "";
 
   bool tagListDataLoadStateEmpty = false;
+  bool tagButtonActivate = true;
   bool localListDataLoadStateEmpty = false;
   bool storeDetailState = false;
   bool storeLoadState = false;
@@ -45,11 +46,13 @@ class StoreController extends GetxController {
   Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
     try {
       tagListDataLoadStateEmpty = false;
+      tagButtonActivate = false;
       storeNavPageAllList.clear();
       storeNavPageAllList = await httpsService.getAllStore(endedPopUpState);
       if(storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
+      tagButtonActivate = true;
       update();
     } catch (error) {
       throw Exception(error);
@@ -59,11 +62,13 @@ class StoreController extends GetxController {
   Future<void> getHashTagStoreDateList(String hashTag, bool endedPopUpState) async {
     try {
       tagListDataLoadStateEmpty = false;
+      tagButtonActivate = false;
       storeNavPageAllList.clear();
       storeNavPageAllList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
       if(storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
+      tagButtonActivate = true;
       update();
     } catch (error) {
       throw Exception(error);
