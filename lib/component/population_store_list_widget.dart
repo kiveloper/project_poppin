@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -63,12 +64,18 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                 borderRadius: BorderRadius.circular(8),
                 child: AspectRatio(
                   aspectRatio: 1 / 1,
-                  child: Image.network(
-                    "${widget.storeData.thumbnailImgUrl}",
+                  child: CachedNetworkImage(
+                    imageUrl: widget.storeData.thumbnailImgUrl!,
                     width: 140,
                     height: 140,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
+                    placeholder: (context, url) => Container(
+                      color: poppinColorDarkGrey50,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    errorWidget: (context, error, stackTrace) {
                       try {
                         var base64file = base64Decoder(widget.storeData.thumbnailImgUrl!);
                         return Image.memory(
@@ -85,7 +92,7 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
                             fit: BoxFit.cover);
                       }
                     },
-                  ),
+                  )
                 ),
               ),
             ),
