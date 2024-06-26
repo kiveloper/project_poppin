@@ -103,7 +103,7 @@ class StoreController extends GetxController {
       recommendList.addAll(storeListModel.storeList!);
       setRecommendStoreData(recommendList[0]);
       update();
-    }catch(error){
+    } catch(error){
       throw Exception(error);
     }
   }
