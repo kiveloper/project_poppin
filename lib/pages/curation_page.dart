@@ -23,7 +23,6 @@ class _CurationPageState extends State<CurationPage> {
   String userId = "";
 
   @override
-  @override
   void initState() {
     if (prefs.getString("userId") != null &&
         storeControllerMain.curationServiceLoaded) {
