@@ -344,34 +344,21 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
 
   void _onPressed(
       StoreController storeController, int index, bool endedPopUpState) {
-    if (!_isButtonDisabled) {
-      setState(() {
-        _isButtonDisabled = true;
-      });
-
-      Timer(const Duration(milliseconds: 1000), () {
-        setState(() {
-          _isButtonDisabled = false;
-        });
-      });
-
-      if (storeController.hashTageSetting ==
-          storeController.storeAllTagList[index]) {
-        storeController.setHashTagSetting("");
-        storeController.getNavPageStoreAllList(endedPopUpState);
-      } else {
-        storeController
-            .setHashTagSetting(storeController.storeAllTagList[index]);
-        storeController.getHashTagStoreDateList(
-            storeController.hashTageSetting, endedPopUpState);
-      }
-
-      setState(() {
-        if (hashTagSize != 100) {
-          hashTagSize = 100;
-          hashTagExtendState = false;
-        }
-      });
+    if (storeController.hashTageSetting ==
+        storeController.storeAllTagList[index]) {
+      storeController.setHashTagSetting("");
+      storeController.getNavPageStoreAllList(endedPopUpState);
+    } else {
+      storeController.setHashTagSetting(storeController.storeAllTagList[index]);
+      storeController.getHashTagStoreDateList(
+          storeController.hashTageSetting, endedPopUpState);
     }
+
+    setState(() {
+      if (hashTagSize != 100) {
+        hashTagSize = 100;
+        hashTagExtendState = false;
+      }
+    });
   }
 }
