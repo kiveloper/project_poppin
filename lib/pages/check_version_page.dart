@@ -48,7 +48,7 @@ class _CheckVersionPageState extends State<CheckVersionPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 content: const Text(
-                  "어플리케이션 업데이트를 진행해주세요!",
+                  "어플리케이션 사용하시려면 업데이트를 진행해주세요!",
                 ),
                 actions: <Widget>[
                   TextButton(

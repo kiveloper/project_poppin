@@ -14,6 +14,7 @@ class StoreController extends GetxController {
   List<String> storeAllTagList = [];
   List<StoreVo> storeFilterLocationList = [];
   List<StoreVo> recommendList = [];
+  List<StoreVo> recommendPopularList = [];
   List<StoreVo> storeCurationList = [];
 
   StoreVo recommendStoreData = StoreVo();
@@ -26,6 +27,7 @@ class StoreController extends GetxController {
   String userInstaId = "";
 
   bool tagListDataLoadStateEmpty = false;
+  bool tagButtonActivate = true;
   bool localListDataLoadStateEmpty = false;
   bool storeDetailState = false;
   bool storeLoadState = false;
@@ -45,11 +47,13 @@ class StoreController extends GetxController {
   Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
     try {
       tagListDataLoadStateEmpty = false;
+      tagButtonActivate = false;
       storeNavPageAllList.clear();
       storeNavPageAllList = await httpsService.getAllStore(endedPopUpState);
       if(storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
+      tagButtonActivate = true;
       update();
     } catch (error) {
       throw Exception(error);
@@ -59,11 +63,13 @@ class StoreController extends GetxController {
   Future<void> getHashTagStoreDateList(String hashTag, bool endedPopUpState) async {
     try {
       tagListDataLoadStateEmpty = false;
+      tagButtonActivate = false;
       storeNavPageAllList.clear();
       storeNavPageAllList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
       if(storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
+      tagButtonActivate = true;
       update();
     } catch (error) {
       throw Exception(error);
@@ -103,7 +109,19 @@ class StoreController extends GetxController {
       recommendList.addAll(storeListModel.storeList!);
       setRecommendStoreData(recommendList[0]);
       update();
-    }catch(error){
+    } catch(error){
+      throw Exception(error);
+    }
+  }
+
+  Future<void> getRecommendPopularList() async{
+    try{
+      StoreListModel storeListModel = await popPinFirebaseService.getRecommendPopularData();
+      recommendPopularList.clear();
+      recommendPopularList.addAll(storeListModel.storeList!);
+      setRecommendPopularData(recommendPopularList[0]);
+      update();
+    } catch(error){
       throw Exception(error);
     }
   }
@@ -120,6 +138,15 @@ class StoreController extends GetxController {
   }
 
   Future<void> setRecommendStoreData(StoreVo data) async{
+    try{
+      recommendStoreData = data;
+      update();
+    } catch(error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> setRecommendPopularData(StoreVo data) async{
     try{
       recommendStoreData = data;
       update();

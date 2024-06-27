@@ -26,13 +26,6 @@ class StoreListWidget extends StatefulWidget {
 }
 
 class _StoreListWidgetState extends State<StoreListWidget> {
-  List<String> adressList = [];
-
-  @override
-  void initState() {
-    adressList = widget.storeData.address!.split(" ");
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +111,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                     ],
                   ),
                   Flexible(
-                      child: Text("${adressList[0]} ${adressList[1]}",
+                      child: Text("${widget.storeData.address!.split(" ")[0]} ${widget.storeData.address!.split(" ")[1]}",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontWeight: FontWeight.w500,

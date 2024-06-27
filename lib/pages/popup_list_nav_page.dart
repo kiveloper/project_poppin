@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
   GlobalKey upScrollPosition = GlobalKey();
   GlobalKey downScrollPosition = GlobalKey();
   double hashTagSize = 100;
+  bool _isButtonDisabled = false;
   bool endedPopUpState = prefs.getBool("endedPopUpState")!;
   bool clickStop = false;
   bool hashTagExtendState = false;
@@ -96,7 +98,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                          padding:
+                              const EdgeInsets.only(left: 8, right: 8, top: 8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -148,34 +151,10 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     storeController.storeAllTagList.length,
                                     (index) {
                                   return ActionChip(
-                                    onPressed: () {
-                                      if (storeController.hashTageSetting ==
-                                          storeController
-                                              .storeAllTagList[index]) {
-                                        storeController.setHashTagSetting("");
-                                        storeController.getNavPageStoreAllList(
-                                            endedPopUpState);
-                                        setState(() {
-                                          if (hashTagSize != 100) {
-                                            hashTagSize = 100;
-                                            hashTagExtendState = false;
-                                          }
-                                        });
-                                      } else {
-                                        storeController.setHashTagSetting(
-                                            storeController
-                                                .storeAllTagList[index]);
-                                        storeController.getHashTagStoreDateList(
-                                            storeController.hashTageSetting,
-                                            endedPopUpState);
-                                        setState(() {
-                                          if (hashTagSize != 100) {
-                                            hashTagSize = 100;
-                                            hashTagExtendState = false;
-                                          }
-                                        });
-                                      }
-                                    },
+                                    onPressed: storeController.tagButtonActivate
+                                        ? () => _onPressed(storeController,
+                                            index, endedPopUpState)
+                                        : null,
                                     label: Text(
                                       "#${storeController.storeAllTagList[index]}",
                                       style: const TextStyle(
@@ -252,7 +231,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                   });
                                   clickStop = true;
                                   Future.delayed(
-                                      const Duration(milliseconds: 200), () {
+                                      const Duration(milliseconds: 1000), () {
                                     clickStop = false;
                                   });
 
@@ -360,6 +339,39 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       // 사용자가 아래로 스크롤하는 중
       Scrollable.ensureVisible(downScrollPosition.currentContext!,
           duration: const Duration(milliseconds: 150), alignment: 0);
+    }
+  }
+
+  void _onPressed(
+      StoreController storeController, int index, bool endedPopUpState) {
+    if (!_isButtonDisabled) {
+      setState(() {
+        _isButtonDisabled = true;
+      });
+
+      Timer(const Duration(milliseconds: 1000), () {
+        setState(() {
+          _isButtonDisabled = false;
+        });
+      });
+
+      if (storeController.hashTageSetting ==
+          storeController.storeAllTagList[index]) {
+        storeController.setHashTagSetting("");
+        storeController.getNavPageStoreAllList(endedPopUpState);
+      } else {
+        storeController
+            .setHashTagSetting(storeController.storeAllTagList[index]);
+        storeController.getHashTagStoreDateList(
+            storeController.hashTageSetting, endedPopUpState);
+      }
+
+      setState(() {
+        if (hashTagSize != 100) {
+          hashTagSize = 100;
+          hashTagExtendState = false;
+        }
+      });
     }
   }
 }

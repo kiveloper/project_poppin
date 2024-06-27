@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
 void loadData() async {
   StoreController storeController = Get.find();
 
+  storeController.getRecommendPopularList();
   storeController.getRecommendList();
   storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
   storeController.getStoreAllList();

@@ -17,5 +17,4 @@ class LocationController extends GetxController {
     locationState = state;
     update();
   }
-
 }
