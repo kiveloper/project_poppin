@@ -33,7 +33,6 @@ class StoreController extends GetxController {
   bool storeLoadState = false;
   bool curationServiceLoaded = true;
   bool curationCodeCheckInCorrect = false;
-  bool tempLoad = false;
 
   Future<void> getStoreAllList() async {
     try {
@@ -127,9 +126,7 @@ class StoreController extends GetxController {
 
   Future<void> getCurationStoreData(String userId, StoreController storeController) async{
     try{
-      setLoadCurationState(true);
       storeCurationList = await httpsService.getCurationData(userId, storeController);
-      setLoadCurationState(false);
       update();
     } catch(e) {
       throw Exception(e);
@@ -222,15 +219,6 @@ class StoreController extends GetxController {
   Future<void> setCurationCodeCheck(bool check) async {
     try{
       curationCodeCheckInCorrect = check;
-      update();
-    } catch(e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<void> setLoadCurationState(bool check) async {
-    try{
-      tempLoad = check;
       update();
     } catch(e) {
       throw Exception(e);

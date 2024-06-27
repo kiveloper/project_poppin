@@ -118,7 +118,7 @@ flutter:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: assets/images/poppin_logo_size.png
+  image: assets/images/seepop_logo_640.png
   # 이 패키지는 Flutter의 기본 흰색 기본 스플래시 화면을 사용자 정의하는 기본 코드를 생성합니다.
   # 배경색과 스플래시 이미지.
   ## 생성 / 복원 명령어
@@ -154,7 +154,7 @@ flutter_native_splash:
 
   android_12:
     color: "#FFFFFF"
-    image: assets/images/poppin_logo_size(960).png
+    image: assets/images/seepop_logo_960.png
   # 이미지 매개변수는 스플래시 화면 아이콘 이미지를 설정합니다. 이 매개변수를 지정하지 않으면
   # 앱의 런처 아이콘이 대신 사용됩니다.
   # 스플래쉬 화면은 화면 중앙의 원에 잘려서 나오니 참고하세요.

@@ -21,6 +21,7 @@ class _CurationPageState extends State<CurationPage> {
   StoreController storeControllerMain = Get.find();
   dynamic lastPopTime;
   String userId = "";
+  bool tempLoad = false;
 
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _CurationPageState extends State<CurationPage> {
                             SizedBox(
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.20),
-                            Image.asset("assets/images/poppin_logo.png"),
+                            Image.asset("assets/images/seepop_logo.png", width: 195, height: 100,),
                             const SizedBox(
                               height: 16,
                             ),
@@ -109,16 +110,16 @@ class _CurationPageState extends State<CurationPage> {
                             storeController.curationCodeCheckInCorrect
                                 ? Container(
                                     margin: const EdgeInsets.only(left: 32, top: 4),
-                                    child: storeController.tempLoad
+                                    child: tempLoad
                                         ? const Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                                height: 17,
-                                                width: 17,
-                                                child: CircularProgressIndicator()),
-                                          ],
-                                        )
+                                      children: [
+                                        SizedBox(
+                                            height: 17,
+                                            width: 17,
+                                            child: CircularProgressIndicator()),
+                                      ],
+                                    )
                                         : const Row(mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
@@ -138,6 +139,12 @@ class _CurationPageState extends State<CurationPage> {
                                 onPressed: () async {
                                   storeController.getCurationStoreData(
                                       userId, storeController);
+                                  setState(() {
+                                    tempLoad = true;
+                                    Future.delayed(const Duration(milliseconds: 500), (){
+                                      tempLoad = false;
+                                    });
+                                  });
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:

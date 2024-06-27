@@ -74,12 +74,12 @@ class _HomePageState extends State<HomePage>
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
+                                  left: 16,
                                   top: MediaQuery.of(context).padding.top + 8),
                               child: Image.asset(
-                                "assets/images/poppin_logo.png",
-                                fit: BoxFit.cover,
-                                width: 173,
-                                height: 64,
+                                "assets/images/seepop_logo.png",
+                                width: 111,
+                                height: 62,
                               ),
                             ),
                           ],
@@ -88,8 +88,7 @@ class _HomePageState extends State<HomePage>
                           baseColor: const Color.fromRGBO(240, 240, 240, 1),
                           highlightColor: poppinColorGrey400,
                           child: Container(
-                            margin: const EdgeInsets.only(
-                                top: 12, left: 16, right: 16),
+                            margin: const EdgeInsets.only(left: 16, right: 16),
                             padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -111,12 +110,12 @@ class _HomePageState extends State<HomePage>
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
+                                  left: 16,
                                   top: MediaQuery.of(context).padding.top + 8),
                               child: Image.asset(
-                                "assets/images/poppin_logo.png",
-                                fit: BoxFit.cover,
-                                width: 173,
-                                height: 64,
+                                "assets/images/seepop_logo.png",
+                                width: 111,
+                                height: 62,
                               ),
                             ),
                           ],
@@ -133,8 +132,7 @@ class _HomePageState extends State<HomePage>
                             }
                           },
                           child: Container(
-                            margin: const EdgeInsets.only(
-                                top: 12, left: 16, right: 16),
+                            margin: const EdgeInsets.only(left: 16, right: 16),
                             padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                               color: Colors.white,
