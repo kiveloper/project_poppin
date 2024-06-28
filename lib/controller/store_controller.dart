@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/model/store_list_model.dart';
 import 'package:project_poppin/services/https_service.dart';
@@ -33,7 +33,6 @@ class StoreController extends GetxController {
   bool storeLoadState = false;
   bool curationServiceLoaded = true;
   bool curationCodeCheckInCorrect = false;
-  bool tempLoad = false;
 
   Future<void> getStoreAllList() async {
     try {
@@ -119,7 +118,6 @@ class StoreController extends GetxController {
       StoreListModel storeListModel = await popPinFirebaseService.getRecommendPopularData();
       recommendPopularList.clear();
       recommendPopularList.addAll(storeListModel.storeList!);
-      setRecommendPopularData(recommendPopularList[0]);
       update();
     } catch(error){
       throw Exception(error);
@@ -128,9 +126,7 @@ class StoreController extends GetxController {
 
   Future<void> getCurationStoreData(String userId, StoreController storeController) async{
     try{
-      setLoadCurationState(true);
       storeCurationList = await httpsService.getCurationData(userId, storeController);
-      setLoadCurationState(false);
       update();
     } catch(e) {
       throw Exception(e);
@@ -138,15 +134,6 @@ class StoreController extends GetxController {
   }
 
   Future<void> setRecommendStoreData(StoreVo data) async{
-    try{
-      recommendStoreData = data;
-      update();
-    } catch(error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<void> setRecommendPopularData(StoreVo data) async{
     try{
       recommendStoreData = data;
       update();
@@ -232,15 +219,6 @@ class StoreController extends GetxController {
   Future<void> setCurationCodeCheck(bool check) async {
     try{
       curationCodeCheckInCorrect = check;
-      update();
-    } catch(e) {
-      throw Exception(e);
-    }
-  }
-
-  Future<void> setLoadCurationState(bool check) async {
-    try{
-      tempLoad = check;
       update();
     } catch(e) {
       throw Exception(e);

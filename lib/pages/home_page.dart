@@ -74,12 +74,12 @@ class _HomePageState extends State<HomePage>
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
+                                  left: 16,
                                   top: MediaQuery.of(context).padding.top + 8),
                               child: Image.asset(
-                                "assets/images/poppin_logo.png",
-                                fit: BoxFit.cover,
-                                width: 173,
-                                height: 64,
+                                "assets/images/seepop_logo.png",
+                                width: 111,
+                                height: 62,
                               ),
                             ),
                           ],
@@ -88,8 +88,7 @@ class _HomePageState extends State<HomePage>
                           baseColor: const Color.fromRGBO(240, 240, 240, 1),
                           highlightColor: poppinColorGrey400,
                           child: Container(
-                            margin: const EdgeInsets.only(
-                                top: 12, left: 16, right: 16),
+                            margin: const EdgeInsets.only(left: 16, right: 16),
                             padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -101,58 +100,6 @@ class _HomePageState extends State<HomePage>
                         const SizedBox(
                           height: 28,
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 16, right: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "인기 팝업·전시",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 8),
-                                width: MediaQuery.sizeOf(context).width,
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.25,
-                                child: ListView.builder(
-                                    padding: const EdgeInsets.only(top: 8),
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemCount: 2,
-                                    itemBuilder: (context, index) {
-                                      return Shimmer.fromColors(
-                                        baseColor: const Color.fromRGBO(
-                                            240, 240, 240, 1),
-                                        highlightColor: poppinColorGrey400,
-                                        child: Container(
-                                          margin: const EdgeInsets.only(
-                                              bottom: 20, left: 4, right: 4),
-                                          padding: const EdgeInsets.only(
-                                              left: 8,
-                                              right: 8,
-                                              top: 18,
-                                              bottom: 18),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: const Color.fromRGBO(
-                                                  240, 240, 240, 1)),
-                                          height: 158,
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.8,
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            ],
-                          ),
-                        )
                       ],
                     ),
                   )
@@ -163,12 +110,12 @@ class _HomePageState extends State<HomePage>
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
+                                  left: 16,
                                   top: MediaQuery.of(context).padding.top + 8),
                               child: Image.asset(
-                                "assets/images/poppin_logo.png",
-                                fit: BoxFit.cover,
-                                width: 173,
-                                height: 64,
+                                "assets/images/seepop_logo.png",
+                                width: 111,
+                                height: 62,
                               ),
                             ),
                           ],
@@ -185,8 +132,7 @@ class _HomePageState extends State<HomePage>
                             }
                           },
                           child: Container(
-                            margin: const EdgeInsets.only(
-                                top: 12, left: 16, right: 16),
+                            margin: const EdgeInsets.only(left: 16, right: 16),
                             padding: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -218,7 +164,10 @@ class _HomePageState extends State<HomePage>
                                       errorBuilder:
                                           (context, error, stackTrace) {
                                         try {
-                                          var base64file = base64Decoder(storeController.recommendStoreData.thumbnailImgUrl??"");
+                                          var base64file = base64Decoder(
+                                              storeController.recommendStoreData
+                                                      .thumbnailImgUrl ??
+                                                  "");
                                           return Image.memory(base64file,
                                               width: 140,
                                               height: 140,
@@ -290,39 +239,107 @@ class _HomePageState extends State<HomePage>
                         const SizedBox(
                           height: 28,
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 16, right: 16),
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "인기 팝업·전시",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w700),
+                        storeController.recommendPopularList.isEmpty
+                            ? Container(
+                                padding:
+                                    const EdgeInsets.only(left: 16, right: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "인기 팝업·전시",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom: 8),
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.25,
+                                      child: ListView.builder(
+                                          padding:
+                                              const EdgeInsets.only(top: 8),
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: 2,
+                                          itemBuilder: (context, index) {
+                                            return Shimmer.fromColors(
+                                              baseColor: const Color.fromRGBO(
+                                                  240, 240, 240, 1),
+                                              highlightColor:
+                                                  poppinColorGrey400,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 20,
+                                                    left: 4,
+                                                    right: 4),
+                                                padding: const EdgeInsets.only(
+                                                    left: 8,
+                                                    right: 8,
+                                                    top: 18,
+                                                    bottom: 18),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: const Color.fromRGBO(
+                                                        240, 240, 240, 1)),
+                                                height: 158,
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        0.8,
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(
+                                padding:
+                                    const EdgeInsets.only(left: 16, right: 16),
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "인기 팝업·전시",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.25,
+                                      child: ListView.builder(
+                                          padding:
+                                              const EdgeInsets.only(top: 4),
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: storeController
+                                              .recommendPopularList.length,
+                                          itemBuilder: (context, index) {
+                                            return PopulationStoreListWidget(
+                                                storeData: storeController
+                                                        .recommendPopularList[
+                                                    index],
+                                                storeController:
+                                                    storeController);
+                                          }),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.25,
-                                child: ListView.builder(
-                                    padding: const EdgeInsets.only(top: 4),
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        storeController.recommendPopularList.length,
-                                    itemBuilder: (context, index) {
-                                      return PopulationStoreListWidget(
-                                          storeData: storeController
-                                              .recommendPopularList[index],
-                                          storeController: storeController);
-                                    }),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ));
