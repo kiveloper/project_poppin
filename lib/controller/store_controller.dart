@@ -28,6 +28,7 @@ class StoreController extends GetxController {
 
   bool tagListDataLoadStateEmpty = false;
   bool tagButtonActivate = true;
+  bool loadDataState = false;
   bool localListDataLoadStateEmpty = false;
   bool storeDetailState = false;
   bool storeLoadState = false;
@@ -43,16 +44,33 @@ class StoreController extends GetxController {
     }
   }
 
+  // Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
+  //   try {
+  //     tagListDataLoadStateEmpty = false;
+  //     tagButtonActivate = false;
+  //     storeNavPageAllList.clear();
+  //     storeNavPageAllList = await httpsService.getAllStore(endedPopUpState);
+  //     if(storeNavPageAllList.isEmpty) {
+  //       tagListDataLoadStateEmpty = true;
+  //     }
+  //     tagButtonActivate = true;
+  //     update();
+  //   } catch (error) {
+  //     throw Exception(error);
+  //   }
+  // }
+
   Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
     try {
       tagListDataLoadStateEmpty = false;
       tagButtonActivate = false;
-      storeNavPageAllList.clear();
-      storeNavPageAllList = await httpsService.getAllStore(endedPopUpState);
+      var tempList = await httpsService.getAllStore(endedPopUpState);
+      storeNavPageAllList.addAll(tempList);
       if(storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
       tagButtonActivate = true;
+      loadDataState = false;
       update();
     } catch (error) {
       throw Exception(error);
@@ -69,6 +87,7 @@ class StoreController extends GetxController {
         tagListDataLoadStateEmpty = true;
       }
       tagButtonActivate = true;
+      loadDataState = false;
       update();
     } catch (error) {
       throw Exception(error);
@@ -130,6 +149,15 @@ class StoreController extends GetxController {
       update();
     } catch(e) {
       throw Exception(e);
+    }
+  }
+
+  Future<void> setStoreNavPageAllListClean() async{
+    try{
+      storeNavPageAllList.clear();
+      update();
+    } catch(e) {
+      throw e;
     }
   }
 

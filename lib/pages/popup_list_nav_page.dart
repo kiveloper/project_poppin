@@ -21,10 +21,10 @@ class PopUpListNavPage extends StatefulWidget {
 class _PopUpListNavPageState extends State<PopUpListNavPage>
     with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
+  StoreController storeControllerManager = Get.find();
   GlobalKey upScrollPosition = GlobalKey();
   GlobalKey downScrollPosition = GlobalKey();
   double hashTagSize = 100;
-  bool _isButtonDisabled = false;
   bool endedPopUpState = prefs.getBool("endedPopUpState")!;
   bool clickStop = false;
   bool hashTagExtendState = false;
@@ -224,6 +224,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           onPressed: clickStop
                               ? null
                               : () async {
+                            storeController.setStoreNavPageAllListClean();
                                   setState(() {
                                     endedPopUpState = !endedPopUpState;
                                     prefs.setBool(
@@ -310,10 +311,15 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                               controller: _scrollController,
                               physics: const ClampingScrollPhysics(),
                               itemCount:
-                                  storeController.storeNavPageAllList.length,
+                                  storeController.storeNavPageAllList.length + (storeController.loadDataState ?1 :0),
                               padding:
-                                  const EdgeInsets.only(left: 16, right: 16),
+                                  const EdgeInsets.only(left: 16, right: 16, bottom: 8),
                               itemBuilder: (context, index) {
+                                if (index == storeController.storeNavPageAllList.length) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
                                 return StoreListWidget(
                                   storeData: storeController
                                       .storeNavPageAllList[index],
@@ -335,10 +341,21 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       // 사용자가 위로 스크롤하는 중
       Scrollable.ensureVisible(upScrollPosition.currentContext!,
           duration: const Duration(milliseconds: 150), alignment: 0);
-    } else if (_scrollController.position.pixels == 0) {
+    }
+
+    if (_scrollController.position.pixels == 0) {
       // 사용자가 아래로 스크롤하는 중
       Scrollable.ensureVisible(downScrollPosition.currentContext!,
           duration: const Duration(milliseconds: 150), alignment: 0);
+    }
+
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      // 여기에 바닥에 도달했을 때 실행할 코드를 작성
+      setState(() {
+        storeControllerManager.loadDataState = true;
+      });
+      storeControllerManager.getNavPageStoreAllList(endedPopUpState);
     }
   }
 
@@ -347,6 +364,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
     if (storeController.hashTageSetting ==
         storeController.storeAllTagList[index]) {
       storeController.setHashTagSetting("");
+      storeController.setStoreNavPageAllListClean();
       storeController.getNavPageStoreAllList(endedPopUpState);
     } else {
       storeController.setHashTagSetting(storeController.storeAllTagList[index]);
