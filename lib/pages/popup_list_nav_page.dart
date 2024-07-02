@@ -73,7 +73,10 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                 children: [
                   Container(
                     padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).padding.top + 16),
+                        top: MediaQuery
+                            .of(context)
+                            .padding
+                            .top + 16),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -99,41 +102,42 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                       children: [
                         Padding(
                           padding:
-                              const EdgeInsets.only(left: 8, right: 8, top: 8),
+                          const EdgeInsets.only(left: 8, right: 8, top: 8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               storeController.hashTageSetting == ""
                                   ? const Text(
-                                      "해시태그를 선택해주세요",
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color: poppinColorDarkGrey500,
-                                          fontWeight: FontWeight.w600),
-                                    )
+                                "해시태그를 선택해주세요",
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    color: poppinColorDarkGrey500,
+                                    fontWeight: FontWeight.w600),
+                              )
                                   : Text(
-                                      "# ${storeController.hashTageSetting}",
-                                      style: const TextStyle(
-                                          fontSize: 13,
-                                          color: poppinColorDarkGrey500,
-                                          fontWeight: FontWeight.w600),
-                                    ),
+                                "# ${storeController.hashTageSetting}",
+                                style: const TextStyle(
+                                    fontSize: 13,
+                                    color: poppinColorDarkGrey500,
+                                    fontWeight: FontWeight.w600),
+                              ),
                               RichText(
                                   text: TextSpan(
                                       text:
-                                          "${storeController.storeAllTagList.length}",
+                                      "${storeController.storeAllTagList
+                                          .length}",
                                       style: const TextStyle(
                                           fontSize: 11,
                                           fontWeight: FontWeight.w400,
                                           color: poppinColorGreen500),
                                       children: const <TextSpan>[
-                                    TextSpan(
-                                        text: ' 개의 해시태그가 있어요',
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w400,
-                                            color: poppinColorDarkGrey500))
-                                  ]))
+                                        TextSpan(
+                                            text: ' 개의 해시태그가 있어요',
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w400,
+                                                color: poppinColorDarkGrey500))
+                                      ]))
                             ],
                           ),
                         ),
@@ -149,32 +153,38 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                 runSpacing: 2.0, // 줄 간의 간격
                                 children: List.generate(
                                     storeController.storeAllTagList.length,
-                                    (index) {
-                                  return ActionChip(
-                                    onPressed: storeController.tagButtonActivate
-                                        ? () => _onPressed(storeController,
-                                            index, endedPopUpState)
-                                        : null,
-                                    label: Text(
-                                      "#${storeController.storeAllTagList[index]}",
-                                      style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: poppinColorDarkGrey500),
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        side: BorderSide(
-                                            color: storeController
-                                                        .hashTageSetting ==
+                                        (index) {
+                                      return ActionChip(
+                                        onPressed: storeController
+                                            .tagButtonActivate
+                                            ? () {
+                                          storeControllerManager.setStoreNavPageAllListClean();
+                                          _onPressed(storeController,
+                                              index, endedPopUpState);
+                                        }
+                                            : null,
+                                        label: Text(
+                                          "#${storeController
+                                              .storeAllTagList[index]}",
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: poppinColorDarkGrey500),
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                20),
+                                            side: BorderSide(
+                                                color: storeController
+                                                    .hashTageSetting ==
                                                     storeController
                                                         .storeAllTagList[index]
-                                                ? poppinColorGreen500
-                                                : poppinColorGrey300)),
-                                    padding: const EdgeInsets.only(
-                                        left: 4, right: 4),
-                                  );
-                                }),
+                                                    ? poppinColorGreen500
+                                                    : poppinColorGrey300)),
+                                        padding: const EdgeInsets.only(
+                                            left: 4, right: 4),
+                                      );
+                                    }),
                               ),
                             ),
                           ),
@@ -193,7 +203,9 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                   setState(() {
                                     if (hashTagSize == 100) {
                                       hashTagSize =
-                                          MediaQuery.sizeOf(context).height *
+                                          MediaQuery
+                                              .sizeOf(context)
+                                              .height *
                                               0.65;
                                       hashTagExtendState = true;
                                     } else {
@@ -204,19 +216,19 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                 },
                                 icon: hashTagExtendState
                                     ? const Icon(
-                                        Icons.arrow_drop_up_rounded,
-                                        size: 28,
-                                      )
+                                  Icons.arrow_drop_up_rounded,
+                                  size: 28,
+                                )
                                     : const Icon(
-                                        Icons.arrow_drop_down_rounded,
-                                        size: 28,
-                                      )))
+                                  Icons.arrow_drop_down_rounded,
+                                  size: 28,
+                                )))
                       ],
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(right: 24, top: 8, bottom: 8),
+                    const EdgeInsets.only(right: 24, top: 8, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -225,26 +237,26 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                               ? null
                               : () async {
                             storeController.setStoreNavPageAllListClean();
-                                  setState(() {
-                                    endedPopUpState = !endedPopUpState;
-                                    prefs.setBool(
-                                        "endedPopUpState", endedPopUpState);
-                                  });
-                                  clickStop = true;
-                                  Future.delayed(
-                                      const Duration(milliseconds: 1000), () {
-                                    clickStop = false;
-                                  });
+                            setState(() {
+                              endedPopUpState = !endedPopUpState;
+                              prefs.setBool(
+                                  "endedPopUpState", endedPopUpState);
+                            });
+                            clickStop = true;
+                            Future.delayed(
+                                const Duration(milliseconds: 1000), () {
+                              clickStop = false;
+                            });
 
-                                  if (storeController.hashTageSetting == "") {
-                                    storeController.getNavPageStoreAllList(
-                                        endedPopUpState);
-                                  } else {
-                                    storeController.getHashTagStoreDateList(
-                                        storeController.hashTageSetting,
-                                        endedPopUpState);
-                                  }
-                                },
+                            if (storeController.hashTageSetting == "") {
+                              storeController.getNavPageStoreAllList(
+                                  endedPopUpState);
+                            } else {
+                              storeController.getHashTagStoreDateList(
+                                  storeController.hashTageSetting,
+                                  endedPopUpState);
+                            }
+                          },
                           icon: Image.asset(
                             endedPopUpState
                                 ? "assets/button/select_hashtag_button.png"
@@ -263,71 +275,79 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                   const SizedBox(height: 8),
                   storeController.storeNavPageAllList.isEmpty
                       ? storeController.tagListDataLoadStateEmpty
-                          ? const SizedBox(
-                              child: Text(
-                                "리스트가 없습니다",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    color: poppinColorDarkGrey500),
-                              ),
-                            )
-                          : SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.8,
-                              child: ListView.builder(
-                                  itemCount: 8,
-                                  padding: const EdgeInsets.only(
-                                      left: 16, right: 16),
-                                  itemBuilder: (context, index) {
-                                    return Shimmer.fromColors(
-                                      baseColor: const Color.fromRGBO(
-                                          240, 240, 240, 1),
-                                      highlightColor: poppinColorGrey400,
-                                      child: Container(
-                                        margin: const EdgeInsets.only(
-                                            bottom: 20, left: 4, right: 4),
-                                        padding: const EdgeInsets.only(
-                                            left: 8,
-                                            right: 8,
-                                            top: 18,
-                                            bottom: 18),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: const Color.fromRGBO(
-                                                240, 240, 240, 1)),
-                                        height: 158,
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.8,
-                                      ),
-                                    );
-                                  }),
-                            )
+                      ? const SizedBox(
+                    child: Text(
+                      "리스트가 없습니다",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: poppinColorDarkGrey500),
+                    ),
+                  )
                       : SizedBox(
-                          key: upScrollPosition,
-                          height: MediaQuery.sizeOf(context).height * 0.8,
-                          child: ListView.builder(
-                              controller: _scrollController,
-                              physics: const ClampingScrollPhysics(),
-                              itemCount:
-                                  storeController.storeNavPageAllList.length + (storeController.loadDataState ?1 :0),
-                              padding:
-                                  const EdgeInsets.only(left: 16, right: 16, bottom: 8),
-                              itemBuilder: (context, index) {
-                                if (index == storeController.storeNavPageAllList.length) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                                return StoreListWidget(
-                                  storeData: storeController
-                                      .storeNavPageAllList[index],
-                                  index: index,
-                                  storeController: storeController,
-                                );
-                              }),
-                        )
+                    height: MediaQuery
+                        .sizeOf(context)
+                        .height * 0.8,
+                    child: ListView.builder(
+                        itemCount: 8,
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16),
+                        itemBuilder: (context, index) {
+                          return Shimmer.fromColors(
+                            baseColor: const Color.fromRGBO(
+                                240, 240, 240, 1),
+                            highlightColor: poppinColorGrey400,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  bottom: 20, left: 4, right: 4),
+                              padding: const EdgeInsets.only(
+                                  left: 8,
+                                  right: 8,
+                                  top: 18,
+                                  bottom: 18),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                  color: const Color.fromRGBO(
+                                      240, 240, 240, 1)),
+                              height: 158,
+                              width:
+                              MediaQuery
+                                  .sizeOf(context)
+                                  .width *
+                                  0.8,
+                            ),
+                          );
+                        }),
+                  )
+                      : SizedBox(
+                    key: upScrollPosition,
+                    height: MediaQuery
+                        .sizeOf(context)
+                        .height * 0.8,
+                    child: ListView.builder(
+                        controller: _scrollController,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount:
+                        storeController.storeNavPageAllList.length +
+                            (storeController.loadDataState ? 1 : 0),
+                        padding:
+                        const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                        itemBuilder: (context, index) {
+                          if (index == storeController.storeNavPageAllList
+                              .length) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return StoreListWidget(
+                            storeData: storeController
+                                .storeNavPageAllList[index],
+                            index: index,
+                            storeController: storeController,
+                          );
+                        }),
+                  )
                 ],
               ),
             ),
@@ -355,12 +375,18 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       setState(() {
         storeControllerManager.loadDataState = true;
       });
-      storeControllerManager.getNavPageStoreAllList(endedPopUpState);
+
+      if (storeControllerManager.hashTageSetting == "") {
+        storeControllerManager.getNavPageStoreAllList(endedPopUpState);
+      } else {
+        storeControllerManager.getHashTagStoreDateList(
+            storeControllerManager.hashTageSetting, endedPopUpState);
+      }
     }
   }
 
-  void _onPressed(
-      StoreController storeController, int index, bool endedPopUpState) {
+  void _onPressed(StoreController storeController, int index,
+      bool endedPopUpState) {
     if (storeController.hashTageSetting ==
         storeController.storeAllTagList[index]) {
       storeController.setHashTagSetting("");

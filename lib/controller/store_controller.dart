@@ -81,8 +81,8 @@ class StoreController extends GetxController {
     try {
       tagListDataLoadStateEmpty = false;
       tagButtonActivate = false;
-      storeNavPageAllList.clear();
-      storeNavPageAllList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
+      var tempList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
+      storeNavPageAllList.addAll(tempList);
       if(storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
