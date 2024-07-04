@@ -1,3 +1,4 @@
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
@@ -11,13 +12,43 @@ class PopUpListPage extends StatefulWidget {
   State<PopUpListPage> createState() => _PopUpListPageState();
 }
 
-class _PopUpListPageState extends State<PopUpListPage> {
+class _PopUpListPageState extends State<PopUpListPage>
+    with AutomaticKeepAliveClientMixin {
   String locationName = Get.arguments;
+  StoreController storeControllerManager = Get.find();
+  final ScrollController _scrollController = ScrollController();
+
+  final updateBasketThrottle = Throttle(
+    const Duration(milliseconds: 500),
+    initialValue: null,
+    checkEquality: false,
+  );
 
   var lastPopTime;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    _scrollController.addListener(scrollListener);
+
+    updateBasketThrottle.values.listen((event){
+      setState(() {
+        storeControllerManager.loadDataState = true;
+      });
+
+      storeControllerManager.getStoreListLocationFilter(
+          storeControllerManager.storeLocationState,
+          locationName.split("/"),
+          false);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return GetBuilder<StoreController>(builder: (storeController) {
       return Scaffold(
         body: Column(
@@ -43,9 +74,8 @@ class _PopUpListPageState extends State<PopUpListPage> {
                   Flexible(
                       child: Text.rich(TextSpan(children: [
                     TextSpan(
-                        text: locationName == "중구/명동/중"
-                            ? "중구/명동"
-                            : locationName,
+                        text:
+                            locationName == "중구/명동/중" ? "중구/명동" : locationName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: poppinColorGreen500,
@@ -77,9 +107,18 @@ class _PopUpListPageState extends State<PopUpListPage> {
                 : Expanded(
                     child: ListView.builder(
                         itemCount:
-                            storeController.storeFilterLocationList.length,
-                        padding: const EdgeInsets.only(left: 16, right: 16),
+                            storeController.storeFilterLocationList.length +
+                                (storeController.loadDataState ? 1 : 0),
+                        controller: _scrollController,
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 8),
                         itemBuilder: (context, index) {
+                          if (index ==
+                              storeController.storeFilterLocationList.length) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                           return StoreListWidget(
                             storeData:
                                 storeController.storeFilterLocationList[index],
@@ -92,4 +131,15 @@ class _PopUpListPageState extends State<PopUpListPage> {
       );
     });
   }
+
+  void scrollListener() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+
+      updateBasketThrottle.setValue(null);
+
+    }
+  }
+  
+  
 }

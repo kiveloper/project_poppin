@@ -8,10 +8,14 @@ import '../global/share_preference.dart';
 
 class HttpsService {
 
-  final baseUrl = Uri.parse(
-      'https://asia-northeast3-project-poping.cloudfunctions.net/function-curation-test');
+  // final baseUrl = Uri.parse(
+  //     'https://asia-northeast3-project-poping.cloudfunctions.net/function-curation-test');
 
-  Future<List<StoreVo>> getAllStore(bool endedPopUpState) async {
+
+  final baseUrl = Uri.parse(
+      'http://172.30.1.9:8080');
+
+  Future<List<StoreVo>> getAllStore(bool endedPopUpState, String docId) async {
     final storeList = <StoreVo>[];
 
     try {
@@ -20,8 +24,9 @@ class HttpsService {
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
-            'type': 'all_stores',
-            'ended_popups': endedPopUpState,
+            "type" : "all_stores",
+            "lastDocId": docId,
+            "ended_popups" : endedPopUpState
           })
       );
 

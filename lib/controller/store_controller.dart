@@ -1,4 +1,4 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/model/store_list_model.dart';
 import 'package:project_poppin/services/https_service.dart';
@@ -13,6 +13,7 @@ class StoreController extends GetxController {
   List<StoreVo> storeNavPageAllList = [];
   List<String> storeAllTagList = [];
   List<StoreVo> storeFilterLocationList = [];
+  List<StoreVo> lastData = [];
   List<StoreVo> recommendList = [];
   List<StoreVo> recommendPopularList = [];
   List<StoreVo> storeCurationList = [];
@@ -22,12 +23,14 @@ class StoreController extends GetxController {
 
   double storeOffset = 0.0;
 
+  String storeAllListInfiniteDocId = "";
   String storeLocationState = "서울";
   String hashTageSetting = "";
   String userInstaId = "";
 
   bool tagListDataLoadStateEmpty = false;
   bool tagButtonActivate = true;
+  bool loadNavDataState = false;
   bool loadDataState = false;
   bool localListDataLoadStateEmpty = false;
   bool storeDetailState = false;
@@ -37,9 +40,29 @@ class StoreController extends GetxController {
 
   Future<void> getStoreAllList() async {
     try {
-      storeAllList = await httpsService.getAllStore(true);
+      storeAllList = await httpsService.getAllStore(true, "");
       update();
     } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
+    try {
+      tagListDataLoadStateEmpty = false;
+      tagButtonActivate = false;
+      var tempList = await httpsService.getAllStore(endedPopUpState, storeAllListInfiniteDocId);
+      storeNavPageAllList.addAll(tempList);
+      setStoreAllListInfiniteDocId(tempList.last.docId??"");
+      if (storeNavPageAllList.isEmpty) {
+        tagListDataLoadStateEmpty = true;
+      }
+      tagButtonActivate = true;
+      loadNavDataState = false;
+      update();
+    } catch (error) {
+      tagButtonActivate = true;
+      loadNavDataState = false;
       throw Exception(error);
     }
   }
@@ -48,46 +71,32 @@ class StoreController extends GetxController {
   //   try {
   //     tagListDataLoadStateEmpty = false;
   //     tagButtonActivate = false;
-  //     storeNavPageAllList.clear();
-  //     storeNavPageAllList = await httpsService.getAllStore(endedPopUpState);
-  //     if(storeNavPageAllList.isEmpty) {
+  //     var tempList = await httpsService.getAllStore(endedPopUpState, storeAllListInfiniteDocId);
+  //     storeNavPageAllList.addAll(tempList);
+  //     if (storeNavPageAllList.isEmpty) {
   //       tagListDataLoadStateEmpty = true;
   //     }
   //     tagButtonActivate = true;
+  //     loadNavDataState = false;
   //     update();
   //   } catch (error) {
   //     throw Exception(error);
   //   }
   // }
 
-  Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
+  Future<void> getHashTagStoreDateList(
+      String hashTag, bool endedPopUpState) async {
     try {
       tagListDataLoadStateEmpty = false;
       tagButtonActivate = false;
-      var tempList = await httpsService.getAllStore(endedPopUpState);
+      var tempList =
+          await httpsService.getHashTagStore(hashTag, endedPopUpState);
       storeNavPageAllList.addAll(tempList);
-      if(storeNavPageAllList.isEmpty) {
+      if (storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
       tagButtonActivate = true;
-      loadDataState = false;
-      update();
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<void> getHashTagStoreDateList(String hashTag, bool endedPopUpState) async {
-    try {
-      tagListDataLoadStateEmpty = false;
-      tagButtonActivate = false;
-      var tempList = await httpsService.getHashTagStore(hashTag, endedPopUpState);
-      storeNavPageAllList.addAll(tempList);
-      if(storeNavPageAllList.isEmpty) {
-        tagListDataLoadStateEmpty = true;
-      }
-      tagButtonActivate = true;
-      loadDataState = false;
+      loadNavDataState = false;
       update();
     } catch (error) {
       throw Exception(error);
@@ -95,18 +104,22 @@ class StoreController extends GetxController {
   }
 
   Future<void> getStoreListLocationFilter(
-      String local1, List<String> local2) async {
+      String local1, List<String> local2, bool firstSetUp
+      ) async {
     try {
       localListDataLoadStateEmpty = false;
-      StoreListModel storeListModel =
-      await popPinFirebaseService.getLocationStoreList(local1, local2);
-      storeFilterLocationList.clear();
-      storeFilterLocationList.addAll(storeListModel.storeList!);
-      if(storeFilterLocationList.isEmpty) {
+      StoreListModel storeListModel = await popPinFirebaseService.getLocationStoreList(local1, local2, firstSetUp);
+      if(lastData != storeListModel.storeList) {
+        lastData = storeListModel.storeList??[];
+        storeFilterLocationList.addAll(storeListModel.storeList!);
+      }
+      if (storeFilterLocationList.isEmpty) {
         localListDataLoadStateEmpty = true;
       }
+      loadDataState = false;
       update();
     } catch (error) {
+      loadDataState = false;
       throw Exception(error);
     }
   }
@@ -120,52 +133,56 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> getRecommendList() async{
-    try{
-      StoreListModel storeListModel = await popPinFirebaseService.getRecommendData();
+  Future<void> getRecommendList() async {
+    try {
+      StoreListModel storeListModel =
+          await popPinFirebaseService.getRecommendData();
       recommendList.clear();
       recommendList.addAll(storeListModel.storeList!);
       setRecommendStoreData(recommendList[0]);
       update();
-    } catch(error){
+    } catch (error) {
       throw Exception(error);
     }
   }
 
-  Future<void> getRecommendPopularList() async{
-    try{
-      StoreListModel storeListModel = await popPinFirebaseService.getRecommendPopularData();
+  Future<void> getRecommendPopularList() async {
+    try {
+      StoreListModel storeListModel =
+          await popPinFirebaseService.getRecommendPopularData();
       recommendPopularList.clear();
       recommendPopularList.addAll(storeListModel.storeList!);
       update();
-    } catch(error){
+    } catch (error) {
       throw Exception(error);
     }
   }
 
-  Future<void> getCurationStoreData(String userId, StoreController storeController) async{
-    try{
-      storeCurationList = await httpsService.getCurationData(userId, storeController);
+  Future<void> getCurationStoreData(
+      String userId, StoreController storeController) async {
+    try {
+      storeCurationList =
+          await httpsService.getCurationData(userId, storeController);
       update();
-    } catch(e) {
+    } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> setStoreNavPageAllListClean() async{
-    try{
+  Future<void> setStoreNavPageAllListClean() async {
+    try {
       storeNavPageAllList.clear();
       update();
-    } catch(e) {
+    } catch (e) {
       throw e;
     }
   }
 
-  Future<void> setRecommendStoreData(StoreVo data) async{
-    try{
+  Future<void> setRecommendStoreData(StoreVo data) async {
+    try {
       recommendStoreData = data;
       update();
-    } catch(error) {
+    } catch (error) {
       throw Exception(error);
     }
   }
@@ -245,12 +262,19 @@ class StoreController extends GetxController {
   }
 
   Future<void> setCurationCodeCheck(bool check) async {
-    try{
+    try {
       curationCodeCheckInCorrect = check;
       update();
-    } catch(e) {
+    } catch (e) {
       throw Exception(e);
     }
   }
 
+  Future<void> setStoreAllListInfiniteDocId(String docId) async{
+    try{
+      storeAllListInfiniteDocId = docId;
+    }catch (e) {
+      throw Exception(e);
+    }
+  }
 }

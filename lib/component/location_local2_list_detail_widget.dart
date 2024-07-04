@@ -27,13 +27,14 @@ class _LocationLocal2ListDetailWidgetState
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        widget.storeController.storeFilterLocationList.clear();
         List<String> local2 =
-            local[widget.storeController.storeLocationState]![widget.index]
-                .split('/');
+            local[widget.storeController.storeLocationState]![widget.index].split('/');
 
         prefs.setStringList("local2", local2);
+
         widget.storeController.getStoreListLocationFilter(
-            widget.storeController.storeLocationState, local2);
+            widget.storeController.storeLocationState, local2, true);
 
         if (Platform.isAndroid) {
           Get.to(() => const PopUpListPage(),
