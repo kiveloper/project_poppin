@@ -40,7 +40,7 @@ class StoreController extends GetxController {
 
   Future<void> getStoreAllList() async {
     try {
-      storeAllList = await httpsService.getAllStore(true, "");
+      storeAllList = await httpsService.getAllStoreMap();
       update();
     } catch (error) {
       throw Exception(error);
@@ -66,23 +66,6 @@ class StoreController extends GetxController {
       throw Exception(error);
     }
   }
-
-  // Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
-  //   try {
-  //     tagListDataLoadStateEmpty = false;
-  //     tagButtonActivate = false;
-  //     var tempList = await httpsService.getAllStore(endedPopUpState, storeAllListInfiniteDocId);
-  //     storeNavPageAllList.addAll(tempList);
-  //     if (storeNavPageAllList.isEmpty) {
-  //       tagListDataLoadStateEmpty = true;
-  //     }
-  //     tagButtonActivate = true;
-  //     loadNavDataState = false;
-  //     update();
-  //   } catch (error) {
-  //     throw Exception(error);
-  //   }
-  // }
 
   Future<void> getHashTagStoreDateList(
       String hashTag, bool endedPopUpState) async {

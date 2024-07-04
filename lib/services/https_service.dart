@@ -8,12 +8,41 @@ import '../global/share_preference.dart';
 
 class HttpsService {
 
-  // final baseUrl = Uri.parse(
-  //     'https://asia-northeast3-project-poping.cloudfunctions.net/function-curation-test');
-
-
   final baseUrl = Uri.parse(
-      'http://172.30.1.9:8080');
+      'https://asia-northeast3-project-poping.cloudfunctions.net/function-curation-test');
+
+  Future<List<StoreVo>> getAllStoreMap() async {
+    final storeList = <StoreVo>[];
+
+    try {
+      var response = await http.post(baseUrl,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode({
+            "type" : "all_stores_map",
+            "lastDocId": "",
+            "ended_popups" : true
+          })
+      );
+
+      if (response.statusCode == 200) {
+        final decodeData = jsonDecode(response.body);
+
+        for (var doc in decodeData) {
+          storeList.add(StoreVo.fromCFMapSnapshot(doc));
+        }
+
+        return storeList;
+      } else {
+        print("error ${response.statusCode}");
+        return storeList;
+      }
+    } catch (error) {
+      print("error: $error");
+      return storeList;
+    }
+  }
 
   Future<List<StoreVo>> getAllStore(bool endedPopUpState, String docId) async {
     final storeList = <StoreVo>[];

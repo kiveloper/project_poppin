@@ -12,7 +12,6 @@ class PopPinFirebaseService {
   QueryDocumentSnapshot? lastDoc;
   int storeLength = 0;
 
-
   Future<StoreListModel> getStoreList() async {
     try {
       QuerySnapshot querySnapshot = await store.get();
@@ -93,94 +92,6 @@ class PopPinFirebaseService {
       throw Exception(error);
     }
   }
-
-  // Future<StoreListModel> getLocationStoreList(
-  //   String local1,
-  //   List<String> local2,
-  //     bool firstSetUp,
-  // ) async {
-  //   try {
-  //     if (local.keys.contains(local2.first)) {
-  //       if(firstSetUp) {
-  //         final querySnapShot = await store
-  //             .orderBy('endDate')
-  //             .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-  //             .where("local1", isEqualTo: local1)
-  //             .limit(5)
-  //             .get();
-  //
-  //         queryFirstSnapshot = querySnapShot;
-  //
-  //         return StoreListModel.fromQuerySnapShot(querySnapShot);
-  //       } else {
-  //         final lastDocAfter = queryFirstSnapshot!.docs[queryFirstSnapshot!.docs.length - 1];
-  //         lastDoc = queryFirstSnapshot!.docs[queryFirstSnapshot!.docs.length - 1];
-  //
-  //         if(lastDocAfter == lastDoc) {
-  //           final next = await store
-  //               .orderBy('endDate')
-  //               .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-  //               .where("local1", isEqualTo: local1)
-  //               .startAfterDocument(lastDoc!)
-  //               .limit(5)
-  //               .get();
-  //
-  //           queryFirstSnapshot = next;
-  //
-  //           return StoreListModel();
-  //         } else {
-  //           final next = await store
-  //               .orderBy('endDate')
-  //               .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-  //               .where("local1", isEqualTo: local1)
-  //               .startAfterDocument(lastDoc!)
-  //               .limit(5)
-  //               .get();
-  //
-  //           queryFirstSnapshot = next;
-  //
-  //           return StoreListModel.fromQuerySnapShot(next);
-  //         }
-  //       }
-  //     } else {
-  //       if(firstSetUp) {
-  //         final querySnapShot = await store
-  //             .orderBy('endDate')
-  //             .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-  //             .where("local1", isEqualTo: local1)
-  //             .where("local2", whereIn: local2)
-  //             .limit(5)
-  //             .get();
-  //
-  //         queryFirstSnapshot = querySnapShot;
-  //
-  //         return StoreListModel.fromQuerySnapShot(querySnapShot);
-  //       } else {
-  //         final lastDocAfter = queryFirstSnapshot!.docs[queryFirstSnapshot!.docs.length - 1];
-  //         lastDoc = queryFirstSnapshot!.docs[queryFirstSnapshot!.docs.length - 1];
-  //
-  //         if(lastDocAfter == lastDoc){
-  //           return StoreListModel();
-  //         } else {
-  //           final next = await store
-  //               .orderBy('endDate')
-  //               .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-  //               .where("local1", isEqualTo: local1)
-  //               .where("local2", whereIn: local2)
-  //               .startAfterDocument(lastDoc!)
-  //               .limit(5)
-  //               .get();
-  //
-  //           queryFirstSnapshot = next;
-  //
-  //           return StoreListModel.fromQuerySnapShot(next);
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     throw Exception(error);
-  //   }
-  // }
 
   Future<StoreListModel> getRecommendData() async {
     try {

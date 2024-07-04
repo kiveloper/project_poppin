@@ -52,8 +52,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       if (storeControllerManager.hashTageSetting == "") {
         storeControllerManager.getNavPageStoreAllList(endedPopUpState);
       } else {
-        storeControllerManager.getHashTagStoreDateList(
-            storeControllerManager.hashTageSetting, endedPopUpState);
+        storeControllerManager.loadNavDataState = false;
       }
     });
     super.initState();
@@ -397,6 +396,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       storeController.setStoreAllListInfiniteDocId("");
       storeController.getNavPageStoreAllList(endedPopUpState);
     } else {
+      storeController.setStoreNavPageAllListClean();
       storeController.setHashTagSetting(storeController.storeAllTagList[index]);
       storeController.getHashTagStoreDateList(
           storeController.hashTageSetting, endedPopUpState);
