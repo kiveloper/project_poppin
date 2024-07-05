@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -21,14 +22,20 @@ class PopUpListNavPage extends StatefulWidget {
 class _PopUpListNavPageState extends State<PopUpListNavPage>
     with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
+  StoreController storeControllerManager = Get.find();
   GlobalKey upScrollPosition = GlobalKey();
   GlobalKey downScrollPosition = GlobalKey();
   double hashTagSize = 100;
-  bool _isButtonDisabled = false;
   bool endedPopUpState = prefs.getBool("endedPopUpState")!;
   bool clickStop = false;
   bool hashTagExtendState = false;
   dynamic lastPopTime;
+
+  final updateBasketThrottle = Throttle(
+    const Duration(milliseconds: 500),
+    initialValue: null,
+    checkEquality: false,
+  );
 
   @override
   bool get wantKeepAlive => true;
@@ -36,6 +43,18 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
   @override
   void initState() {
     _scrollController.addListener(scrollListener);
+
+    updateBasketThrottle.values.listen((event) {
+      setState(() {
+        storeControllerManager.loadNavDataState = true;
+      });
+
+      if (storeControllerManager.hashTageSetting == "") {
+        storeControllerManager.getNavPageStoreAllList(endedPopUpState);
+      } else {
+        storeControllerManager.loadNavDataState = false;
+      }
+    });
     super.initState();
   }
 
@@ -152,15 +171,22 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                     (index) {
                                   return ActionChip(
                                     onPressed: storeController.tagButtonActivate
-                                        ? () => _onPressed(storeController,
-                                            index, endedPopUpState)
+                                        ? () {
+                                            _onPressed(storeController, index,
+                                                endedPopUpState);
+                                          }
                                         : null,
                                     label: Text(
                                       "#${storeController.storeAllTagList[index]}",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
-                                          color: poppinColorDarkGrey500),
+                                          color: storeController
+                                              .hashTageSetting ==
+                                              storeController
+                                                  .storeAllTagList[index]
+                                              ? poppinColorGreen500
+                                              : poppinColorDarkGrey500),
                                     ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -224,6 +250,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           onPressed: clickStop
                               ? null
                               : () async {
+                                  storeController.setStoreNavPageAllListClean();
                                   setState(() {
                                     endedPopUpState = !endedPopUpState;
                                     prefs.setBool(
@@ -236,6 +263,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                   });
 
                                   if (storeController.hashTageSetting == "") {
+                                    storeController
+                                        .setStoreAllListInfiniteDocId("");
                                     storeController.getNavPageStoreAllList(
                                         endedPopUpState);
                                   } else {
@@ -309,11 +338,19 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                           child: ListView.builder(
                               controller: _scrollController,
                               physics: const ClampingScrollPhysics(),
-                              itemCount:
-                                  storeController.storeNavPageAllList.length,
-                              padding:
-                                  const EdgeInsets.only(left: 16, right: 16),
+                              itemCount: storeController
+                                      .storeNavPageAllList.length +
+                                  (storeController.loadNavDataState ? 1 : 0),
+                              padding: const EdgeInsets.only(
+                                  left: 16, right: 16, bottom: 8),
                               itemBuilder: (context, index) {
+                                if (index ==
+                                    storeController
+                                        .storeNavPageAllList.length) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
                                 return StoreListWidget(
                                   storeData: storeController
                                       .storeNavPageAllList[index],
@@ -335,10 +372,18 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       // 사용자가 위로 스크롤하는 중
       Scrollable.ensureVisible(upScrollPosition.currentContext!,
           duration: const Duration(milliseconds: 150), alignment: 0);
-    } else if (_scrollController.position.pixels == 0) {
+    }
+
+    if (_scrollController.position.pixels == 0) {
       // 사용자가 아래로 스크롤하는 중
       Scrollable.ensureVisible(downScrollPosition.currentContext!,
           duration: const Duration(milliseconds: 150), alignment: 0);
+    }
+
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+
+      updateBasketThrottle.setValue(null);
     }
   }
 
@@ -347,8 +392,11 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
     if (storeController.hashTageSetting ==
         storeController.storeAllTagList[index]) {
       storeController.setHashTagSetting("");
+      storeController.setStoreNavPageAllListClean();
+      storeController.setStoreAllListInfiniteDocId("");
       storeController.getNavPageStoreAllList(endedPopUpState);
     } else {
+      storeController.setStoreNavPageAllListClean();
       storeController.setHashTagSetting(storeController.storeAllTagList[index]);
       storeController.getHashTagStoreDateList(
           storeController.hashTageSetting, endedPopUpState);

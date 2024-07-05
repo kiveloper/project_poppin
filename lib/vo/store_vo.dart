@@ -73,7 +73,7 @@ class StoreVo {
   }
 
   StoreVo.fromCFMapSnapshot(Map<String, dynamic> documentSnapshot) {
-    docId = "0";
+    docId = documentSnapshot['documentId'];
     title = documentSnapshot['title'];
     address = documentSnapshot['address'];
     description = documentSnapshot['description'];

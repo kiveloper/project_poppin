@@ -8,6 +8,10 @@ CollectionReference store = fireStore.collection('popinData');
 CollectionReference storeRecommend = fireStore.collection('MDData');
 
 class PopPinFirebaseService {
+  QuerySnapshot? queryFirstSnapshot;
+  QueryDocumentSnapshot? lastDoc;
+  int storeLength = 0;
+
   Future<StoreListModel> getStoreList() async {
     try {
       QuerySnapshot querySnapshot = await store.get();
@@ -18,21 +22,71 @@ class PopPinFirebaseService {
   }
 
   Future<StoreListModel> getLocationStoreList(
-      String local1, List<String> local2) async {
+    String local1,
+    List<String> local2,
+    bool firstSetUp,
+  ) async {
     try {
       if (local.keys.contains(local2.first)) {
-        QuerySnapshot querySnapshot = await store
-            .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-            .where("local1", isEqualTo: local1)
-            .get();
-        return StoreListModel.fromQuerySnapShot(querySnapshot);
+        if (firstSetUp) {
+          final querySnapShot = await store
+              .orderBy('endDate')
+              .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
+              .where("local1", isEqualTo: local1)
+              .limit(5)
+              .get();
+
+          queryFirstSnapshot = querySnapShot;
+
+          return StoreListModel.fromQuerySnapShot(querySnapShot);
+        } else {
+
+          lastDoc =
+              queryFirstSnapshot!.docs[queryFirstSnapshot!.docs.length - 1];
+
+          final next = await store
+              .orderBy('endDate')
+              .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
+              .where("local1", isEqualTo: local1)
+              .startAfterDocument(lastDoc!)
+              .limit(5)
+              .get();
+
+          queryFirstSnapshot = next;
+
+          return StoreListModel.fromQuerySnapShot(next);
+        }
       } else {
-        QuerySnapshot querySnapshot = await store
-            .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
-            .where("local1", isEqualTo: local1)
-            .where("local2", whereIn: local2)
-            .get();
-        return StoreListModel.fromQuerySnapShot(querySnapshot);
+        if (firstSetUp) {
+          final querySnapShot = await store
+              .orderBy('endDate')
+              .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
+              .where("local1", isEqualTo: local1)
+              .where("local2", whereIn: local2)
+              .limit(5)
+              .get();
+
+          queryFirstSnapshot = querySnapShot;
+
+          return StoreListModel.fromQuerySnapShot(querySnapShot);
+        } else {
+
+          lastDoc =
+              queryFirstSnapshot!.docs[queryFirstSnapshot!.docs.length - 1];
+
+          final next = await store
+              .orderBy('endDate')
+              .where('endDate', isGreaterThanOrEqualTo: Timestamp.now())
+              .where("local1", isEqualTo: local1)
+              .where("local2", whereIn: local2)
+              .startAfterDocument(lastDoc!)
+              .limit(5)
+              .get();
+
+          queryFirstSnapshot = next;
+
+          return StoreListModel.fromQuerySnapShot(next);
+        }
       }
     } catch (error) {
       throw Exception(error);
@@ -49,15 +103,13 @@ class PopPinFirebaseService {
     }
   }
 
-
   Future<StoreListModel> getRecommendPopularData() async {
     try {
       DocumentSnapshot documentSnapshot =
-      await storeRecommend.doc("popularData").get();
+          await storeRecommend.doc("popularData").get();
       return StoreListModel.fromRecommendQuerySnapShot(documentSnapshot);
     } catch (error) {
       throw Exception(error);
     }
   }
-
 }
