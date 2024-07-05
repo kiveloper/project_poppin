@@ -54,37 +54,6 @@ class _LocationSelectPageState extends State<LocationSelectPage> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: poppinColorDarkGrey50),
-            padding: const EdgeInsets.all(16),
-            margin: const EdgeInsets.only(left: 16, right: 16),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("시/도 선택", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,),),
-                SizedBox(
-                  width: 30,
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                  color: poppinColorDarkGrey300,
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                Text("시/군/구 선택", style: TextStyle(fontWeight: FontWeight.w400,fontSize: 13,)),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
           Container(
             height: 1,
             color: poppinBackGroundColor,
