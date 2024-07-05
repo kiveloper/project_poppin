@@ -7,7 +7,7 @@ class FirebaseRemoteConfigService {
   FirebaseRemoteConfigService._internal();
 
   String version = "1.0.0";
-  bool? emergency;
+  bool emergency = false;
 
   void initRemoteConfig() async {
     final remoteConfig = FirebaseRemoteConfig.instance;

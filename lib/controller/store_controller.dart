@@ -34,7 +34,6 @@ class StoreController extends GetxController {
   bool loadDataState = false;
   bool localListDataLoadStateEmpty = false;
   bool storeDetailState = false;
-  bool storeLoadState = false;
   bool curationServiceLoaded = true;
   bool curationCodeCheckInCorrect = false;
 
@@ -51,9 +50,10 @@ class StoreController extends GetxController {
     try {
       tagListDataLoadStateEmpty = false;
       tagButtonActivate = false;
-      var tempList = await httpsService.getAllStore(endedPopUpState, storeAllListInfiniteDocId);
+      var tempList = await httpsService.getAllStore(
+          endedPopUpState, storeAllListInfiniteDocId);
       storeNavPageAllList.addAll(tempList);
-      setStoreAllListInfiniteDocId(tempList.last.docId??"");
+      setStoreAllListInfiniteDocId(tempList.last.docId ?? "");
       if (storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
@@ -87,13 +87,13 @@ class StoreController extends GetxController {
   }
 
   Future<void> getStoreListLocationFilter(
-      String local1, List<String> local2, bool firstSetUp
-      ) async {
+      String local1, List<String> local2, bool firstSetUp) async {
     try {
       localListDataLoadStateEmpty = false;
-      StoreListModel storeListModel = await popPinFirebaseService.getLocationStoreList(local1, local2, firstSetUp);
-      if(lastData != storeListModel.storeList) {
-        lastData = storeListModel.storeList??[];
+      StoreListModel storeListModel = await popPinFirebaseService
+          .getLocationStoreList(local1, local2, firstSetUp);
+      if (lastData != storeListModel.storeList) {
+        lastData = storeListModel.storeList ?? [];
         storeFilterLocationList.addAll(storeListModel.storeList!);
       }
       if (storeFilterLocationList.isEmpty) {
@@ -165,17 +165,6 @@ class StoreController extends GetxController {
     try {
       recommendStoreData = data;
       update();
-    } catch (error) {
-      throw Exception(error);
-    }
-  }
-
-  Future<void> setStoreLoadState(bool state) async {
-    try {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        storeLoadState = state;
-        update();
-      });
     } catch (error) {
       throw Exception(error);
     }
@@ -253,10 +242,10 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> setStoreAllListInfiniteDocId(String docId) async{
-    try{
+  Future<void> setStoreAllListInfiniteDocId(String docId) async {
+    try {
       storeAllListInfiniteDocId = docId;
-    }catch (e) {
+    } catch (e) {
       throw Exception(e);
     }
   }

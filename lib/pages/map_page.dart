@@ -26,7 +26,7 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
   PermissionManager permissionManager = PermissionManager();
   bool categoryExtend = false;
 
-  var lastPopTime;
+  dynamic lastPopTime;
   NaverMapController? naverMapController;
 
   @override
