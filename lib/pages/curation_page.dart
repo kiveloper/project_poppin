@@ -8,6 +8,7 @@ import 'package:project_poppin/global/share_preference.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../services/firebase_remote_config_service.dart';
 import '../theme/colors.dart';
 
 class CurationPage extends StatefulWidget {
@@ -165,7 +166,7 @@ class _CurationPageState extends State<CurationPage> {
                               onTap: () {
                                 try {
                                   launchUrl(Uri.parse(
-                                      'https://www.instagram.com/p/C8EjmOXRTbc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D'));
+                                      FirebaseRemoteConfigService().banner_url));
                                 } catch (e) {
                                   throw Exception(e);
                                 }
