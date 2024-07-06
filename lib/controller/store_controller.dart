@@ -28,6 +28,11 @@ class StoreController extends GetxController {
   String hashTageSetting = "";
   String userInstaId = "";
 
+  Map<String, dynamic> bannerData = {
+    'imageUrl':'https://storage.googleapis.com/for-store-image/banner/Banner.png',
+    'linkTo': 'https://www.instagram.com/p/C8wH0ZUxhMn/?img_index=1'
+  };
+
   bool tagListDataLoadStateEmpty = false;
   bool tagButtonActivate = true;
   bool loadNavDataState = false;
@@ -151,6 +156,16 @@ class StoreController extends GetxController {
       throw Exception(e);
     }
   }
+
+  Future<void> getBannerData() async{
+    try{
+      Map<String, dynamic> bannerDT = await popPinFirebaseService.getBannerData();
+      bannerData = bannerDT;
+    }catch(e) {
+      throw Exception(e);
+    }
+  }
+
 
   Future<void> setStoreNavPageAllListClean() async {
     try {

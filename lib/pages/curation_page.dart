@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
+import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -166,16 +167,17 @@ class _CurationPageState extends State<CurationPage> {
                               onTap: () {
                                 try {
                                   launchUrl(Uri.parse(
-                                      FirebaseRemoteConfigService().banner_url));
+                                      storeController.bannerData['linkTo']));
                                 } catch (e) {
                                   throw Exception(e);
                                 }
                               },
-                              child: Image.asset(
-                                "assets/images/poppin_banner.png",
+                              child: Image.network(
+                                storeController.bannerData['imageUrl'],
                                 width: double.infinity,
+                                fit: BoxFit.cover,
                               ),
-                            )
+                            ),
                           ],
                         )
                       // userCuration data를 불러오는 중일때

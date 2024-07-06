@@ -77,4 +77,5 @@ void loadData() async {
   storeController.getStoreAllList();
   storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
   storeController.getStoreAllTags();
+  storeController.getBannerData();
 }
