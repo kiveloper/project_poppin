@@ -5,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:project_poppin/component/store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
-import 'package:project_poppin/services/poppin_firebase_service.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../services/firebase_remote_config_service.dart';
 import '../theme/colors.dart';
 
 class CurationPage extends StatefulWidget {
