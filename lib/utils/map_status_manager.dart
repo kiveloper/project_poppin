@@ -81,7 +81,7 @@ class MapStatusManager {
     NMarker myLocationMarker =
         NMarker(id: store.title!, position: myLatLng, icon: markerImageMap[store.category]);
 
-    myLocationMarker.setSize(const Size(18, 27));
+    myLocationMarker.setSize(const Size(30, 40.8));
 
     NInfoWindow infoWindow =
         NInfoWindow.onMarker(id: store.title!, text: store.title!);
