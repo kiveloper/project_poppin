@@ -17,6 +17,12 @@ class MapStatusManager {
 
   bool mapLoadFirst = true;
   List<NMarker> storeMarkerList = [];
+  Map<String, NOverlayImage> markerImageMap = {
+    "팝업 스토어" : const NOverlayImage.fromAssetImage("assets/icons/marker/marker_store.png"),
+    "팝업 전시" : const NOverlayImage.fromAssetImage("assets/icons/marker/marker_exhibit.png"),
+    "체험형 팝업" : const NOverlayImage.fromAssetImage("assets/icons/marker/marker_exp.png"),
+    "팝업 레스토랑/카페" : const NOverlayImage.fromAssetImage("assets/icons/marker/marker_cafe.png")
+  };
 
   void checkMapFirstLoad() {
     mapLoadFirst = false;
@@ -26,9 +32,6 @@ class MapStatusManager {
       StoreController storeController) async {
     String currentMarker = "";
 
-    NOverlayImage image = const NOverlayImage.fromAssetImage(
-        "assets/icons/marker/store_marker(100).png");
-
     for (StoreVo store in storeController.storeAllList) {
       var storeDB = store;
 
@@ -36,8 +39,8 @@ class MapStatusManager {
           NLatLng(storeDB.geopoint!.latitude, storeDB.geopoint!.longitude);
 
       NMarker myLocationMarker =
-          NMarker(id: storeDB.title!, position: myLatLng, icon: image);
-      myLocationMarker.setSize(const Size(18, 27));
+          NMarker(id: storeDB.title!, position: myLatLng, icon: markerImageMap[storeDB.category]);
+      myLocationMarker.setSize(const Size(30, 40.8));
 
       NInfoWindow infoWindow =
           NInfoWindow.onMarker(id: storeDB.title!, text: storeDB.title!);
@@ -71,14 +74,12 @@ class MapStatusManager {
 
   Future<void> setMarkerDetailPage(
       NaverMapController naverMapController, StoreVo store) async {
-    NOverlayImage image = const NOverlayImage.fromAssetImage(
-        "assets/icons/marker/store_marker(100).png");
 
     NLatLng myLatLng =
         NLatLng(store.geopoint!.latitude, store.geopoint!.longitude);
 
     NMarker myLocationMarker =
-        NMarker(id: store.title!, position: myLatLng, icon: image);
+        NMarker(id: store.title!, position: myLatLng, icon: markerImageMap[store.category]);
 
     myLocationMarker.setSize(const Size(18, 27));
 
