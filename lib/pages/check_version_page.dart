@@ -33,7 +33,7 @@ class _CheckVersionPageState extends State<CheckVersionPage> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
 
-    if (FirebaseRemoteConfigService().emergency ?? false) {
+    if (FirebaseRemoteConfigService().emergency) {
       if (FirebaseRemoteConfigService().version != version) {
         showDialog(
             context: context,

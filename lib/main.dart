@@ -73,9 +73,10 @@ void loadData() async {
   StoreController storeController = Get.find();
 
   storeController.getRecommendPopularList();
+  storeController.getRecommendSeoungSuList();
   storeController.getRecommendList();
-  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
   storeController.getStoreAllList();
+  storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);
   storeController.getStoreAllTags();
-  storeController.setStoreLoadState(false);
+  storeController.getBannerData();
 }

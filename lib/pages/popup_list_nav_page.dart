@@ -45,9 +45,8 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
     _scrollController.addListener(scrollListener);
 
     updateBasketThrottle.values.listen((event) {
-      setState(() {
-        storeControllerManager.loadNavDataState = true;
-      });
+
+      storeControllerManager.loadNavDataState = true;
 
       if (storeControllerManager.hashTageSetting == "") {
         storeControllerManager.getNavPageStoreAllList(endedPopUpState);
@@ -382,7 +381,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
 
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-
+      // 사용자가 마지막 리스트에 도달함
       updateBasketThrottle.setValue(null);
     }
   }

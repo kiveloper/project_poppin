@@ -56,20 +56,6 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                   PopUpListNavPage(),
                   CurationPage()
                 ]),
-            storeController.storeLoadState
-                ? Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      color: CupertinoColors.systemGrey.withOpacity(0.5),
-                    ),
-                    child: const Center(
-                        child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator())),
-                  )
-                : const SizedBox(),
           ]),
           bottomNavigationBar:
               GetBuilder<TabBarController>(builder: (tabBarController) {
@@ -94,9 +80,7 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                     indicatorWeight: 1,
                     labelColor: poppinMainColor,
                     unselectedLabelColor: CupertinoColors.systemGrey,
-                    labelStyle: const TextStyle(
-                      fontSize: 12,
-                    ),
+                    labelStyle: const TextStyle(fontSize: 12,),
                     tabs: [
                       Padding(
                         padding: const EdgeInsets.only(left: 24),
@@ -164,15 +148,6 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                     ],
                   ),
                 ),
-                storeController.storeLoadState
-                    ? Container(
-                        width: double.infinity,
-                        height: MediaQuery.sizeOf(context).height * 0.08,
-                        decoration: BoxDecoration(
-                          color: CupertinoColors.systemGrey.withOpacity(0.5),
-                        ),
-                      )
-                    : const SizedBox(),
               ],
             );
           }));

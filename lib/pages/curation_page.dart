@@ -165,16 +165,17 @@ class _CurationPageState extends State<CurationPage> {
                               onTap: () {
                                 try {
                                   launchUrl(Uri.parse(
-                                      'https://www.instagram.com/p/C8EjmOXRTbc/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D'));
+                                      storeController.bannerData['linkTo']));
                                 } catch (e) {
                                   throw Exception(e);
                                 }
                               },
-                              child: Image.asset(
-                                "assets/images/poppin_banner.png",
+                              child: Image.network(
+                                storeController.bannerData['imageUrl'],
                                 width: double.infinity,
+                                fit: BoxFit.cover,
                               ),
-                            )
+                            ),
                           ],
                         )
                       // userCuration data를 불러오는 중일때

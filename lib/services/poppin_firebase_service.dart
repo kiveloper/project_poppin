@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_poppin/data/local_data.dart';
+import 'package:project_poppin/global/share_preference.dart';
 
 import '../model/store_list_model.dart';
 
@@ -109,6 +110,25 @@ class PopPinFirebaseService {
           await storeRecommend.doc("popularData").get();
       return StoreListModel.fromRecommendQuerySnapShot(documentSnapshot);
     } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<StoreListModel> getRecommendSeongsuData() async {
+    try {
+      DocumentSnapshot documentSnapshot =
+      await storeRecommend.doc("SeongsuData").get();
+      return StoreListModel.fromRecommendQuerySnapShot(documentSnapshot);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<Map<String, dynamic>> getBannerData() async{
+    try{
+      DocumentSnapshot doc =  await storeRecommend.doc('Banner').get();
+      return doc.data() as Map<String, dynamic>;
+    } catch(error) {
       throw Exception(error);
     }
   }
