@@ -114,6 +114,16 @@ class PopPinFirebaseService {
     }
   }
 
+  Future<StoreListModel> getRecommendSeongsuData() async {
+    try {
+      DocumentSnapshot documentSnapshot =
+      await storeRecommend.doc("SeongsuData").get();
+      return StoreListModel.fromRecommendQuerySnapShot(documentSnapshot);
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   Future<Map<String, dynamic>> getBannerData() async{
     try{
       DocumentSnapshot doc =  await storeRecommend.doc('Banner').get();

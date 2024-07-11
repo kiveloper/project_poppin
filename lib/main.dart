@@ -73,6 +73,7 @@ void loadData() async {
   StoreController storeController = Get.find();
 
   storeController.getRecommendPopularList();
+  storeController.getRecommendSeoungSuList();
   storeController.getRecommendList();
   storeController.getStoreAllList();
   storeController.getNavPageStoreAllList(prefs.getBool("endedPopUpState")!);

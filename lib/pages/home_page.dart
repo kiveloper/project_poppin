@@ -294,6 +294,89 @@ class _HomePageState extends State<HomePage>
                           ],
                         ),
                       ),
+                storeController.recommendSeongsuList.isEmpty
+                    ? Container(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "성수 팝업·전시",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        width: MediaQuery.sizeOf(context).width,
+                        height: MediaQuery.sizeOf(context).height * 0.25,
+                        child: ListView.builder(
+                            padding: const EdgeInsets.only(top: 8),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: 2,
+                            itemBuilder: (context, index) {
+                              return Shimmer.fromColors(
+                                baseColor: const Color.fromRGBO(
+                                    240, 240, 240, 1),
+                                highlightColor: poppinColorGrey400,
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      bottom: 20, left: 4, right: 4),
+                                  padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                      top: 18,
+                                      bottom: 18),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(10),
+                                      color: const Color.fromRGBO(
+                                          240, 240, 240, 1)),
+                                  height: 158,
+                                  width:
+                                  MediaQuery.sizeOf(context).width *
+                                      0.8,
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                )
+                    : Container(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "성수 팝업·전시",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.25,
+                        child: ListView.builder(
+                            padding: const EdgeInsets.only(top: 4),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: storeController
+                                .recommendSeongsuList.length,
+                            itemBuilder: (context, index) {
+                              return PopulationStoreListWidget(
+                                  storeData: storeController
+                                      .recommendSeongsuList[index],
+                                  storeController: storeController);
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ));

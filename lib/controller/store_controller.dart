@@ -16,6 +16,7 @@ class StoreController extends GetxController {
   List<StoreVo> lastData = [];
   List<StoreVo> recommendList = [];
   List<StoreVo> recommendPopularList = [];
+  List<StoreVo> recommendSeongsuList = [];
   List<StoreVo> storeCurationList = [];
 
   StoreVo recommendStoreData = StoreVo();
@@ -57,7 +58,11 @@ class StoreController extends GetxController {
       tagButtonActivate = false;
       var tempList = await httpsService.getAllStore(
           endedPopUpState, storeAllListInfiniteDocId);
-      storeNavPageAllList.addAll(tempList);
+
+      if(storeAllListInfiniteDocId != tempList.last.docId) {
+        storeNavPageAllList.addAll(tempList);
+      }
+
       setStoreAllListInfiniteDocId(tempList.last.docId ?? "");
       if (storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
@@ -140,6 +145,18 @@ class StoreController extends GetxController {
           await popPinFirebaseService.getRecommendPopularData();
       recommendPopularList.clear();
       recommendPopularList.addAll(storeListModel.storeList!);
+      update();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  Future<void> getRecommendSeoungSuList() async {
+    try {
+      StoreListModel storeListModel =
+      await popPinFirebaseService.getRecommendSeongsuData();
+      recommendSeongsuList.clear();
+      recommendSeongsuList.addAll(storeListModel.storeList!);
       update();
     } catch (error) {
       throw Exception(error);
