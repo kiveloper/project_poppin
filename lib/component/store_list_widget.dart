@@ -52,7 +52,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                 child: AspectRatio(
                     aspectRatio: 1 / 1,
                     child: CachedNetworkImage(
-                      imageUrl: widget.storeData.thumbnailImgUrl!,
+                      imageUrl: widget.storeData.thumbnailImgUrl??"",
                       width: 140,
                       height: 140,
                       fit: BoxFit.cover,
@@ -64,7 +64,7 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                       ),
                       errorWidget: (context, error, stackTrace) {
                         try {
-                          var base64file = base64Decoder(widget.storeData.thumbnailImgUrl!);
+                          var base64file = base64Decoder(widget.storeData.thumbnailImgUrl??"");
                           return Image.memory(
                               base64file,
                               width: 140,
@@ -104,14 +104,14 @@ class _StoreListWidgetState extends State<StoreListWidget> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "${widget.storeData.startDate!}~${widget.storeData.endDate!}",
+                        "${widget.storeData.startDate??""}~${widget.storeData.endDate??""}",
                         style: const TextStyle(fontWeight: FontWeight.w500),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                   Flexible(
-                      child: Text("${widget.storeData.address!.split(" ")[0]} ${widget.storeData.address!.split(" ")[1]}",
+                      child: Text("${widget.storeData.address?.split(" ")[0]??""} ${widget.storeData.address?.split(" ")[1]??""}",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontWeight: FontWeight.w500,
