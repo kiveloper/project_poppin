@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/global/share_preference.dart';
 import 'package:project_poppin/theme/colors.dart';
+import 'package:project_poppin/vo/store_vo.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../component/store_list_widget.dart';
@@ -32,7 +33,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
   dynamic lastPopTime;
 
   final updateBasketThrottle = Throttle(
-    const Duration(milliseconds: 500),
+    const Duration(milliseconds: 1000),
     initialValue: null,
     checkEquality: false,
   );
@@ -408,4 +409,5 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
       }
     });
   }
+
 }

@@ -56,7 +56,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             aspectRatio: 1 / 1,
                             child: CachedNetworkImage(
                               imageUrl:
-                                  storeController.detailStoreData.thumbnailImgUrl!,
+                                  storeController.detailStoreData.thumbnailImgUrl??"",
                               width: 140,
                               height: 140,
                               fit: BoxFit.cover,
@@ -112,7 +112,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           children: [
                             Expanded(
                               child: Text(
-                                storeController.detailStoreData.title!,
+                                storeController.detailStoreData.title??"",
                                 style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.w600,
@@ -127,8 +127,8 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               ),
                               onPressed: () async {
                                 share(
-                                  storeController.detailStoreData.title!,
-                                  storeController.detailStoreData.description!,
+                                  storeController.detailStoreData.title??"",
+                                  storeController.detailStoreData.description??"",
                                   storeController
                                       .detailStoreData.relatedContentsUrl!,
                                 );
@@ -144,7 +144,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                           children: [
                             Expanded(
                                 child: Text(
-                              storeController.detailStoreData.description!,
+                              storeController.detailStoreData.description??"",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -169,7 +169,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             ),
                             Expanded(
                                 child: Text(
-                              storeController.detailStoreData.address!,
+                              storeController.detailStoreData.address??"",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
@@ -193,8 +193,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                             ),
                             Expanded(
                                 child: Text(
-                              // "${timeStampToDate(storeController.detailStoreData.startDate!)}~${timeStampToDate(storeController.detailStoreData.endDate!)}",
-                              "${storeController.detailStoreData.startDate!}~${storeController.detailStoreData.endDate!}",
+                              "${storeController.detailStoreData.startDate??""}~${storeController.detailStoreData.endDate??""}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
@@ -288,7 +287,7 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                 onPressed: () {
                                   Clipboard.setData(ClipboardData(
                                       text:
-                                          "${storeController.detailStoreData.address}"));
+                                          storeController.detailStoreData.address??""));
                                 },
                                 style: TextButton.styleFrom(
                                   minimumSize: Size.zero,
