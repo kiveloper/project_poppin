@@ -301,7 +301,7 @@ class _HomePageState extends State<HomePage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "성수 팝업·전시",
+                        "지금 성수에서 진행하는 팝업",
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w700),
                       ),
@@ -353,7 +353,7 @@ class _HomePageState extends State<HomePage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "성수 팝업·전시",
+                        "성수에서 진행하는 팝업",
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w700),
                       ),
