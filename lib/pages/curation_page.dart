@@ -8,6 +8,7 @@ import 'package:project_poppin/global/share_preference.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../services/analytics_helper.dart';
 import '../theme/colors.dart';
 
 class CurationPage extends StatefulWidget {
@@ -145,6 +146,14 @@ class _CurationPageState extends State<CurationPage> {
                                       tempLoad = false;
                                     });
                                   });
+
+                                  AnalyticsHelper().logEvent(
+                                    'onClick_curation',
+                                    {
+                                      'screen_class': "curation_page",
+                                      'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                    },
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
@@ -169,6 +178,14 @@ class _CurationPageState extends State<CurationPage> {
                                 } catch (e) {
                                   throw Exception(e);
                                 }
+
+                                AnalyticsHelper().logEvent(
+                                  'onClick_curation_banner',
+                                  {
+                                    'screen_class': "curation_page",
+                                    'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                  },
+                                );
                               },
                               child: Image.network(
                                 storeController.bannerData['imageUrl'],
@@ -273,6 +290,7 @@ class _CurationPageState extends State<CurationPage> {
                                   storeController.storeCurationList[index],
                               storeController: storeController,
                               index: index,
+                              currentPage: 'curation_page',
                             );
                           }),
                     )

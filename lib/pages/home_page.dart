@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
+import 'package:project_poppin/services/analytics_helper.dart';
 import 'package:project_poppin/services/https_service.dart';
 import 'package:project_poppin/theme/colors.dart';
 import 'package:shimmer/shimmer.dart';
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage>
                         ),
                       )
                     : GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           storeController.setDetailStoreData(
                               storeController.recommendStoreData);
                           if (Platform.isAndroid) {
@@ -107,6 +108,15 @@ class _HomePageState extends State<HomePage>
                           } else if (Platform.isIOS) {
                             Get.to(() => const StoreDetailPage());
                           }
+
+                          AnalyticsHelper().logEvent(
+                            'onClick_MD_main',
+                            {
+                              'screen_class': "HomePage",
+                              'platform' : Platform.isAndroid ? 'android' : 'ios'
+                            },
+                          );
+
                         },
                         child: Container(
                           margin: const EdgeInsets.only(left: 16, right: 16),

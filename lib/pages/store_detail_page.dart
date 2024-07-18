@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,7 @@ import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/utils/map_status_manager.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../services/analytics_helper.dart';
 import '../theme/colors.dart';
 import '../utils/base64_manager.dart';
 import '../utils/user_share_manager.dart';
@@ -20,6 +23,18 @@ class StoreDetailPage extends StatefulWidget {
 
 class _StoreDetailPageState extends State<StoreDetailPage> {
   MapStatusManager mapStatusManager = MapStatusManager();
+
+  @override
+  void initState() {
+    AnalyticsHelper().logEvent(
+      'onLoad_list_detail',
+      {
+        'screen_class': "popup_list_page",
+        'platform' : Platform.isAndroid ? 'android' : 'ios'
+      },
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +147,13 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   storeController
                                       .detailStoreData.relatedContentsUrl!,
                                 );
+                                AnalyticsHelper().logEvent(
+                                  'onClick_list_detail_shared',
+                                  {
+                                    'screen_class': "store_detail_page",
+                                    'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                  },
+                                );
                               },
                             ),
                           ],
@@ -210,6 +232,14 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                               onPressed: () async {
                                 await launchUrlString(storeController
                                     .detailStoreData.relatedContentsUrl!);
+
+                                AnalyticsHelper().logEvent(
+                                  'onClick_list_detail_outlink',
+                                  {
+                                    'screen_class': "store_detail_page",
+                                    'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                  },
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: poppinColorGreen500,
@@ -288,6 +318,14 @@ class _StoreDetailPageState extends State<StoreDetailPage> {
                                   Clipboard.setData(ClipboardData(
                                       text:
                                           storeController.detailStoreData.address??""));
+
+                                  AnalyticsHelper().logEvent(
+                                    'onClick_list_detail_copyAddr',
+                                    {
+                                      'screen_class': "store_detail_page",
+                                      'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                    },
+                                  );
                                 },
                                 style: TextButton.styleFrom(
                                   minimumSize: Size.zero,
