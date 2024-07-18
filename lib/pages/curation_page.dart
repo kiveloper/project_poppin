@@ -67,7 +67,7 @@ class _CurationPageState extends State<CurationPage> {
                             SizedBox(
                                 height:
                                     MediaQuery.sizeOf(context).height * 0.20),
-                            Image.asset("assets/images/seepop_logo.png", width: 195, height: 100,),
+                            Image.asset("assets/images/seepop_logo_color.png", width: 195, height: 100,),
                             const SizedBox(
                               height: 16,
                             ),

@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage>
                           left: 16,
                           top: MediaQuery.of(context).padding.top + 8),
                       child: Image.asset(
-                        "assets/images/seepop_logo.png",
+                        "assets/images/seepop_logo_color.png",
                         width: 111,
                         height: 62,
                       ),
