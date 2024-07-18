@@ -8,6 +8,7 @@ import 'package:project_poppin/theme/colors.dart';
 import 'package:project_poppin/vo/store_vo.dart';
 
 import '../pages/store_detail_page.dart';
+import '../services/analytics_helper.dart';
 import '../utils/base64_manager.dart';
 
 class PopulationStoreListWidget extends StatefulWidget {
@@ -43,6 +44,14 @@ class _PopulationStoreListWidgetState extends State<PopulationStoreListWidget> {
         } else if (Platform.isIOS) {
           Get.to(() => const StoreDetailPage());
         }
+
+        AnalyticsHelper().logEvent(
+          'onClick_famous',
+          {
+            'screen_class': "HomePage",
+            'platform' : Platform.isAndroid ? 'android' : 'ios'
+          },
+        );
       },
       child: Container(
         width: MediaQuery.sizeOf(context).width* 0.8,

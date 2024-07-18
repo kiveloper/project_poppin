@@ -7,6 +7,7 @@ import 'package:project_poppin/controller/store_controller.dart';
 import 'package:project_poppin/pages/store_detail_page.dart';
 import 'package:project_poppin/theme/colors.dart';
 
+import '../services/analytics_helper.dart';
 import '../utils/base64_manager.dart';
 import '../vo/store_vo.dart';
 
@@ -14,12 +15,13 @@ class StoreListWidget extends StatefulWidget {
   final StoreController storeController;
   final StoreVo storeData;
   final int index;
+  final String currentPage;
 
   const StoreListWidget(
       {super.key,
       required this.storeData,
       required this.index,
-      required this.storeController});
+      required this.storeController, required this.currentPage});
 
   @override
   State<StoreListWidget> createState() => _StoreListWidgetState();
@@ -37,6 +39,33 @@ class _StoreListWidgetState extends State<StoreListWidget> {
               transition: Transition.leftToRight);
         } else if (Platform.isIOS) {
           Get.to(() => const StoreDetailPage());
+        }
+
+        switch(widget.currentPage) {
+          case "popup_list_page":
+            AnalyticsHelper().logEvent(
+              'onClick_map_filter_detail',
+              {
+                'screen_class': "popup_list_page",
+                'platform' : Platform.isAndroid ? 'android' : 'ios'
+              },
+            );
+          case "popup_list_nav_page":
+            AnalyticsHelper().logEvent(
+              'onclick_list_detail',
+              {
+                'screen_class': "popup_list_nav_page",
+                'platform' : Platform.isAndroid ? 'android' : 'ios'
+              },
+            );
+          case "curation_page":
+            AnalyticsHelper().logEvent(
+              'onClick_curation_list_detail',
+              {
+                'screen_class': "curation_page",
+                'platform' : Platform.isAndroid ? 'android' : 'ios'
+              },
+            );
         }
       },
       child: Container(
