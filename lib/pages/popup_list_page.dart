@@ -124,6 +124,7 @@ class _PopUpListPageState extends State<PopUpListPage>
                                 storeController.storeFilterLocationList[index],
                             index: index,
                             storeController: storeController,
+                            currentPage: 'popup_list_page',
                           );
                         }))
           ],

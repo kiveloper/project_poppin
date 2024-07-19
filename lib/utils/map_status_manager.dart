@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../controller/store_controller.dart';
 import '../pages/store_detail_page.dart';
+import '../services/analytics_helper.dart';
 import '../vo/store_vo.dart';
 
 class MapStatusManager {
@@ -51,6 +52,7 @@ class MapStatusManager {
           storeController.setDetailStoreData(store);
           if(GetPlatform.isAndroid) {
             Get.to(() => const StoreDetailPage(), transition: Transition.leftToRight);
+
           } else {
             Get.to(() => const StoreDetailPage());
           }
@@ -64,6 +66,16 @@ class MapStatusManager {
           myLocationMarker.openInfoWindow(infoWindow);
           currentMarker = nMarker.info.id;
         }
+
+        // GA4 분석용
+        AnalyticsHelper().logEvent(
+          'onClick_map_marker',
+          {
+            'screen_class': "map_page",
+            'platform' : Platform.isAndroid ? 'android' : 'ios'
+          },
+        );
+
       });
 
       storeMarkerList.add(myLocationMarker);

@@ -10,6 +10,7 @@ import 'package:project_poppin/utils/map_status_manager.dart';
 
 import '../controller/location_controller.dart';
 import '../controller/store_controller.dart';
+import '../services/analytics_helper.dart';
 import '../theme/colors.dart';
 import '../utils/permission_manager.dart';
 
@@ -117,6 +118,14 @@ class _MapPageState extends State<MapPage> with AutomaticKeepAliveClientMixin {
                   } else if (Platform.isIOS) {
                     Get.to(() => const LocationSelectPage());
                   }
+
+                  AnalyticsHelper().logEvent(
+                    'onClick_map_filter',
+                    {
+                      'screen_class': "map_page",
+                      'platform' : Platform.isAndroid ? 'android' : 'ios'
+                    },
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: poppinColorGreen500,

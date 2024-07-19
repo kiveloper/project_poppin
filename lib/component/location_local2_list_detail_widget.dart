@@ -8,6 +8,7 @@ import 'package:project_poppin/theme/colors.dart';
 
 import '../data/local_data.dart';
 import '../global/share_preference.dart';
+import '../services/analytics_helper.dart';
 
 class LocationLocal2ListDetailWidget extends StatefulWidget {
   final int index;
@@ -46,6 +47,14 @@ class _LocationLocal2ListDetailWidgetState
               arguments: local[widget.storeController.storeLocationState]![
                   widget.index]);
         }
+
+        AnalyticsHelper().logEvent(
+          'onLoad_map_filter_list',
+          {
+            'screen_class': "popup_list_page",
+            'platform' : Platform.isAndroid ? 'android' : 'ios'
+          },
+        );
       },
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.06,

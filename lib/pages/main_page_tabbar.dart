@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:project_poppin/controller/tab_bar_controller.dart';
 import 'package:project_poppin/theme/colors.dart';
 import '../controller/store_controller.dart';
+import '../global/share_preference.dart';
+import '../services/analytics_helper.dart';
 import 'home_page.dart';
 import 'map_page.dart';
 import 'curation_page.dart';
@@ -74,6 +76,34 @@ class _MainPageTabBarState extends State<MainPageTabBar>
                     controller: tabController,
                     onTap: (index) async {
                       tabBarController.setCurrentIndex(index);
+                      switch(index) {
+                        case 1:
+                          AnalyticsHelper().logEvent(
+                            'onLoad_map',
+                            {
+                              'screen_class': "map_page",
+                              'platform' : Platform.isAndroid ? 'android' : 'ios'
+                            },
+                          );
+                        case 2:
+                          AnalyticsHelper().logEvent(
+                            'onLoad_list',
+                            {
+                              'screen_class': "popup_list_nav_page",
+                              'platform' : Platform.isAndroid ? 'android' : 'ios'
+                            },
+                          );
+                        case 3:
+                          AnalyticsHelper().logEvent(
+                            prefs.getString("userId") != null
+                                ? 'onLoad_curation'
+                                : 'onLoad_curation_list',
+                            {
+                              'screen_class': "curation_page",
+                              'platform' : Platform.isAndroid ? 'android' : 'ios'
+                            },
+                          );
+                      }
                     },
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.transparent,

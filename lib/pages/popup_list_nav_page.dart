@@ -12,6 +12,7 @@ import 'package:project_poppin/vo/store_vo.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../component/store_list_widget.dart';
+import '../services/analytics_helper.dart';
 
 class PopUpListNavPage extends StatefulWidget {
   const PopUpListNavPage({super.key});
@@ -222,6 +223,14 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                           MediaQuery.sizeOf(context).height *
                                               0.65;
                                       hashTagExtendState = true;
+
+                                      AnalyticsHelper().logEvent(
+                                        'onClick_list_tagList',
+                                        {
+                                          'screen_class': "popup_list_nav_page",
+                                          'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                        },
+                                      );
                                     } else {
                                       hashTagSize = 100;
                                       hashTagExtendState = false;
@@ -272,6 +281,14 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                         storeController.hashTageSetting,
                                         endedPopUpState);
                                   }
+
+                                  AnalyticsHelper().logEvent(
+                                    'onClick_list_removeExpired',
+                                    {
+                                      'screen_class': "popup_list_nav_page",
+                                      'platform' : Platform.isAndroid ? 'android' : 'ios'
+                                    },
+                                  );
                                 },
                           icon: Image.asset(
                             endedPopUpState
@@ -356,6 +373,7 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
                                       .storeNavPageAllList[index],
                                   index: index,
                                   storeController: storeController,
+                                  currentPage: 'popup_list_nav_page',
                                 );
                               }),
                         )
