@@ -12,7 +12,7 @@ class AnalyticsHelper {
 
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-  void logEvent(String eventName, Map<String, dynamic> parameters) {
+  void logEvent(String eventName, Map<String, Object> parameters) {
     analytics.logEvent(name: eventName, parameters: parameters);
   }
 }
