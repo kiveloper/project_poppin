@@ -170,29 +170,29 @@ class _CurationPageState extends State<CurationPage> {
                             const SizedBox(
                               height: 80,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                try {
-                                  launchUrl(Uri.parse(
-                                      storeController.bannerData['linkTo']));
-                                } catch (e) {
-                                  throw Exception(e);
-                                }
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     try {
+                            //       launchUrl(Uri.parse(
+                            //           storeController.bannerData['linkTo']));
+                            //     } catch (e) {
+                            //       throw Exception(e);
+                            //     }
 
-                                AnalyticsHelper().logEvent(
-                                  'onClick_curation_banner',
-                                  {
-                                    'screen_class': "curation_page",
-                                    'platform' : Platform.isAndroid ? 'android' : 'ios'
-                                  },
-                                );
-                              },
-                              child: Image.network(
-                                storeController.bannerData['imageUrl'],
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            //     AnalyticsHelper().logEvent(
+                            //       'onClick_curation_banner',
+                            //       {
+                            //         'screen_class': "curation_page",
+                            //         'platform' : Platform.isAndroid ? 'android' : 'ios'
+                            //       },
+                            //     );
+                            //   },
+                            //   child: Image.network(
+                            //     storeController.bannerData['imageUrl'],
+                            //     width: double.infinity,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            // ),
                           ],
                         )
                       // userCuration data를 불러오는 중일때
