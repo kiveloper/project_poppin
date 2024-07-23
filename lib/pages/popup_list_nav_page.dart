@@ -48,10 +48,12 @@ class _PopUpListNavPageState extends State<PopUpListNavPage>
 
     updateBasketThrottle.values.listen((event) {
 
+      storeControllerManager.setLoadNavDataStateCheck(true);
+
       if (storeControllerManager.hashTageSetting == "") {
         storeControllerManager.getNavPageStoreAllList(endedPopUpState);
       } else {
-        storeControllerManager.loadNavDataState = false;
+        storeControllerManager.setLoadNavDataStateCheck(false);
       }
     });
     super.initState();

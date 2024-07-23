@@ -35,6 +35,8 @@ class _PopUpListPageState extends State<PopUpListPage>
 
     updateBasketThrottle.values.listen((event){
 
+      storeControllerManager.setLoadDataStateCheck(true);
+
       storeControllerManager.getStoreListLocationFilter(
           storeControllerManager.storeLocationState,
           locationName.split("/"),
