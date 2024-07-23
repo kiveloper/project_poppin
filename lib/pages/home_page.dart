@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:project_poppin/component/population_store_list_widget.dart';
 import 'package:project_poppin/controller/store_controller.dart';
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage>
   StoreController storeController = Get.find();
   var num = 0;
   dynamic lastPopTime;
+  String _authStatus = 'Unkown';
 
   late Timer _timer;
   HttpsService httpsService = HttpsService();
@@ -34,6 +37,9 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+      initPlugin();
+    });
     _startTimer();
     super.initState();
   }
@@ -410,4 +416,31 @@ class _HomePageState extends State<HomePage>
   void _stopTimer() {
     _timer.cancel();
   }
+
+  Future<void> initPlugin() async {
+    // Platform messages may fail, so we use a try/catch
+    try {
+      final TrackingStatus status =
+      await AppTrackingTransparency.trackingAuthorizationStatus;
+      setState((){
+        _authStatus = '$status';
+      });
+      if (status == TrackingStatus.notDetermined) {
+        final TrackingStatus status =
+            await AppTrackingTransparency.requestTrackingAuthorization();
+        setState(() {
+          _authStatus = '$status';
+        });
+      }
+    } on PlatformException {
+      setState(() {
+        _authStatus = 'PlatformException was thrown';
+      });
+    }
+
+    final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+    print("UUID: $uuid");
+  }
 }
+
+
