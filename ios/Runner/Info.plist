@@ -61,6 +61,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
+	<string>이 권한 요청은 'Seepop!' 서비스 개선을 위한 유저 통계 수집 목적으로만 사용됩니다 😁</string>
 </dict>
 </plist>
