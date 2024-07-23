@@ -60,8 +60,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 20240723 김일도 : Flutter Demo -> seepop!
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Seepop!',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xffFAF9F9),
         useMaterial3: true,
