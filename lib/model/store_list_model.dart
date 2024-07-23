@@ -24,5 +24,4 @@ class StoreListModel {
       storeList!.add(StoreVo.fromMapSnapshot(tempMap));
     }
   }
-
 }

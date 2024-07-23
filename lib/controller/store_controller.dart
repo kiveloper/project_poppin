@@ -54,27 +54,36 @@ class StoreController extends GetxController {
 
   Future<void> getNavPageStoreAllList(bool endedPopUpState) async {
     try {
+      loadNavDataStateCheck(true);
       tagListDataLoadStateEmpty = false;
       tagButtonActivate = false;
       var tempList = await httpsService.getAllStore(
           endedPopUpState, storeAllListInfiniteDocId);
 
-      if(storeAllListInfiniteDocId != tempList.last.docId) {
-        storeNavPageAllList.addAll(tempList);
+      if(tempList.isNotEmpty){
+        if(storeAllListInfiniteDocId != tempList.last.docId) {
+          storeNavPageAllList.addAll(tempList);
+        }
+
+        setStoreAllListInfiniteDocId(tempList.last.docId ?? "");
       }
 
-      setStoreAllListInfiniteDocId(tempList.last.docId ?? "");
       if (storeNavPageAllList.isEmpty) {
         tagListDataLoadStateEmpty = true;
       }
       tagButtonActivate = true;
-      loadNavDataState = false;
+      loadNavDataStateCheck(false);
       update();
     } catch (error) {
       tagButtonActivate = true;
       loadNavDataState = false;
       throw Exception(error);
     }
+  }
+
+  Future<void> loadNavDataStateCheck(bool state) async {
+    loadNavDataState = state;
+    update();
   }
 
   Future<void> getHashTagStoreDateList(
@@ -99,22 +108,39 @@ class StoreController extends GetxController {
   Future<void> getStoreListLocationFilter(
       String local1, List<String> local2, bool firstSetUp) async {
     try {
+      loadDataStateCheck(true);
       localListDataLoadStateEmpty = false;
+
       StoreListModel storeListModel = await popPinFirebaseService
           .getLocationStoreList(local1, local2, firstSetUp);
+
       if (lastData != storeListModel.storeList) {
+        for(var data in lastData) {
+          print(data.title);
+        }
+        for(var data in storeListModel.storeList!) {
+          print(data.title);
+        }
         lastData = storeListModel.storeList ?? [];
         storeFilterLocationList.addAll(storeListModel.storeList!);
+        
       }
+
       if (storeFilterLocationList.isEmpty) {
         localListDataLoadStateEmpty = true;
       }
-      loadDataState = false;
+
+      loadDataStateCheck(false);
       update();
     } catch (error) {
       loadDataState = false;
       throw Exception(error);
     }
+  }
+
+  Future<void> loadDataStateCheck(bool state) async {
+    loadDataState = state;
+    update();
   }
 
   Future<void> getStoreAllTags() async {

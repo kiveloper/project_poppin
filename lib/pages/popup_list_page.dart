@@ -19,7 +19,7 @@ class _PopUpListPageState extends State<PopUpListPage>
   final ScrollController _scrollController = ScrollController();
 
   final updateBasketThrottle = Throttle(
-    const Duration(milliseconds: 500),
+    const Duration(milliseconds: 1000),
     initialValue: null,
     checkEquality: false,
   );
@@ -34,9 +34,6 @@ class _PopUpListPageState extends State<PopUpListPage>
     _scrollController.addListener(scrollListener);
 
     updateBasketThrottle.values.listen((event){
-      setState(() {
-        storeControllerManager.loadDataState = true;
-      });
 
       storeControllerManager.getStoreListLocationFilter(
           storeControllerManager.storeLocationState,
@@ -115,7 +112,7 @@ class _PopUpListPageState extends State<PopUpListPage>
                         itemBuilder: (context, index) {
                           if (index ==
                               storeController.storeFilterLocationList.length) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
@@ -141,6 +138,5 @@ class _PopUpListPageState extends State<PopUpListPage>
 
     }
   }
-  
   
 }

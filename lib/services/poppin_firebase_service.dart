@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_poppin/data/local_data.dart';
-import 'package:project_poppin/global/share_preference.dart';
 
 import '../model/store_list_model.dart';
 
@@ -28,6 +27,7 @@ class PopPinFirebaseService {
     bool firstSetUp,
   ) async {
     try {
+      // 지역필터 '서울 전체', '부산 전체' 일 경우
       if (local.keys.contains(local2.first)) {
         if (firstSetUp) {
           final querySnapShot = await store
@@ -58,6 +58,7 @@ class PopPinFirebaseService {
           return StoreListModel.fromQuerySnapShot(next);
         }
       } else {
+        // 지역필터 '송파/잠실/신청' local2가 존재 할 때
         if (firstSetUp) {
           final querySnapShot = await store
               .orderBy('endDate')
